@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bsu4gbi766h7x"]
+
+[ext_resource type="PackedScene" uid="uid://df6toxxvyk60l" path="res://CharacterScenes/player.tscn" id="1_3dogw"]
+[ext_resource type="PackedScene" uid="uid://b1e7t11q07s8a" path="res://CharacterScenes/item.tscn" id="2_r5l72"]
+[ext_resource type="PackedScene" uid="uid://8pydgukh2qa4" path="res://CharacterScenes/poop.tscn" id="3_50ct6"]
+[ext_resource type="PackedScene" uid="uid://cf20tmoiwyi6x" path="res://CharacterScenes/morro.tscn" id="4_hb2xm"]
+[ext_resource type="PackedScene" uid="uid://bgr3w1yu8xcss" path="res://Scenes/trash_bin.tscn" id="5_ak5v8"]
+[ext_resource type="PackedScene" uid="uid://dbynd5iljxdai" path="res://Scenes/bookshelf.tscn" id="6_x033f"]
+[ext_resource type="PackedScene" uid="uid://dkpg0qmctu0lu" path="res://Scenes/puddle_spill.tscn" id="7_rdbpf"]
+[ext_resource type="PackedScene" uid="uid://bbhyxu8ixpb34" path="res://Scenes/task_station.tscn" id="8_oho3u"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_oho3u"]
+vertices = PackedVector2Array(1142, 630, 10, 630, 10, 10, 1142, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 640, 1152, 640, 1152, 382.63898, 1152, 0)])
+
+[node name="TestScene" type="Node2D" unique_id=1202181019]
+
+[node name="player" parent="." unique_id=402754163 instance=ExtResource("1_3dogw")]
+position = Vector2(552, 312)
+
+[node name="item" parent="." unique_id=1360844017 instance=ExtResource("2_r5l72")]
+position = Vector2(96, 88)
+id = 4
+
+[node name="item2" parent="." unique_id=1236996521 instance=ExtResource("2_r5l72")]
+position = Vector2(904, 280)
+
+[node name="Poop" parent="." unique_id=567696534 instance=ExtResource("3_50ct6")]
+position = Vector2(400, 88)
+
+[node name="Poop2" parent="." unique_id=1101866466 instance=ExtResource("3_50ct6")]
+position = Vector2(240, 256)
+
+[node name="Poop3" parent="." unique_id=1558120066 instance=ExtResource("3_50ct6")]
+position = Vector2(704, 184)
+
+[node name="morro" parent="." unique_id=1644862689 instance=ExtResource("4_hb2xm")]
+position = Vector2(568, 240)
+
+[node name="trashBin" parent="." unique_id=2033968078 instance=ExtResource("5_ak5v8")]
+position = Vector2(584, 120)
+
+[node name="bookshelf" parent="." unique_id=2113796741 instance=ExtResource("6_x033f")]
+position = Vector2(888, 128)
+
+[node name="PuddleSpill" parent="." unique_id=441609892 instance=ExtResource("7_rdbpf")]
+position = Vector2(736, 48)
+
+[node name="PuddleSpill2" parent="." unique_id=1727525599 instance=ExtResource("7_rdbpf")]
+position = Vector2(384, 360)
+
+[node name="PuddleSpill3" parent="." unique_id=259282620 instance=ExtResource("7_rdbpf")]
+position = Vector2(224, 40)
+
+[node name="taskStation" parent="." unique_id=269634871 instance=ExtResource("8_oho3u")]
+position = Vector2(752, 400)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1372202636]
+navigation_polygon = SubResource("NavigationPolygon_oho3u")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://8pydgukh2qa4"]
+
+[ext_resource type="Script" uid="uid://bwkboq8tmwihi" path="res://CharacterScenes/CharacterScripts/poop.gd" id="1_saors"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_supdr"]
+size = Vector2(16, 16)
+
+[node name="Poop" type="Area2D" unique_id=567696534]
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_saors")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1488770727]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.4837339, 0.2752843, 0.12874293, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1861944233]
+shape = SubResource("RectangleShape2D_supdr")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

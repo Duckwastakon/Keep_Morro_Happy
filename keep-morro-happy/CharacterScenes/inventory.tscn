@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dn56brvf0otll"]
+
+[ext_resource type="Script" uid="uid://duap5lxgvdbdf" path="res://CharacterScenes/CharacterScripts/inventory.gd" id="1_3btqt"]
+
+[node name="inventory" type="CanvasLayer" unique_id=2039919713]
+script = ExtResource("1_3btqt")
+
+[node name="inventoryBackground" type="Panel" parent="." unique_id=12050615]
+offset_left = 536.0
+offset_top = 520.0
+offset_right = 616.0
+offset_bottom = 600.0
+
+[node name="itemSprite" type="ColorRect" parent="inventoryBackground" unique_id=647912694]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+color = Color(1, 1, 1, 0)
+
+[node name="itemName" type="Label" parent="." unique_id=1842357036]
+offset_left = 520.0
+offset_top = 600.0
+offset_right = 632.0
+offset_bottom = 632.0
+text = "Empty"
+horizontal_alignment = 1
+vertical_alignment = 1

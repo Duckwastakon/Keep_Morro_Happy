@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://0xlor22udaya"]
+
+[ext_resource type="Script" uid="uid://bpehic42eqtsj" path="res://CharacterScenes/home_tasks.gd" id="1_brq2h"]
+[ext_resource type="Script" uid="uid://cdirenrj3guwp" path="res://CharacterScenes/math_homework.gd" id="2_p4duo"]
+[ext_resource type="Script" uid="uid://l8y6w0wce41h" path="res://CharacterScenes/wires.gd" id="2_t2f48"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2oup4"]
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2f48"]
+font_size = 72
+font_color = Color(1, 0, 0.09019608, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_brq2h"]
+font_size = 72
+font_color = Color(0, 0.5869, 0.38905838, 1)
+outline_size = 5
+outline_color = Color(0, 0.3414571, 0.18102568, 1)
+
+[node name="homeTasks" type="CanvasLayer" unique_id=1712943094]
+script = ExtResource("1_brq2h")
+
+[node name="mathHomework" type="Control" parent="." unique_id=376037678]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("2_p4duo")
+
+[node name="background" type="ColorRect" parent="mathHomework" unique_id=1232560294]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 512.0
+color = Color(0.9401983, 0.9401984, 0.9401983, 1)
+
+[node name="question" type="Label" parent="mathHomework" unique_id=1744847083]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 256.0
+text = "1 + 1 = ?"
+label_settings = SubResource("LabelSettings_2oup4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="answers" type="VBoxContainer" parent="mathHomework" unique_id=1448740832]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 832.0
+offset_bottom = 448.0
+alignment = 1
+
+[node name="info" type="Label" parent="mathHomework" unique_id=741768078]
+visible = false
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 512.0
+mouse_filter = 0
+text = "X"
+label_settings = SubResource("LabelSettings_t2f48")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wires" type="Control" parent="." unique_id=1242717046]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("2_t2f48")
+
+[node name="WiresBackground" type="ColorRect" parent="Wires" unique_id=1420428997]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 512.0
+color = Color(0.4537487, 0.4537487, 0.4537487, 1)
+
+[node name="WireSprites" type="Node2D" parent="Wires" unique_id=1327936304]
+
+[node name="Wire1" type="ColorRect" parent="Wires/WireSprites" unique_id=1947773194]
+offset_left = 256.0
+offset_top = 208.0
+offset_right = 288.0
+offset_bottom = 240.0
+
+[node name="Wire2" type="ColorRect" parent="Wires/WireSprites" unique_id=1225375137]
+offset_left = 256.0
+offset_top = 272.0
+offset_right = 288.0
+offset_bottom = 304.0
+
+[node name="Wire3" type="ColorRect" parent="Wires/WireSprites" unique_id=1188580986]
+offset_left = 256.0
+offset_top = 336.0
+offset_right = 288.0
+offset_bottom = 368.0
+
+[node name="Wire4" type="ColorRect" parent="Wires/WireSprites" unique_id=1774260673]
+offset_left = 256.0
+offset_top = 400.0
+offset_right = 288.0
+offset_bottom = 432.0
+
+[node name="Wire5" type="ColorRect" parent="Wires/WireSprites" unique_id=1648922153]
+offset_left = 864.0
+offset_top = 208.0
+offset_right = 896.0
+offset_bottom = 240.0
+
+[node name="Wire6" type="ColorRect" parent="Wires/WireSprites" unique_id=1026856905]
+offset_left = 864.0
+offset_top = 272.0
+offset_right = 896.0
+offset_bottom = 304.0
+
+[node name="Wire7" type="ColorRect" parent="Wires/WireSprites" unique_id=1734724503]
+offset_left = 864.0
+offset_top = 336.0
+offset_right = 896.0
+offset_bottom = 368.0
+
+[node name="Wire8" type="ColorRect" parent="Wires/WireSprites" unique_id=486793731]
+offset_left = 864.0
+offset_top = 400.0
+offset_right = 896.0
+offset_bottom = 432.0
+
+[node name="closeTask" type="Button" parent="." unique_id=636266868]
+visible = false
+offset_left = 1024.0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 128.0
+
+[node name="CompleateText" type="Label" parent="." unique_id=40002196]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+text = "Perfect :P"
+label_settings = SubResource("LabelSettings_brq2h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire1" to="Wires" method="_on_wire_1_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire1" to="Wires" method="_on_wire_1_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire2" to="Wires" method="_on_wire_2_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire2" to="Wires" method="_on_wire_2_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire3" to="Wires" method="_on_wire_3_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire3" to="Wires" method="_on_wire_3_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire4" to="Wires" method="_on_wire_4_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire4" to="Wires" method="_on_wire_4_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire5" to="Wires" method="_on_wire_5_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire5" to="Wires" method="_on_wire_5_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire6" to="Wires" method="_on_wire_6_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire6" to="Wires" method="_on_wire_6_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire7" to="Wires" method="_on_wire_7_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire7" to="Wires" method="_on_wire_7_mouse_exited"]
+[connection signal="mouse_entered" from="Wires/WireSprites/Wire8" to="Wires" method="_on_wire_8_mouse_entered"]
+[connection signal="mouse_exited" from="Wires/WireSprites/Wire8" to="Wires" method="_on_wire_8_mouse_exited"]
+[connection signal="button_up" from="closeTask" to="." method="_on_close_task_button_up"]

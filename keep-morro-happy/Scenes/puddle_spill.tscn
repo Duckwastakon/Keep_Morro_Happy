@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dkpg0qmctu0lu"]
+
+[ext_resource type="Script" uid="uid://bkcnxmxen032k" path="res://Scripts/puddle_spill.gd" id="1_5cup5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q2uog"]
+radius = 24.0
+
+[node name="PuddleSpill" type="Area2D" unique_id=441609892]
+collision_layer = 0
+script = ExtResource("1_5cup5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1606223869]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(2.695322e-06, 0.8456854, 0.8835907, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1420163194]
+shape = SubResource("CircleShape2D_q2uog")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
