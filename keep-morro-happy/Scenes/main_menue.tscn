@@ -31,6 +31,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="levelButtons" type="Control" parent="." unique_id=697531832]
+visible = false
 anchors_preset = 0
 offset_left = 320.0
 offset_top = 256.0
@@ -128,6 +129,89 @@ offset_bottom = 32.0
 mouse_filter = 2
 bbcode_enabled = true
 text = "[wobbly]Level 5[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="back" type="Button" parent="levelButtons" unique_id=1139993806]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 160.0
+offset_right = 416.0
+offset_bottom = 192.0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/back" unique_id=791528106]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 32.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[wobbly]Back[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="selectionButtons" type="Control" parent="." unique_id=140869610]
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 832.0
+offset_bottom = 448.0
+mouse_filter = 2
+
+[node name="play" type="Button" parent="selectionButtons" unique_id=12830471]
+layout_mode = 0
+offset_left = 96.0
+offset_right = 416.0
+offset_bottom = 32.0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/play" unique_id=1713516430]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 32.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[wobbly]Play[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="settings" type="Button" parent="selectionButtons" unique_id=2040825881]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 32.0
+offset_right = 416.0
+offset_bottom = 64.0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/settings" unique_id=994733537]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 32.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[wobbly]Settings[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="exit" type="Button" parent="selectionButtons" unique_id=649131943]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 64.0
+offset_right = 416.0
+offset_bottom = 96.0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/exit" unique_id=1629114747]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 32.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[wobbly]Exit[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]

@@ -74,13 +74,6 @@ offset_right = 192.0
 offset_bottom = 256.0
 alignment = 1
 
-[node name="Label2" type="Label" parent="warnings/warningContainer" unique_id=1242308607]
-layout_mode = 2
-text = "Morro wants pets"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
 [node name="morroHappiness" type="Control" parent="." unique_id=1235312771]
 layout_mode = 3
 anchors_preset = 0

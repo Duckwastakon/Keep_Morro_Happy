@@ -3,8 +3,9 @@ extends CanvasLayer
 var currentTask = "mathHomework"
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("Throw") and currentTask != null:
-		closeTask()
+	pass
+	#if event.is_action_released("Throw") and currentTask != null:
+	#	closeTask()
 
 func openTask(Task):
 	var task = get_node(Task)

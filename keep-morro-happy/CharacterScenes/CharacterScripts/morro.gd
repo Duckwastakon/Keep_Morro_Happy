@@ -62,6 +62,7 @@ func _on_navigation_agent_2d_target_reached() -> void:
 
 func desirePets():
 	print("pets pls")
+	GameUi.addWarning("pets")
 	petCount += randi_range(5, 10)
 	
 	canMove = false
@@ -84,6 +85,7 @@ func pet():
 		canMove = true
 		wantsPets = false
 		print("Happy")
+		GameUi.removeWarning("pets")
 		changeHappiness(-20)
 		
 		needTimer.start()

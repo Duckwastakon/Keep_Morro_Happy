@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbynd5iljxdai" path="res://Scenes/bookshelf.tscn" id="6_x033f"]
 [ext_resource type="PackedScene" uid="uid://dkpg0qmctu0lu" path="res://Scenes/puddle_spill.tscn" id="7_rdbpf"]
 [ext_resource type="PackedScene" uid="uid://bbhyxu8ixpb34" path="res://Scenes/task_station.tscn" id="8_oho3u"]
+[ext_resource type="PackedScene" uid="uid://cqyidrcnqp3qb" path="res://CharacterScenes/mango.tscn" id="9_d3awe"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_oho3u"]
 vertices = PackedVector2Array(1142, 630, 10, 630, 10, 10, 1142, 10)
@@ -58,3 +59,6 @@ position = Vector2(752, 400)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1372202636]
 navigation_polygon = SubResource("NavigationPolygon_oho3u")
+
+[node name="mango" parent="." unique_id=1929990142 instance=ExtResource("9_d3awe")]
+position = Vector2(168, 344)
