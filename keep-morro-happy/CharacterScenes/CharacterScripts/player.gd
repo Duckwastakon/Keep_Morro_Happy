@@ -9,6 +9,7 @@ var canMove = true
 
 var throwDirection = Vector2.ZERO
 
+@onready var interactionInfo = $interactionInformation
 @onready var loadingBar = $loadingBar
 var itemPrefab = preload("res://CharacterScenes/item.tscn")
 var pickedUpItem = null
@@ -107,6 +108,8 @@ func clean():
 	canMove = true
 
 func stun():
+	ExtraVisuals.floatingText("Ouch!", global_position)
+	
 	speed = speedStat - randi_range(20, 25)
 	
 	while speed < speedStat:

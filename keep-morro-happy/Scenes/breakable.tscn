@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bp11pwhabn0ws"]
+
+[ext_resource type="Script" uid="uid://dybidyyrdp1ec" path="res://Scripts/breakable.gd" id="1_pwuh6"]
+
+[node name="Breakable" type="Node2D" unique_id=364688711]
+script = ExtResource("1_pwuh6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1317054429]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.7498121, 0.49516237, 0.28328866, 1)

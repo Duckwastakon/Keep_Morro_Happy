@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dn56brvf0otll" path="res://CharacterScenes/inventory.tscn" id="2_sf0jm"]
 [ext_resource type="PackedScene" uid="uid://g0p688h3pmq8" path="res://CharacterScenes/loading_bar.tscn" id="3_s44ji"]
 [ext_resource type="PackedScene" uid="uid://0xlor22udaya" path="res://CharacterScenes/home_tasks.tscn" id="4_eqsm8"]
+[ext_resource type="PackedScene" uid="uid://dtm7df1lxfhw1" path="res://CharacterScenes/interaction_information.tscn" id="6_oqffx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oqffx"]
 shader = ExtResource("2_sc4y0")
@@ -43,5 +44,10 @@ position_smoothing_enabled = true
 position = Vector2(0, -24)
 
 [node name="homeTasks" parent="." unique_id=1712943094 instance=ExtResource("4_eqsm8")]
+
+[node name="interactionInformation" parent="." unique_id=1110142957 instance=ExtResource("6_oqffx")]
+offset_top = 16.0
+offset_bottom = 48.0
+text = ""
 
 [connection signal="area_entered" from="playerArea" to="." method="_on_player_area_area_entered"]

@@ -1,8 +1,11 @@
 extends Area2D
 
-@export var bagId = 0
+@export var bagId: int = 0
 @export var binItems = 3
+var infoText = null
 
+func _ready() -> void:
+	infoText = ExtraVisuals.loadInfo(self, "Press e to grab " + Global.Items[bagId]["name"])
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "player":
@@ -11,6 +14,7 @@ func _on_area_entered(area: Area2D) -> void:
 			player.removeItem()
 		
 		player.pickUpId = bagId
+		infoText.visible = true
 	else:
 		if area.get_parent() is CharacterBody2D:
 			var id = area.get_parent().id
@@ -23,3 +27,4 @@ func _on_area_exited(area: Area2D) -> void:
 		var player = area.get_parent()
 		if player.pickUpId == bagId:
 			player.pickUpId = null
+			infoText.visible = false

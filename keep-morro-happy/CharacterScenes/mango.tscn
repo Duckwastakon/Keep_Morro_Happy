@@ -33,7 +33,7 @@ one_shot = true
 autostart = true
 
 [node name="petDesireTimer" type="Timer" parent="." unique_id=680796740]
-wait_time = 100.0
+wait_time = 5.0
 one_shot = true
 autostart = true
 

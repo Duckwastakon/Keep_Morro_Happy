@@ -16,6 +16,8 @@ var wantsPets = false
 @export var player: CharacterBody2D = null
 var catch = false
 
+var infoText = null
+
 var petCount = 0
 
 const needs = {
@@ -37,6 +39,9 @@ var thirst = 0
 
 var poopPrefab = preload("res://CharacterScenes/poop.tscn")
 var puddlePrefab = preload("res://Scenes/puddle_spill.tscn")
+
+func _ready() -> void:
+	infoText = ExtraVisuals.loadInfo(self, "Press e to pet")
 
 func changeHappiness(amount):
 	Happiness -= amount
@@ -75,7 +80,7 @@ func _process(_delta: float) -> void:
 	move_and_slide()
 
 func _on_need_timer_timeout() -> void:
-	var action = randi_range(0, needs.size() - 1)
+	var action = 2 #randi_range(0, needs.size() - 1)
 	call(needs[action])
 
 func _on_movement_timer_timeout() -> void:
@@ -104,6 +109,7 @@ func pet():
 	petCount -= 1
 	if petCount < -3:
 		changeHappiness(randi_range(8,12))
+		ExtraVisuals.floatingText("Stop petting me!", global_position)
 		return true
 	
 	if petCount <= 0 and !canMove and wantsPets == true:
@@ -117,8 +123,15 @@ func pet():
 
 func destroy():
 	if breakables != null:
-		if breakables.get_child_count() > 0:
-			var randomBreakable = breakables.get_child(randi_range(0, breakables.get_child_count() - 1))
+		var possibilities = []
+		
+		for breakable in breakables.get_children():
+			if !breakable.broken:
+				possibilities.append(breakable)
+		
+		
+		if possibilities.size() > 0:
+			var randomBreakable = possibilities[randi_range(0, possibilities.size() - 1)]
 			
 			var newTargetPosition = randomBreakable.global_position
 			navigation.target_position = newTargetPosition
@@ -127,8 +140,9 @@ func destroy():
 			
 			await navigation.target_reached
 			
-			randomBreakable.break()
+			randomBreakable.destroy()
 			needTimer.start()
+			
 			return
 	
 	needTimer.start()
@@ -179,8 +193,10 @@ func _on_interactions_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "player":
 		area.get_parent().inRangeMorro = self
 		area.get_parent().inRange = true
+		infoText.visible = true
 	fulfilneed(area)
 
 func _on_interactions_area_exited(area: Area2D) -> void:
 	if area.get_parent().name == "player":
 		area.get_parent().inRange = false
+		infoText.visible = false

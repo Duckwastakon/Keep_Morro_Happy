@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dkpg0qmctu0lu" path="res://Scenes/puddle_spill.tscn" id="7_rdbpf"]
 [ext_resource type="PackedScene" uid="uid://bbhyxu8ixpb34" path="res://Scenes/task_station.tscn" id="8_oho3u"]
 [ext_resource type="PackedScene" uid="uid://cqyidrcnqp3qb" path="res://CharacterScenes/mango.tscn" id="9_d3awe"]
+[ext_resource type="PackedScene" uid="uid://bp11pwhabn0ws" path="res://Scenes/breakable.tscn" id="10_yglu3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_oho3u"]
 vertices = PackedVector2Array(1142, 630, 10, 630, 10, 10, 1142, 10)
@@ -36,8 +37,9 @@ position = Vector2(240, 256)
 [node name="Poop3" parent="." unique_id=1558120066 instance=ExtResource("3_50ct6")]
 position = Vector2(704, 184)
 
-[node name="morro" parent="." unique_id=1644862689 node_paths=PackedStringArray("player") instance=ExtResource("4_hb2xm")]
+[node name="morro" parent="." unique_id=1644862689 node_paths=PackedStringArray("breakables", "player") instance=ExtResource("4_hb2xm")]
 position = Vector2(568, 240)
+breakables = NodePath("../breakables")
 player = NodePath("../player")
 
 [node name="trashBin" parent="." unique_id=2033968078 instance=ExtResource("5_ak5v8")]
@@ -64,3 +66,17 @@ navigation_polygon = SubResource("NavigationPolygon_oho3u")
 [node name="mango" parent="." unique_id=1929990142 node_paths=PackedStringArray("player") instance=ExtResource("9_d3awe")]
 position = Vector2(168, 344)
 player = NodePath("../player")
+
+[node name="breakables" type="Node2D" parent="." unique_id=889849644]
+
+[node name="Breakable" parent="breakables" unique_id=364688711 instance=ExtResource("10_yglu3")]
+position = Vector2(56, 472)
+
+[node name="Breakable2" parent="breakables" unique_id=1080764387 instance=ExtResource("10_yglu3")]
+position = Vector2(448, 192)
+
+[node name="Breakable3" parent="breakables" unique_id=356193382 instance=ExtResource("10_yglu3")]
+position = Vector2(488, 504)
+
+[node name="Breakable4" parent="breakables" unique_id=633644286 instance=ExtResource("10_yglu3")]
+position = Vector2(952, 480)

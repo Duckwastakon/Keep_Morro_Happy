@@ -14,6 +14,8 @@ func _ready() -> void:
 		btn.connect("mouse_exited", selectButton.bind(btn, false, btn.get_child(0).text))
 		if btn.name != "back":
 			btn.connect("button_up", loadLevel.bind(btn.name))
+		else:
+			btn.connect("button_up", back)
 	
 	for btn in selectionButtons.get_children():
 			btn.connect("mouse_entered", selectButton.bind(btn, true, btn.get_child(0).text))
@@ -62,3 +64,19 @@ func settings():
 
 func exit():
 	get_tree().quit()
+
+func back():
+	selectionButtons.global_position = midPos + Vector2(0, 500)
+	selectionButtons.visible = true
+	
+	var newTween = create_tween()
+	newTween.tween_property(selectionButtons, "global_position", midPos, 0.5)
+	var newTween2 = create_tween()
+	newTween2.tween_property(levelButtons, "global_position", midPos + Vector2(0, 500), 0.5)
+	
+	newTween.play()
+	newTween2.play()
+	
+	await newTween2.finished
+	
+	levelButtons.visible = false
