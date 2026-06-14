@@ -32,5 +32,5 @@ func _on_area_entered(area: Area2D) -> void:
 func add_Book():
 	books += 1
 	$Label.text = str(books) + "/" + str(neededBooks)
-	if books >= 10:
+	if books >= neededBooks:
 		$CollisionShape2D.disabled = true

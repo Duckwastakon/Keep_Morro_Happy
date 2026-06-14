@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-
-const speed = 30
+const speedStat = 30
+var speed = 30
 const deceleration = 15
 const maxSpeed = 500
 
@@ -105,3 +105,14 @@ func clean():
 	await loadingBar.fire(Global.cleanTime)
 	
 	canMove = true
+
+func stun():
+	speed = speedStat - randi_range(20, 25)
+	
+	while speed < speedStat:
+		speed += randf_range(0.5, 1)
+		print(speed)
+		
+		await get_tree().create_timer(1).timeout
+	
+	speed = speedStat

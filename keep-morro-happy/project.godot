@@ -18,6 +18,12 @@ config/icon="res://icon.svg"
 
 Global="*uid://diyqtokyq2pdx"
 GameUi="*uid://c63nxgs7yr0uv"
+ExtraVisuals="*uid://h0gdet0c0o8h"
+
+[display]
+
+window/size/mode=2
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -62,4 +68,5 @@ ThrowMouse={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

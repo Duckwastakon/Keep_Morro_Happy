@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://df6toxxvyk60l"]
 
 [ext_resource type="Script" uid="uid://dca0ahagm6wgo" path="res://CharacterScenes/CharacterScripts/player.gd" id="1_ahrgu"]
-[ext_resource type="Shader" uid="uid://f5rv61frcfdy" path="res://shaders/player.gdshader" id="2_sc4y0"]
+[ext_resource type="Shader" uid="uid://bamx5wt7lc5wl" path="res://shaders/Blinking.gdshader" id="2_sc4y0"]
 [ext_resource type="PackedScene" uid="uid://dn56brvf0otll" path="res://CharacterScenes/inventory.tscn" id="2_sf0jm"]
 [ext_resource type="PackedScene" uid="uid://g0p688h3pmq8" path="res://CharacterScenes/loading_bar.tscn" id="3_s44ji"]
 [ext_resource type="PackedScene" uid="uid://0xlor22udaya" path="res://CharacterScenes/home_tasks.tscn" id="4_eqsm8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oqffx"]
 shader = ExtResource("2_sc4y0")
+shader_parameter/blinkColor = Vector4(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp23k"]
 size = Vector2(32, 32)
@@ -21,6 +22,7 @@ offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
+color = Color(0.88491285, 0.478446, 0.57691234, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526516162]
 shape = SubResource("RectangleShape2D_mp23k")

@@ -6,7 +6,7 @@
 size = Vector2(48, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_45iid"]
-radius = 232.1379
+radius = 43.081318
 
 [node name="mango" type="CharacterBody2D" unique_id=1929990142]
 script = ExtResource("1_45iid")
@@ -33,6 +33,7 @@ one_shot = true
 autostart = true
 
 [node name="petDesireTimer" type="Timer" parent="." unique_id=680796740]
+wait_time = 100.0
 one_shot = true
 autostart = true
 
@@ -43,4 +44,5 @@ target_desired_distance = 4.0
 [connection signal="area_entered" from="Interactions" to="." method="_on_interactions_area_entered"]
 [connection signal="area_exited" from="Interactions" to="." method="_on_interactions_area_exited"]
 [connection signal="timeout" from="movementTimer" to="." method="_on_movement_timer_timeout"]
+[connection signal="timeout" from="petDesireTimer" to="." method="_on_pet_desire_timer_timeout"]
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
