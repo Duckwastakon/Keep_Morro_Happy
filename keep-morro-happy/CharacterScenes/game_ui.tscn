@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dt8h47r0pv50g" path="res://CharacterScenes/game_ui.gd" id="1_go1i3"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_vihnx"]
+font_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_dvi1w"]
 font_size = 30
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_go1i3"]
 font_size = 60
@@ -12,29 +16,37 @@ font_size = 60
 script = ExtResource("1_go1i3")
 
 [node name="dayTasks" type="Control" parent="." unique_id=544277998]
+visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 952.0
+offset_left = 384.0
 offset_top = 128.0
-offset_right = 1152.0
+offset_right = 768.0
+offset_bottom = 512.0
+
+[node name="ColorRect" type="ColorRect" parent="dayTasks" unique_id=144627740]
+layout_mode = 0
+offset_right = 384.0
 offset_bottom = 384.0
 
 [node name="taskContainer" type="VBoxContainer" parent="dayTasks" unique_id=332082763]
 layout_mode = 0
 offset_top = 64.0
-offset_right = 192.0
-offset_bottom = 256.0
+offset_right = 384.0
+offset_bottom = 384.0
 alignment = 1
 
 [node name="Label" type="Label" parent="dayTasks/taskContainer" unique_id=850808733]
 layout_mode = 2
 text = "take out the trash"
+label_settings = SubResource("LabelSettings_vihnx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="dayTasks/taskContainer" unique_id=55192392]
 layout_mode = 2
 text = "- clean all of the spilled puddles on the ground"
+label_settings = SubResource("LabelSettings_vihnx")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -42,19 +54,20 @@ autowrap_mode = 2
 [node name="Label3" type="Label" parent="dayTasks/taskContainer" unique_id=2112155929]
 layout_mode = 2
 text = "- Fix the broken wiring"
+label_settings = SubResource("LabelSettings_vihnx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label4" type="Label" parent="dayTasks/taskContainer" unique_id=1625156071]
 layout_mode = 2
 text = "AAA"
+label_settings = SubResource("LabelSettings_vihnx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="label" type="Label" parent="dayTasks" unique_id=1744290806]
 layout_mode = 0
-offset_top = 16.0
-offset_right = 192.0
+offset_right = 384.0
 offset_bottom = 64.0
 text = "Tasks"
 label_settings = SubResource("LabelSettings_dvi1w")
@@ -107,7 +120,7 @@ color = Color(0.8791447, 0.8020237, 0.3617025, 1)
 offset_left = 384.0
 offset_right = 768.0
 offset_bottom = 83.0
-text = "5:00"
+text = "-:--"
 label_settings = SubResource("LabelSettings_go1i3")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -12,6 +12,8 @@ const itemPullSpeed = 100
 const throwSpeed = 500
 const cleanTime = 3
 
+const tasks = ["books", "wires", "cleaning", "homework", "poop"]
+
 const Items = {
 	0: {
 		"sprite": Color.BLACK,

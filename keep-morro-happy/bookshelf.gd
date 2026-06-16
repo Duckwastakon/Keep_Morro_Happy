@@ -1,13 +1,14 @@
 extends Area2D
 
 @export var bookId = 5
-@export var neededBooks = 10
+var neededBooks = 10
 var books = 0
 
 var itemPrefab = preload("res://CharacterScenes/item.tscn")
 
 func _ready() -> void:
 	$Label.text = str(books) + "/" + str(neededBooks)
+	neededBooks = randi_range(10, 15)
 	
 	for n in neededBooks:
 		var pos = Vector2(global_position.x + randi_range(-100, 100), global_position.y + randi_range(-100, 100))

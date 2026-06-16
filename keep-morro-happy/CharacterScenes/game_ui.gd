@@ -4,12 +4,32 @@ var warnings = {
 	"pets": "Morro wants to be pet"
 }
 
+@export var taskLabel: LabelSettings
+
 @onready var happinessBar = $morroHappiness/barBackground/progress
 @onready var warningContainer = $warnings/warningContainer
+@onready var timerText = $dayTimer
+
+@onready var dayTasks = $dayTasks
+@onready var dayTasksContainer = $dayTasks/taskContainer
 
 func setActive():
-	for i in get_children():
-		i.visible = true
+	visible = true
+
+func Gametimer():
+	var timeLeft = 180
+	
+	while timeLeft > 0:
+		var mins = floor(timeLeft / 60)
+		var secs = timeLeft - (mins * 60)
+		
+		if secs < 10:
+			timerText.text = str(mins) + ":0" + str(secs)
+		else:
+			timerText.text = str(mins) + ":" + str(secs)
+		
+		await get_tree().create_timer(1).timeout
+		timeLeft -= 1
 
 func updateHappiness(happiness):
 	var size: float = clampf(float(happiness) / 100, 0, 100)
@@ -29,3 +49,11 @@ func removeWarning(warning):
 	
 	if foundWarning:
 		foundWarning.queue_free()
+
+func addDayTask(text):
+	var newText = Label.new()
+	
+	newText.label_settings = taskLabel
+	newText.text = text
+	
+	dayTasksContainer.add_child(newText)
