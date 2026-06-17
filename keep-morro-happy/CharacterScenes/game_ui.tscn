@@ -14,6 +14,7 @@ font_size = 60
 
 [node name="gameUI" type="CanvasLayer" unique_id=1856508307]
 script = ExtResource("1_go1i3")
+taskLabel = SubResource("LabelSettings_vihnx")
 
 [node name="dayTasks" type="Control" parent="." unique_id=544277998]
 visible = false
@@ -35,35 +36,6 @@ offset_top = 64.0
 offset_right = 384.0
 offset_bottom = 384.0
 alignment = 1
-
-[node name="Label" type="Label" parent="dayTasks/taskContainer" unique_id=850808733]
-layout_mode = 2
-text = "take out the trash"
-label_settings = SubResource("LabelSettings_vihnx")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="dayTasks/taskContainer" unique_id=55192392]
-layout_mode = 2
-text = "- clean all of the spilled puddles on the ground"
-label_settings = SubResource("LabelSettings_vihnx")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Label3" type="Label" parent="dayTasks/taskContainer" unique_id=2112155929]
-layout_mode = 2
-text = "- Fix the broken wiring"
-label_settings = SubResource("LabelSettings_vihnx")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label4" type="Label" parent="dayTasks/taskContainer" unique_id=1625156071]
-layout_mode = 2
-text = "AAA"
-label_settings = SubResource("LabelSettings_vihnx")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="label" type="Label" parent="dayTasks" unique_id=1744290806]
 layout_mode = 0

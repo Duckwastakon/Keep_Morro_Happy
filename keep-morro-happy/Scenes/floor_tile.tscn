@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://83xfa0vjqwdv"]
+
+[ext_resource type="Shader" uid="uid://6w1ok7radjrl" path="res://shaders/floorShader.gdshader" id="1_xrmor"]
+[ext_resource type="Texture2D" uid="uid://3pwf8f0kpb5s" path="res://Assets/Art/floorTile.png" id="2_lown8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srbm5"]
+shader = ExtResource("1_xrmor")
+
+[node name="FloorTile" type="Sprite2D" unique_id=2136559060]
+material = SubResource("ShaderMaterial_srbm5")
+position = Vector2(0, -8)
+texture = ExtResource("2_lown8")
