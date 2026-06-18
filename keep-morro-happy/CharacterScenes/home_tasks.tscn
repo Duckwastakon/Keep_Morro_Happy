@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bpehic42eqtsj" path="res://CharacterScenes/home_tasks.gd" id="1_brq2h"]
 [ext_resource type="Script" uid="uid://cdirenrj3guwp" path="res://CharacterScenes/math_homework.gd" id="2_p4duo"]
 [ext_resource type="Script" uid="uid://l8y6w0wce41h" path="res://CharacterScenes/wires.gd" id="2_t2f48"]
+[ext_resource type="Script" uid="uid://dfjp712pjfron" path="res://CharacterScenes/coffee_task.gd" id="4_p4duo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2oup4"]
 font_size = 48
@@ -135,6 +136,44 @@ offset_top = 400.0
 offset_right = 896.0
 offset_bottom = 432.0
 
+[node name="coffeeTask" type="Control" parent="." unique_id=1720650901]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("4_p4duo")
+
+[node name="ColorRect" type="ColorRect" parent="coffeeTask" unique_id=310376849]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 512.0
+color = Color(0.27695614, 0.3799518, 0.6379827, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="coffeeTask" unique_id=817202599]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 896.0
+offset_bottom = 448.0
+color = Color(0.55455405, 0.554554, 0.5545539, 1)
+
+[node name="glassesContainer" type="Control" parent="coffeeTask" unique_id=1583926241]
+anchors_preset = 0
+offset_left = 256.0
+offset_top = 320.0
+offset_right = 896.0
+offset_bottom = 384.0
+
+[node name="pourButton" type="Button" parent="coffeeTask" unique_id=628677992]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 192.0
+offset_right = 608.0
+offset_bottom = 256.0
+text = "Pour"
+
 [node name="closeTask" type="Button" parent="." unique_id=636266868]
 visible = false
 offset_left = 1024.0
@@ -167,4 +206,6 @@ vertical_alignment = 1
 [connection signal="mouse_exited" from="Wires/WireSprites/Wire7" to="Wires" method="_on_wire_7_mouse_exited"]
 [connection signal="mouse_entered" from="Wires/WireSprites/Wire8" to="Wires" method="_on_wire_8_mouse_entered"]
 [connection signal="mouse_exited" from="Wires/WireSprites/Wire8" to="Wires" method="_on_wire_8_mouse_exited"]
+[connection signal="button_down" from="coffeeTask/pourButton" to="coffeeTask" method="_on_pour_button_button_down"]
+[connection signal="button_up" from="coffeeTask/pourButton" to="coffeeTask" method="_on_pour_button_button_up"]
 [connection signal="button_up" from="closeTask" to="." method="_on_close_task_button_up"]

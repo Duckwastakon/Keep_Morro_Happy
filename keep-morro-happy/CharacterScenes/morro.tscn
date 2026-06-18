@@ -68,12 +68,6 @@ _data = {
 [node name="morro" type="CharacterBody2D" unique_id=1644862689]
 script = ExtResource("1_nc864")
 
-[node name="Morro" type="Sprite2D" parent="." unique_id=1296995214]
-scale = Vector2(2, 2)
-texture = ExtResource("2_lvpcy")
-hframes = 13
-frame = 1
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=772999251]
 shape = SubResource("RectangleShape2D_xavm3")
 
@@ -99,6 +93,12 @@ target_desired_distance = 4.0
 
 [node name="Animations" type="AnimationPlayer" parent="." unique_id=983915146]
 libraries/ = SubResource("AnimationLibrary_dafsa")
+
+[node name="Morro" type="Sprite2D" parent="." unique_id=1296995214]
+scale = Vector2(2, 2)
+texture = ExtResource("2_lvpcy")
+hframes = 13
+frame = 1
 
 [connection signal="area_entered" from="Interactions" to="." method="_on_interactions_area_entered"]
 [connection signal="area_exited" from="Interactions" to="." method="_on_interactions_area_exited"]
