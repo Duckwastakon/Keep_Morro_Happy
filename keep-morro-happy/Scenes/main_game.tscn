@@ -11,13 +11,8 @@ size = Vector2(1162, 16)
 [node name="mainGame" type="Node2D" unique_id=593048843]
 script = ExtResource("1_l756w")
 
-[node name="floor" type="Node2D" parent="." unique_id=805570077]
+[node name="map" type="Node2D" parent="." unique_id=805570077]
 script = ExtResource("2_0e3vx")
-
-[node name="ColorRect" type="ColorRect" parent="floor" unique_id=188415110]
-offset_right = 1152.0
-offset_bottom = 1344.0
-color = Color(0.9154086, 0.7426699, 0.5147098, 1)
 
 [node name="Walls" type="Node2D" parent="." unique_id=1555371129]
 

@@ -13,6 +13,10 @@ font_color = Color(0, 0, 0, 1)
 font_size = 72
 font_color = Color(1, 0, 0.09019608, 1)
 
+[sub_resource type="Curve" id="Curve_p4duo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9041097, 0.73154366), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="LabelSettings" id="LabelSettings_brq2h"]
 font_size = 72
 font_color = Color(0, 0.5869, 0.38905838, 1)
@@ -137,6 +141,7 @@ offset_right = 896.0
 offset_bottom = 432.0
 
 [node name="coffeeTask" type="Control" parent="." unique_id=1720650901]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
@@ -173,6 +178,24 @@ offset_top = 192.0
 offset_right = 608.0
 offset_bottom = 256.0
 text = "Pour"
+
+[node name="spillParticles" type="CPUParticles2D" parent="coffeeTask" unique_id=463334994]
+emitting = false
+amount = 100
+emission_shape = 3
+emission_rect_extents = Vector2(16, 1)
+direction = Vector2(0, 0)
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 150.0
+damping_min = 2.0
+damping_max = 10.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_p4duo")
+color = Color(0.5564652, 0.3601232, 0.25182924, 1)
 
 [node name="closeTask" type="Button" parent="." unique_id=636266868]
 visible = false

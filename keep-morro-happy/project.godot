@@ -22,7 +22,6 @@ ExtraVisuals="*uid://h0gdet0c0o8h"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
