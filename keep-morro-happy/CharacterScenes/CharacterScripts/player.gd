@@ -19,7 +19,9 @@ var interactTask = null
 var inRangeMorro = null
 var inRange = false
 @onready var inventory = $inventory
-@onready var tasks = $homeTasks
+
+func _ready() -> void:
+	tasks.player = self
 
 func _process(_delta: float) -> void:
 	if !canMove: return

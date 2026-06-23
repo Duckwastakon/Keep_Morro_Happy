@@ -1,8 +1,8 @@
 extends Node
 
-var tasks = {}
+var taskProgress = []
+
 var stations = []
-var broomSpawned = false
 
 @onready var map = $map
 @onready var tileSize = map.tileSize
@@ -14,7 +14,8 @@ var poopInstance = preload("res://CharacterScenes/poop.tscn")
 
 var trashBin = preload("res://Scenes/trash_bin.tscn")
 var item = preload("res://CharacterScenes/item.tscn")
-@export var broomId = 4
+
+const broomId = 4
 
 func _ready() -> void:
 	GameUi.setActive()
@@ -27,7 +28,7 @@ func _ready() -> void:
 func generateTasks():
 	var allTasks = Global.tasks
 	
-	var taskAmount = 80
+	var taskAmount = 5
 	
 	for i in taskAmount:
 		var randT = randi_range(0, allTasks.size() - 1)
@@ -45,9 +46,7 @@ func generateTasks():
 			
 			if foundPosition:
 				for stat in stations:
-					print(stat.global_position.distance_to(pos))
 					if stat.global_position.distance_to(pos) < tileSize * 2:
-						print("too close")
 						foundPosition = false
 		
 		call(randTask, pos + Vector2(tileSize/2, tileSize/2))
@@ -59,6 +58,12 @@ func books(pos):
 	
 	add_child(newBookshelf)
 	stations.append(newBookshelf)
+	
+	var taskId = taskProgress.size()
+	taskProgress.append(false)
+	
+	var newTaskLabel = GameUi.addDayTask("Collect all the books")
+	newBookshelf.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func wires(pos):
 	var newTaskStation = taskStation.instantiate()
@@ -68,6 +73,12 @@ func wires(pos):
 	
 	add_child(newTaskStation)
 	stations.append(newTaskStation)
+	
+	var taskId = taskProgress.size()
+	taskProgress.append(false)
+	
+	var newTaskLabel = GameUi.addDayTask("Fix wiring")
+	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func cleaning(pos):
 	for i in randi_range(6, 8):
@@ -79,11 +90,17 @@ func cleaning(pos):
 func homework(pos):
 	var newTaskStation = taskStation.instantiate()
 	
-	newTaskStation.interactTask = "mathHomework"
+	newTaskStation.interactTask = "homework"
 	newTaskStation.global_position = pos
 	
 	add_child(newTaskStation)
 	stations.append(newTaskStation)
+	
+	var taskId = taskProgress.size()
+	taskProgress.append(false)
+	
+	var newTaskLabel = GameUi.addDayTask("Complete homework")
+	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func poop(pos):
 	for i in randi_range(8, 12):
@@ -101,11 +118,17 @@ func poop(pos):
 func coffee(pos):
 	var newTaskStation = taskStation.instantiate()
 	
-	newTaskStation.interactTask = "coffeeTask"
+	newTaskStation.interactTask = "coffee"
 	newTaskStation.global_position = pos
 	
 	add_child(newTaskStation)
 	stations.append(newTaskStation)
+	
+	var taskId = taskProgress.size()
+	taskProgress.append(false)
+	
+	var newTaskLabel = GameUi.addDayTask("Fill coffee")
+	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func spawnEssentials():
 	var foundPosition = false
@@ -130,3 +153,7 @@ func spawnEssentials():
 	broom.id = broomId
 	broom.global_position = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize  
 	add_child(broom)
+
+func compleateTask(taskLabel, index):
+	taskProgress[index] = true
+	taskLabel.modulate = Color.GREEN

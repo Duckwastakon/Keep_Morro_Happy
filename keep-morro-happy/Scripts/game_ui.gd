@@ -1,0 +1,67 @@
+extends CanvasLayer
+
+var warnings = {
+	"pets": "Morro wants to be pet"
+}
+
+@export var taskLabel: LabelSettings
+
+@onready var happinessBar = $morroHappiness/barBackground/progress
+@onready var warningContainer = $warnings/warningContainer
+@onready var timerText = $dayTimer
+
+@onready var dayTasks = $dayTasks
+@onready var dayTasksContainer = $dayTasks/taskContainer
+
+func setActive():
+	visible = true
+
+func Gametimer():
+	var timeLeft = 180
+	
+	while timeLeft > 0:
+		var mins = floor(timeLeft / 60)
+		var secs = timeLeft - (mins * 60)
+		
+		if secs < 10:
+			timerText.text = str(mins) + ":0" + str(secs)
+		else:
+			timerText.text = str(mins) + ":" + str(secs)
+		
+		await get_tree().create_timer(1).timeout
+		timeLeft -= 1
+
+func updateHappiness(happiness):
+	var size: float = clampf(float(happiness) / 100, 0, 100)
+	var newTween = create_tween()
+	newTween.tween_property(happinessBar, "scale", Vector2(size, 1), 0.1)
+	newTween.play()
+
+func addWarning(warning):
+	var newWarning = Label.new()
+	newWarning.text = warnings[warning]
+	newWarning.name = warning
+	
+	warningContainer.add_child(newWarning)
+
+func removeWarning(warning):
+	var foundWarning = warningContainer.get_node(warning)
+	
+	if foundWarning:
+		foundWarning.queue_free()
+
+func addDayTask(text):
+	var newText = Label.new()
+	
+	newText.text = text
+	newText.modulate = Color.BLACK
+	
+	dayTasksContainer.add_child(newText)
+	
+	return newText
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Q"):
+		dayTasks.visible = true
+	elif event.is_action_released("Q"):
+		dayTasks.visible = false

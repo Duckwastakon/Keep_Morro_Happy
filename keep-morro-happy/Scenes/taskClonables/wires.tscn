@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://puyphxd5pg6e"]
+
+[ext_resource type="Script" uid="uid://l8y6w0wce41h" path="res://Scripts/wires.gd" id="1_apj4y"]
+
+[node name="wires" type="Control" unique_id=639726279]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_apj4y")
+
+[node name="WiresBackground" type="ColorRect" parent="." unique_id=1615496088]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 512.0
+color = Color(0.4537487, 0.4537487, 0.4537487, 1)
+
+[node name="WireSprites" type="Node2D" parent="." unique_id=2012917192]
+
+[node name="Wire1" type="ColorRect" parent="WireSprites" unique_id=1834398206]
+offset_left = 256.0
+offset_top = 208.0
+offset_right = 288.0
+offset_bottom = 240.0
+
+[node name="Wire2" type="ColorRect" parent="WireSprites" unique_id=1817263923]
+offset_left = 256.0
+offset_top = 272.0
+offset_right = 288.0
+offset_bottom = 304.0
+
+[node name="Wire3" type="ColorRect" parent="WireSprites" unique_id=292780845]
+offset_left = 256.0
+offset_top = 336.0
+offset_right = 288.0
+offset_bottom = 368.0
+
+[node name="Wire4" type="ColorRect" parent="WireSprites" unique_id=1855199988]
+offset_left = 256.0
+offset_top = 400.0
+offset_right = 288.0
+offset_bottom = 432.0
+
+[node name="Wire5" type="ColorRect" parent="WireSprites" unique_id=484347671]
+offset_left = 864.0
+offset_top = 208.0
+offset_right = 896.0
+offset_bottom = 240.0
+
+[node name="Wire6" type="ColorRect" parent="WireSprites" unique_id=428367802]
+offset_left = 864.0
+offset_top = 272.0
+offset_right = 896.0
+offset_bottom = 304.0
+
+[node name="Wire7" type="ColorRect" parent="WireSprites" unique_id=893581939]
+offset_left = 864.0
+offset_top = 336.0
+offset_right = 896.0
+offset_bottom = 368.0
+
+[node name="Wire8" type="ColorRect" parent="WireSprites" unique_id=1133074393]
+offset_left = 864.0
+offset_top = 400.0
+offset_right = 896.0
+offset_bottom = 432.0
+
+[connection signal="mouse_entered" from="WireSprites/Wire1" to="." method="_on_wire_1_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire1" to="." method="_on_wire_1_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire2" to="." method="_on_wire_2_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire2" to="." method="_on_wire_2_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire3" to="." method="_on_wire_3_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire3" to="." method="_on_wire_3_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire4" to="." method="_on_wire_4_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire4" to="." method="_on_wire_4_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire5" to="." method="_on_wire_5_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire5" to="." method="_on_wire_5_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire6" to="." method="_on_wire_6_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire6" to="." method="_on_wire_6_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire7" to="." method="_on_wire_7_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire7" to="." method="_on_wire_7_mouse_exited"]
+[connection signal="mouse_entered" from="WireSprites/Wire8" to="." method="_on_wire_8_mouse_entered"]
+[connection signal="mouse_exited" from="WireSprites/Wire8" to="." method="_on_wire_8_mouse_exited"]

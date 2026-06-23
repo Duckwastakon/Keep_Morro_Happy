@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://g0p688h3pmq8"]
 
-[ext_resource type="Script" uid="uid://v1wq6a4bt8op" path="res://loading_bar.gd" id="1_mue4s"]
+[ext_resource type="Script" uid="uid://v1wq6a4bt8op" path="res://Scripts/loading_bar.gd" id="1_mue4s"]
 
 [node name="loadingBar" type="Node2D" unique_id=2116057994]
 visible = false

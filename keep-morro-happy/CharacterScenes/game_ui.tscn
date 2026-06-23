@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c63nxgs7yr0uv"]
 
-[ext_resource type="Script" uid="uid://dt8h47r0pv50g" path="res://CharacterScenes/game_ui.gd" id="1_go1i3"]
+[ext_resource type="Script" uid="uid://dt8h47r0pv50g" path="res://Scripts/game_ui.gd" id="1_go1i3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vihnx"]
 font_color = Color(0, 0, 0, 1)
@@ -41,7 +41,7 @@ alignment = 1
 layout_mode = 0
 offset_right = 384.0
 offset_bottom = 64.0
-text = "Tasks"
+text = "Todo list"
 label_settings = SubResource("LabelSettings_dvi1w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -65,6 +65,7 @@ anchors_preset = 0
 offset_left = 832.0
 offset_right = 1152.0
 offset_bottom = 128.0
+mouse_filter = 2
 
 [node name="morro" type="ColorRect" parent="morroHappiness" unique_id=507613739]
 layout_mode = 0

@@ -4,7 +4,6 @@
 [ext_resource type="Shader" uid="uid://bamx5wt7lc5wl" path="res://shaders/Blinking.gdshader" id="2_sc4y0"]
 [ext_resource type="PackedScene" uid="uid://dn56brvf0otll" path="res://CharacterScenes/inventory.tscn" id="2_sf0jm"]
 [ext_resource type="PackedScene" uid="uid://g0p688h3pmq8" path="res://CharacterScenes/loading_bar.tscn" id="3_s44ji"]
-[ext_resource type="PackedScene" uid="uid://0xlor22udaya" path="res://CharacterScenes/home_tasks.tscn" id="4_eqsm8"]
 [ext_resource type="Script" uid="uid://u3dl2hkop0lq" path="res://CharacterScenes/CharacterScripts/cam.gd" id="4_j0fvy"]
 [ext_resource type="PackedScene" uid="uid://dtm7df1lxfhw1" path="res://CharacterScenes/interaction_information.tscn" id="6_oqffx"]
 
@@ -47,8 +46,6 @@ script = ExtResource("4_j0fvy")
 
 [node name="loadingBar" parent="." unique_id=2116057994 instance=ExtResource("3_s44ji")]
 position = Vector2(0, -24)
-
-[node name="homeTasks" parent="." unique_id=1712943094 instance=ExtResource("4_eqsm8")]
 
 [node name="interactionInformation" parent="." unique_id=1110142957 instance=ExtResource("6_oqffx")]
 offset_top = 16.0
