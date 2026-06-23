@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dn56brvf0otll" path="res://CharacterScenes/inventory.tscn" id="2_sf0jm"]
 [ext_resource type="PackedScene" uid="uid://g0p688h3pmq8" path="res://CharacterScenes/loading_bar.tscn" id="3_s44ji"]
 [ext_resource type="PackedScene" uid="uid://0xlor22udaya" path="res://CharacterScenes/home_tasks.tscn" id="4_eqsm8"]
+[ext_resource type="Script" uid="uid://u3dl2hkop0lq" path="res://CharacterScenes/CharacterScripts/cam.gd" id="4_j0fvy"]
 [ext_resource type="PackedScene" uid="uid://dtm7df1lxfhw1" path="res://CharacterScenes/interaction_information.tscn" id="6_oqffx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oqffx"]
@@ -18,6 +19,7 @@ size = Vector2(32, 32)
 script = ExtResource("1_ahrgu")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1352111761]
+z_index = 10
 material = SubResource("ShaderMaterial_oqffx")
 offset_left = -16.0
 offset_top = -16.0
@@ -38,7 +40,10 @@ shape = SubResource("RectangleShape2D_mp23k")
 [node name="inventory" parent="." unique_id=2039919713 instance=ExtResource("2_sf0jm")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=969438000]
+limit_left = 0
+limit_top = 0
 position_smoothing_enabled = true
+script = ExtResource("4_j0fvy")
 
 [node name="loadingBar" parent="." unique_id=2116057994 instance=ExtResource("3_s44ji")]
 position = Vector2(0, -24)

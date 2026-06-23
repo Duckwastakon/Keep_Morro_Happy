@@ -6,7 +6,7 @@ var sfxVolume = 50
 var musicVolume = 50
 var screenShake = 50
 
-var mapSize = Vector2(1152, 648)
+var mapSize = Vector2(1152, 648) * 2
 
 const itemPullSpeed = 100
 const throwSpeed = 500

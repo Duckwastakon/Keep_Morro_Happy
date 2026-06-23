@@ -12,9 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bp11pwhabn0ws" path="res://Scenes/breakable.tscn" id="10_yglu3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_oho3u"]
-vertices = PackedVector2Array(1142, 630, 10, 630, 10, 10, 1142, 10)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 640, 1152, 640, 1152, 382.63898, 1152, 0)])
+vertices = PackedVector2Array(1142, 253.5625, 1550.0703, 205.14063, 1250.6094, 526.52344, 1157.5078, 335.1328, 1142, 338.70313, 1142, 630, 10, 630, 10, 10, 1142, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(7, 8, 0), PackedInt32Array(4, 7, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 640, 1152, 640, 1152, 382.63898, 1152, 0), PackedVector2Array(1104, 248, 1248, 544, 1576, 192)])
 
 [node name="TestScene" type="Node2D" unique_id=1202181019]
 

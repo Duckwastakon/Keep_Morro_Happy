@@ -11,7 +11,12 @@ radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdrv8"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dry0u"]
+size = Vector2(16, 16)
+
 [node name="item" type="CharacterBody2D" unique_id=1360844017]
+collision_layer = 32768
+collision_mask = 32768
 script = ExtResource("1_wdrv8")
 
 [node name="itemSprite" type="ColorRect" parent="." unique_id=1651510067]
@@ -45,6 +50,9 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interacting" unique_id=1051920510]
 shape = SubResource("RectangleShape2D_wdrv8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1162744864]
+shape = SubResource("RectangleShape2D_dry0u")
 
 [connection signal="area_entered" from="AttractionArea" to="." method="_on_attraction_area_area_entered"]
 [connection signal="area_exited" from="AttractionArea" to="." method="_on_attraction_area_area_exited"]

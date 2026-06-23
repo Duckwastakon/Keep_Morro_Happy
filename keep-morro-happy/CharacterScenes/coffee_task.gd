@@ -88,7 +88,7 @@ func pour():
 	fill.global_position.y = currentCup.global_position.y + currentCup.size.y - fill.size.y
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Throw") and !pouring and canPour:
+	if event.is_action_pressed("Throw") and !pouring and canPour and visible:
 		pouring = true
 		
 		while pouring:

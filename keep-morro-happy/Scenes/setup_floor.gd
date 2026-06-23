@@ -11,7 +11,13 @@ const floorTileAverage = preload("res://Assets/Art/floorTileBland.png")
 
 const tileSize = 48
 
+@onready var floorTiles = $floor
+@onready var wallTiles = $walls
+
 func _ready() -> void:
+	floorTiles.scale = Vector2(tileSize/16, tileSize/16)
+	wallTiles.scale = Vector2(tileSize/16, tileSize/16)
+	
 	var x = ceil(floorSize.x/tileSize)
 	var y = ceil(floorSize.y/tileSize)
 	
@@ -23,35 +29,39 @@ func _ready() -> void:
 
 func createFloor(x, y):
 	var offset = Vector2(tileSize/2, tileSize/2)
+	var newNavigationSurface = NavigationRegion2D.new()
+	add_child(newNavigationSurface)
 	
 	for i in x:
 		for n in y:
-			var newTile = Sprite2D.new()
-			newTile.texture = floorTileAverage
-			newTile.scale = Vector2(tileSize / 16, tileSize / 16)
-			newTile.global_position = offset + Vector2(tileSize*i, tileSize*n)
+			#var newTile = Sprite2D.new()
+			#newTile.texture = floorTileAverage
+			#newTile.scale = Vector2(tileSize / 16, tileSize / 16)
+			var global_pos = offset + Vector2(tileSize*i, tileSize*n)
+			var pos = floorTiles.local_to_map(floorTiles.to_local(global_pos))
+			floorTiles.set_cell(pos, 0, Vector2i(0, 0))
 			
 			if randi_range(0,9) <= 1:
 				var aboveTile = Sprite2D.new()
-				newTile.add_child(aboveTile)
-				aboveTile.global_position = newTile.global_position
+				add_child(aboveTile)
+				aboveTile.z_index = 1
+				aboveTile.scale = Vector2(tileSize/16, tileSize/16)
+				aboveTile.global_position = global_pos
 				aboveTile.texture = floorTileArt
 				var newShaderMaterial = ShaderMaterial.new()
 				newShaderMaterial.shader = floorShader
 				aboveTile.material = newShaderMaterial
-			
-			add_child(newTile)
 
 func createSuroundingWalls():
 	for x in 2:
-		for y in 2:
-			var newWall = ColorRect.new()
-			newWall.size = floorSize * Vector2(x, y)
-			newWall.size.x = clamp(newWall.size.x, tileSize, floorSize.x)
-			newWall.size.y = clamp(newWall.size.y, tileSize, floorSize.y)
-			newWall.position = floorSize * Vector2(x, y)
-			
-			add_child(newWall)
+		var wallSize = Vector2(Global.mapSize.x, tileSize) + Vector2(tileSize, 0)
+		var wallPos = Vector2(0, Global.mapSize.y * x) + Vector2(tileSize, tileSize) * (x - 1)
+		createWall(wallSize, wallPos)
+	for y in 2:
+		var wallSize = Vector2(tileSize, Global.mapSize.y) + Vector2(0, tileSize)
+		var wallPos = Vector2(Global.mapSize.x * y, 0) + Vector2(tileSize, tileSize) * (y - 1)
+		
+		createWall(wallSize, wallPos)
 
 func createRooms():
 	var length = floorSize.y
@@ -65,80 +75,35 @@ func createRooms():
 	var room1Size = Vector2(randi_range(minRoomWidth, maxRoomWidth) * tileSize, randi_range(minRoomLength, maxRoomLength) * tileSize)
 	var room2Size = Vector2(width - room1Size.x, randi_range(minRoomLength, maxRoomLength) * tileSize)
 	
-	var room1 = ColorRect.new()
-	room1.modulate = Color.RED
-	room1.size = room1Size
+	createDoorWall(room1Size, Vector2(width - room1Size.x, length - room1Size.y), false)
+	createDoorWall(room2Size, Vector2(0, length - room2Size.y), false)
 	
-	var room2 = ColorRect.new()
-	room2.modulate = Color.BLUE
-	room2.size = room2Size
-	
-	room1.global_position = Vector2(width - room1Size.x, length - room1Size.y)
-	room2.global_position = Vector2(0, length - room2Size.y)
-	
-	room1.z_index = 3
-	room2.z_index = 3
-	add_child(room1)
-	add_child(room2)
-	
-	var doorSize = randi_range(round(room1Size.x/tileSize/5), round(room1Size.x/tileSize/2)) * tileSize
-	var doorSize2 = randi_range(round(room2Size.x/tileSize/5), round(room2Size.x/tileSize/2)) * tileSize
-	
-	var randDoorSpot1 = randi_range(1, room1Size.x/tileSize-2) * tileSize
-	var randDoorSpot2 = randi_range(1, room2Size.x/tileSize-2) * tileSize
-	
-	var wall1 = ColorRect.new()
-	var wall2 = ColorRect.new()
-	
-	wall1.size = Vector2(randDoorSpot1, tileSize)
-	wall1.global_position = room1.global_position
-	wall1.z_index = 5
-	
-	wall2.size = Vector2(room1Size.x - (doorSize + wall1.size.x), tileSize)
-	wall2.global_position = room1.global_position + Vector2(wall1.size.x + doorSize, 0)
-	wall2.z_index = 5
-	
-	add_child(wall1)
-	add_child(wall2)
-	
-	var wall3 = ColorRect.new()
-	var wall4 = ColorRect.new()
-	
-	wall3.size = Vector2(randDoorSpot2, tileSize)
-	wall3.global_position = room2.global_position
-	wall3.z_index = 5
-	
-	wall4.size = Vector2(room2Size.x - (doorSize2 + wall3.size.x), tileSize)
-	wall4.global_position = room2.global_position + Vector2(wall3.size.x + doorSize2, 0)
-	wall4.z_index = 5
-	
-	var wall5 = ColorRect.new()
-	wall5.z_index = 5
-	
-	if room1Size.y > room2.size.y:
-		wall5.size = Vector2(tileSize, room1.size.y)
-		wall5.global_position = room1.global_position
+	if room1Size.y > room2Size.y:
+		createWall(Vector2(tileSize, room1Size.y - room2Size.y), Vector2(width - room1Size.x, length - room1Size.y))
+		createDoorWall(room2Size, Vector2(0, length - room2Size.y) + Vector2(room2Size.x, 0), true)
 	else:
-		wall5.size = Vector2(tileSize, room2.size.y)
-		wall5.global_position = room2.global_position + Vector2(room2.size.x, 0)
-	
-	add_child(wall3)
-	add_child(wall4)
-	add_child(wall5)
+		createWall(Vector2(tileSize, room2Size.y - room1Size.y), Vector2(0, length - room2Size.y) + Vector2(room2Size.x, 0))
+		createDoorWall(room1Size, Vector2(width - room1Size.x, length - room1Size.y), true)
 
-func createDoorWall(size, pos):
+func createDoorWall(size, pos, middle = false):
 	var doorSize
 	var doorSpot
+	var wall2Size
+	var wall2Pos
 	
-	if size.x > size.y:
+	if !middle:
 		doorSize = Vector2(randi_range(round(size.x/tileSize/5), round(size.x/tileSize/2)) * tileSize, tileSize)
-		doorSpot = Vector2(randi_range(1, size.x/tileSize-2) * tileSize, 0)
+		doorSpot = Vector2(randi_range(1, size.x/tileSize/2-1) * tileSize, tileSize)
+		wall2Size = Vector2(size.x - doorSize.x - doorSpot.x, tileSize)
+		wall2Pos = pos + Vector2(doorSpot.x + doorSize.x, 0)
 	else:
 		doorSize = Vector2(tileSize, randi_range(round(size.y/tileSize/5), round(size.y/tileSize/2)) * tileSize)
-		doorSpot = Vector2(0, randi_range(1, size.y/tileSize-2) * tileSize)
+		doorSpot = Vector2(tileSize, randi_range(1, size.y/tileSize/2-1) * tileSize)
+		wall2Size = Vector2(tileSize, size.y - doorSize.y - doorSpot.y)
+		wall2Pos = pos + Vector2(0, doorSpot.y + doorSize.y)
 	
 	createWall(doorSpot, pos)
-	createWall(size - doorSize - doorSpot, pos + doorSpot + doorSize)
+	createWall(wall2Size, wall2Pos)
 
 func createWall(size, pos):
 	var wall = ColorRect.new()
@@ -147,15 +112,27 @@ func createWall(size, pos):
 	wall.global_position = pos
 	wall.z_index = 5
 	
-	add_child(wall)
+	var startTilePos = wallTiles.local_to_map(wallTiles.to_local(pos))
 	
-	pass
+	if(size.x >= size.y):
+		for i in size.x/tileSize:
+			wallTiles.set_cell(startTilePos + Vector2i(i, 0), 0, Vector2i(6, 0))
+			floorTiles.erase_cell(startTilePos + Vector2i(i, 0))
+	else:
+		for i in size.y/tileSize:
+			wallTiles.set_cell(startTilePos + Vector2i(0, i), 0, Vector2i(6, 0))
+			floorTiles.erase_cell(startTilePos + Vector2i(0, i))
+	
 	var newStaticBody = StaticBody2D.new()
-	var newCollision = CollisionShape2D.new()
+	wall.add_child(newStaticBody)
 	
+	var newCollision = CollisionShape2D.new()
+	newStaticBody.add_child(newCollision)
 	newCollision.shape = RectangleShape2D.new()
 	newCollision.shape.size = size
-	newStaticBody.add_child(newCollision)
-	newStaticBody.global_position = pos + pos / 2
+	newStaticBody.global_position = pos + size/2
 	newCollision.position = Vector2.ZERO
-	add_child(newStaticBody)
+	
+	var newNavigationObject = NavigationObstacle2D.new()
+	newStaticBody.add_child(newNavigationObject)
+	newNavigationObject.vertices.append_array([Vector2.ZERO, Vector2(0, size.y), Vector2(size.x, size.y), Vector2(size.x, 0)])

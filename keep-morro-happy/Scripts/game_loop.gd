@@ -1,6 +1,7 @@
 extends Node
 
 var completeTasks = []
+var tasks = []
 var broomSpawned = false
 
 @export var taskStationContainer: Node2D = null
