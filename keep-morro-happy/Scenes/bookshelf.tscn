@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bdgm75a26usi6" path="res://bookshelf.gd" id="1_y1qin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1qin"]
-size = Vector2(48, 16)
+size = Vector2(48, 48)
 
 [node name="bookshelf" type="Area2D" unique_id=2113796741]
 collision_layer = 0
@@ -12,15 +12,15 @@ script = ExtResource("1_y1qin")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1583971811]
 offset_left = -24.0
-offset_top = -8.0
+offset_top = -24.0
 offset_right = 24.0
-offset_bottom = 8.0
-color = Color(0.6974406, 0.46639222, 0.28609776, 1)
+offset_bottom = 24.0
+color = Color(0.8373968, 0.339396, 0.35969648, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=888886424]
 shape = SubResource("RectangleShape2D_y1qin")
 
-[node name="Label" type="Label" parent="." unique_id=1726300998]
+[node name="indicator" type="Label" parent="." unique_id=1726300998]
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0

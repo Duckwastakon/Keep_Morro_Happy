@@ -5,9 +5,10 @@ var neededBooks = 10
 var books = 0
 
 var itemPrefab = preload("res://CharacterScenes/item.tscn")
+@onready var bookIndicator: Label = $indicator
 
 func _ready() -> void:
-	$Label.text = str(books) + "/" + str(neededBooks)
+	bookIndicator.text = str(books) + "/" + str(neededBooks)
 	neededBooks = randi_range(10, 15)
 	
 	for n in neededBooks:
@@ -32,6 +33,6 @@ func _on_area_entered(area: Area2D) -> void:
 
 func add_Book():
 	books += 1
-	$Label.text = str(books) + "/" + str(neededBooks)
+	bookIndicator.text = str(books) + "/" + str(neededBooks)
 	if books >= neededBooks:
 		$CollisionShape2D.disabled = true

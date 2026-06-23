@@ -12,7 +12,7 @@ const itemPullSpeed = 100
 const throwSpeed = 500
 const cleanTime = 3
 
-const tasks = ["books", "wires", "cleaning", "homework", "poop"]
+const tasks = ["books", "wires", "cleaning", "homework", "poop", "coffee"]
 
 const Items = {
 	0: {

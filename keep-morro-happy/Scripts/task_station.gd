@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var interactTask = "Wires"
+@export var interactTask = "wires"
 var infoText = null
 
 func _ready() -> void:

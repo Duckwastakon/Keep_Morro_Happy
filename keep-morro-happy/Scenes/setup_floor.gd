@@ -14,7 +14,7 @@ const tileSize = 48
 @onready var floorTiles = $floor
 @onready var wallTiles = $walls
 
-func _ready() -> void:
+func setupMap() -> void:
 	floorTiles.scale = Vector2(tileSize/16, tileSize/16)
 	wallTiles.scale = Vector2(tileSize/16, tileSize/16)
 	
@@ -136,3 +136,11 @@ func createWall(size, pos):
 	var newNavigationObject = NavigationObstacle2D.new()
 	newStaticBody.add_child(newNavigationObject)
 	newNavigationObject.vertices.append_array([Vector2.ZERO, Vector2(0, size.y), Vector2(size.x, size.y), Vector2(size.x, 0)])
+
+func checkTile(pos) -> bool:
+	var data = floorTiles.get_cell_tile_data(floorTiles.local_to_map(floorTiles.to_local(pos)))
+	
+	if data:
+		return true
+	
+	return false

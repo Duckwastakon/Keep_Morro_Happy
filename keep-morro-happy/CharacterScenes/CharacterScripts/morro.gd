@@ -80,7 +80,7 @@ func _process(_delta: float) -> void:
 	move_and_slide()
 
 func _on_need_timer_timeout() -> void:
-	var action = 2 #randi_range(0, needs.size() - 1)
+	var action = randi_range(0, needs.size() - 1)
 	call(needs[action])
 
 func _on_movement_timer_timeout() -> void:
