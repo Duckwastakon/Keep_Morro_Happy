@@ -21,6 +21,9 @@ var playerInRange = null
 var heartSprite = preload("res://Assets/Art/heart.png")
 
 func _ready() -> void:
+	petTimer.wait_time = Global.petDesireTimer + randi_range(-(Global.petDesireTimer/10), Global.petDesireTimer/10)
+	petTimer.start()
+	
 	infoText = ExtraVisuals.loadInfo(self, "Spam e to pet")
 
 func _physics_process(delta: float) -> void:
@@ -96,6 +99,8 @@ func _input(event: InputEvent) -> void:
 			wantsPets = false
 			canMove = true
 			player.canMove = true
+			
+			petTimer.wait_time = Global.petDesireTimer + randi_range(-(Global.petDesireTimer/10), Global.petDesireTimer/10)
 			petTimer.start()
 			
 			infoText.visible = false

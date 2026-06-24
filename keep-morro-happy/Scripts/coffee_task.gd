@@ -52,7 +52,6 @@ func nextCup():
 	neededAmount = randf_range(10.0, maxAmount)
 	
 	indicator.visible = true
-	print(neededAmount)
 	indicator.position = Vector2(0, 6 - 12 * neededAmount/100)
 	
 	canPour = true

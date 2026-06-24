@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://dmpxx8n1yl35v"]
 
 [ext_resource type="Script" uid="uid://cdirenrj3guwp" path="res://Scripts/math_homework.gd" id="1_7p7sw"]
+[ext_resource type="Shader" uid="uid://ho5uxjayg17c" path="res://shaders/border.gdshader" id="2_dd0ys"]
+[ext_resource type="Texture2D" uid="uid://bjdtg3tshbngh" path="res://Assets/Art/whiteTile.png" id="3_l2xdf"]
+[ext_resource type="Texture2D" uid="uid://dgf2lqxheoh8i" path="res://Assets/Art/cross.png" id="4_l2xdf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2xdf"]
+shader = ExtResource("2_dd0ys")
+shader_parameter/border = 0.17999999597664
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dd0ys"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2oup4"]
 font_size = 32
@@ -8,9 +17,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7p7sw"]
 font_size = 20
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_yb043"]
 font_color = Color(0, 0, 0, 1)
 
 [node name="homework" type="Control" unique_id=212736328]
@@ -22,20 +28,45 @@ offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("1_7p7sw")
 
+[node name="Border" type="ColorRect" parent="." unique_id=1090414302]
+modulate = Color(0, 0, 0, 0.39215687)
+self_modulate = Color(0, 0, 0, 0.39215687)
+material = SubResource("ShaderMaterial_l2xdf")
+layout_mode = 0
+offset_left = 368.0
+offset_top = 112.0
+offset_right = 784.0
+offset_bottom = 592.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.39215687)
+
 [node name="Page" type="ColorRect" parent="." unique_id=874360361]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 128.0
 offset_right = 768.0
 offset_bottom = 576.0
+mouse_filter = 2
 color = Color(0.9401983, 0.9401984, 0.9401983, 1)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1483439132]
+modulate = Color(1, 1, 1, 0.39215687)
+material = SubResource("ShaderMaterial_dd0ys")
+layout_mode = 0
+offset_left = 384.0
+offset_top = 128.0
+offset_right = 576.0
+offset_bottom = 352.0
+scale = Vector2(2, 2)
+texture = ExtResource("3_l2xdf")
+stretch_mode = 1
 
 [node name="Title" type="Label" parent="." unique_id=634617272]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 128.0
 offset_right = 768.0
-offset_bottom = 195.0
+offset_bottom = 192.0
 text = "math homework"
 label_settings = SubResource("LabelSettings_2oup4")
 horizontal_alignment = 1
@@ -43,19 +74,28 @@ vertical_alignment = 1
 
 [node name="options" type="Node2D" parent="." unique_id=974175613]
 
-[node name="questions" type="Container" parent="." unique_id=1983957544]
-layout_mode = 0
-offset_left = 384.0
-offset_top = 128.0
-offset_right = 768.0
-offset_bottom = 576.0
-
-[node name="question" type="Control" parent="." unique_id=120671903]
+[node name="questions" type="Control" parent="." unique_id=1165331535]
 anchors_preset = 0
 offset_left = 384.0
-offset_top = 224.0
+offset_top = 192.0
 offset_right = 768.0
-offset_bottom = 288.0
+offset_bottom = 576.0
+mouse_filter = 2
+
+[node name="question" type="Control" parent="." unique_id=120671903]
+visible = false
+anchors_preset = 0
+offset_left = 384.0
+offset_top = 304.0
+offset_right = 768.0
+offset_bottom = 368.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="question" unique_id=107725840]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 64.0
+color = Color(1, 1, 1, 0)
 
 [node name="question" type="Label" parent="question" unique_id=791996446]
 layout_mode = 0
@@ -66,476 +106,105 @@ text = "1 + 1 = _____"
 label_settings = SubResource("LabelSettings_7p7sw")
 vertical_alignment = 1
 
-[node name="answer1" type="Button" parent="question" unique_id=1215568973]
-layout_mode = 1
+[node name="answerButtons" type="Node2D" parent="question" unique_id=1047325834]
+
+[node name="answer1" type="Button" parent="question/answerButtons" unique_id=1215568973]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_top = 32.0
 offset_right = 96.0
-offset_bottom = 32.0
-text = "0"
+offset_bottom = 64.0
+grow_vertical = 2
+text = "
+"
 flat = true
 
-[node name="buttonText" type="Label" parent="question/answer1" unique_id=460567814]
+[node name="buttonText" type="RichTextLabel" parent="question/answerButtons/answer1" unique_id=152437119]
 layout_mode = 0
 offset_right = 96.0
 offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[color=green]• 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="answer2" type="Button" parent="question" unique_id=291857501]
-layout_mode = 1
+[node name="answer2" type="Button" parent="question/answerButtons" unique_id=291857501]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 96.0
+offset_top = 32.0
 offset_right = 192.0
-offset_bottom = 32.0
+offset_bottom = 64.0
 grow_vertical = 2
-text = "0"
+text = "
+"
 flat = true
 
-[node name="buttonText" type="Label" parent="question/answer2" unique_id=158920494]
+[node name="buttonText2" type="RichTextLabel" parent="question/answerButtons/answer2" unique_id=1879207710]
 layout_mode = 0
 offset_right = 96.0
 offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[color=green]• 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="answer3" type="Button" parent="question" unique_id=1419419951]
-layout_mode = 1
+[node name="answer3" type="Button" parent="question/answerButtons" unique_id=1419419951]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 192.0
+offset_top = 32.0
 offset_right = 288.0
-offset_bottom = 32.0
+offset_bottom = 64.0
 grow_vertical = 2
-text = "0"
+text = "
+"
 flat = true
 
-[node name="buttonText" type="Label" parent="question/answer3" unique_id=317719968]
+[node name="buttonText3" type="RichTextLabel" parent="question/answerButtons/answer3" unique_id=455467815]
 layout_mode = 0
 offset_right = 96.0
 offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[color=green]• 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="answer4" type="Button" parent="question" unique_id=136742276]
-layout_mode = 1
+[node name="answer4" type="Button" parent="question/answerButtons" unique_id=136742276]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 288.0
+offset_top = 32.0
 offset_right = 384.0
-offset_bottom = 32.0
+offset_bottom = 64.0
 grow_vertical = 2
-text = "0"
+text = "
+"
 flat = true
 
-[node name="buttonText" type="Label" parent="question/answer4" unique_id=893073274]
+[node name="buttonText4" type="RichTextLabel" parent="question/answerButtons/answer4" unique_id=20301835]
 layout_mode = 0
 offset_right = 96.0
 offset_bottom = 32.0
-text = "• 400"
-label_settings = SubResource("LabelSettings_yb043")
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[color=green]• 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="question2" type="Control" parent="." unique_id=1118224767]
-anchors_preset = 0
-offset_left = 384.0
-offset_top = 288.0
-offset_right = 768.0
-offset_bottom = 352.0
-
-[node name="question" type="Label" parent="question2" unique_id=679227019]
-layout_mode = 0
-offset_left = 32.0
-offset_right = 352.0
-offset_bottom = 32.0
-text = "1 + 1 = ?"
-label_settings = SubResource("LabelSettings_7p7sw")
-vertical_alignment = 1
-
-[node name="answer1" type="Button" parent="question2" unique_id=1661535078]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_right = 96.0
-offset_bottom = 32.0
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question2/answer1" unique_id=1013742261]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer2" type="Button" parent="question2" unique_id=1329256435]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_right = 192.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question2/answer2" unique_id=1769041280]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 300"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer3" type="Button" parent="question2" unique_id=505173208]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 192.0
-offset_right = 288.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question2/answer3" unique_id=1809000843]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer4" type="Button" parent="question2" unique_id=1071004646]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 288.0
-offset_right = 384.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question2/answer4" unique_id=650359950]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="question3" type="Control" parent="." unique_id=717202453]
-anchors_preset = 0
-offset_left = 384.0
-offset_top = 352.0
-offset_right = 768.0
-offset_bottom = 416.0
-
-[node name="question" type="Label" parent="question3" unique_id=1156578007]
-layout_mode = 0
-offset_left = 32.0
-offset_right = 352.0
-offset_bottom = 32.0
-text = "1 + 1 = ?"
-label_settings = SubResource("LabelSettings_7p7sw")
-vertical_alignment = 1
-
-[node name="answer1" type="Button" parent="question3" unique_id=261935116]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_right = 96.0
-offset_bottom = 32.0
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question3/answer1" unique_id=498644593]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer2" type="Button" parent="question3" unique_id=210684531]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_right = 192.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question3/answer2" unique_id=1921324485]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer3" type="Button" parent="question3" unique_id=598693349]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 192.0
-offset_right = 288.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question3/answer3" unique_id=1344061368]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 250"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer4" type="Button" parent="question3" unique_id=948971884]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 288.0
-offset_right = 384.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question3/answer4" unique_id=981561797]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="question4" type="Control" parent="." unique_id=1260967588]
-anchors_preset = 0
-offset_left = 384.0
-offset_top = 416.0
-offset_right = 768.0
-offset_bottom = 480.0
-
-[node name="question" type="Label" parent="question4" unique_id=1095443122]
-layout_mode = 0
-offset_left = 32.0
-offset_right = 352.0
-offset_bottom = 32.0
-text = "1 + 1 = ?"
-label_settings = SubResource("LabelSettings_7p7sw")
-vertical_alignment = 1
-
-[node name="answer1" type="Button" parent="question4" unique_id=1322040393]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_right = 96.0
-offset_bottom = 32.0
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question4/answer1" unique_id=1172192136]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer2" type="Button" parent="question4" unique_id=2066533615]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_right = 192.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question4/answer2" unique_id=2082123449]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer3" type="Button" parent="question4" unique_id=2026631716]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 192.0
-offset_right = 288.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question4/answer3" unique_id=1898180185]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer4" type="Button" parent="question4" unique_id=293055099]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 288.0
-offset_right = 384.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question4/answer4" unique_id=1827794932]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="question5" type="Control" parent="." unique_id=652779710]
-anchors_preset = 0
-offset_left = 384.0
-offset_top = 480.0
-offset_right = 768.0
-offset_bottom = 544.0
-
-[node name="question" type="Label" parent="question5" unique_id=1882257631]
-layout_mode = 0
-offset_left = 32.0
-offset_right = 352.0
-offset_bottom = 32.0
-text = "1 + 1 = ?"
-label_settings = SubResource("LabelSettings_7p7sw")
-vertical_alignment = 1
-
-[node name="answer1" type="Button" parent="question5" unique_id=1739796265]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_right = 96.0
-offset_bottom = 32.0
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question5/answer1" unique_id=164593614]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer2" type="Button" parent="question5" unique_id=402839713]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_right = 192.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question5/answer2" unique_id=742658250]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer3" type="Button" parent="question5" unique_id=864914026]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 192.0
-offset_right = 288.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question5/answer3" unique_id=1853125589]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="answer4" type="Button" parent="question5" unique_id=1862692702]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 288.0
-offset_right = 384.0
-offset_bottom = 32.0
-grow_vertical = 2
-text = "0"
-flat = true
-
-[node name="buttonText" type="Label" parent="question5/answer4" unique_id=767903785]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 32.0
-text = "• 100"
-label_settings = SubResource("LabelSettings_yb043")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="successIndicator" type="Sprite2D" parent="." unique_id=2091036345]
+visible = false
+position = Vector2(576.00006, 352)
+scale = Vector2(14, 14)
+texture = ExtResource("4_l2xdf")
