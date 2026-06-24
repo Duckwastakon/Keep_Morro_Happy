@@ -5,10 +5,6 @@
 [ext_resource type="Shader" uid="uid://domnrh4co2ls8" path="res://Scenes/taskClonables/scroll.gdshader" id="2_fnc33"]
 [ext_resource type="Texture2D" uid="uid://djcaev1d44w1t" path="res://Assets/Art/brownTile.png" id="2_rgjgf"]
 [ext_resource type="Texture2D" uid="uid://bx1d5mcfvxswq" path="res://Assets/Art/coffeeMug.png" id="6_atkxr"]
-[ext_resource type="Texture2D" uid="uid://cmkshhddwu5vl" path="res://Assets/Art/arrow.png" id="6_mmiag"]
-[ext_resource type="Texture2D" uid="uid://brsyaeiinjcpj" path="res://Assets/Art/dotLine.png" id="7_mmiag"]
-[ext_resource type="Texture2D" uid="uid://ccg8luxouj6q1" path="res://Assets/Art/circle.png" id="8_5i0bu"]
-[ext_resource type="Texture2D" uid="uid://c50ubrq7rehx7" path="res://Assets/Art/check.png" id="9_vvwf0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cc84j"]
 shader = ExtResource("2_fnc33")
@@ -16,29 +12,19 @@ shader_parameter/direction = Vector2(1, 1)
 shader_parameter/speed = 0.2
 shader_parameter/border = 0.17999999597664
 
-[sub_resource type="Gradient" id="Gradient_mmiag"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 0, 0, 0.38431373)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5i0bu"]
-gradient = SubResource("Gradient_mmiag")
-width = 16
-
 [sub_resource type="Curve" id="Curve_p4duo"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9041097, 0.73154366), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="LabelSettings" id="LabelSettings_mmiag"]
-font_size = 32
-
 [node name="coffee" type="Control" unique_id=5563471]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("1_atu3s")
+maxAmount = null
+pourSpeed = null
 
 [node name="background" type="Sprite2D" parent="." unique_id=1731704679]
 material = SubResource("ShaderMaterial_cc84j")
@@ -46,21 +32,8 @@ position = Vector2(576.00006, 320.00003)
 scale = Vector2(24.000006, 24)
 texture = ExtResource("2_rgjgf")
 
-[node name="border" type="Sprite2D" parent="background" unique_id=1377400275]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-z_index = -1
-material = SubResource("ShaderMaterial_cc84j")
-position = Vector2(-1.932184e-06, -1.1324883e-06)
-scale = Vector2(1.0416664, 16.666668)
-texture = SubResource("GradientTexture1D_5i0bu")
-
 [node name="conveyorBelt" type="Node2D" parent="." unique_id=1031048421]
 position = Vector2(384, 384)
-
-[node name="ColorRect" type="ColorRect" parent="conveyorBelt" unique_id=611260917]
-offset_right = 384.0
-offset_bottom = 64.0
 
 [node name="ConveyorBelt3" type="Sprite2D" parent="conveyorBelt" unique_id=664816984]
 position = Vector2(32, 32)
@@ -106,82 +79,28 @@ offset_right = 608.0
 offset_bottom = 256.0
 text = "Pour"
 
-[node name="CoffeeMug" type="Sprite2D" parent="." unique_id=1819929846]
-z_index = 1
-position = Vector2(576, 384)
-scale = Vector2(4, 4)
-texture = ExtResource("6_atkxr")
-
-[node name="fill" type="ColorRect" parent="CoffeeMug" unique_id=292623285]
-z_index = -1
-anchors_preset = -1
-anchor_left = 0.40600002
-anchor_top = 0.125
-anchor_right = 0.40600002
-anchor_bottom = 0.125
-offset_left = -12.496
-offset_top = 4.000001
-offset_right = -3.4960003
-offset_bottom = 16.0
-scale = Vector2(1, -1)
-color = Color(0.4684481, 0.24691391, 0.12282913, 1)
-
-[node name="indicator" type="Node2D" parent="CoffeeMug" unique_id=42622705]
-position = Vector2(0, -6)
-
-[node name="Arrow" type="Sprite2D" parent="CoffeeMug/indicator" unique_id=1920284163]
-position = Vector2(-14, 0)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_mmiag")
-
-[node name="DotLine" type="Sprite2D" parent="CoffeeMug/indicator" unique_id=1886012414]
-modulate = Color(0, 1, 1, 1)
-position = Vector2(-1.9999962, 0)
-scale = Vector2(0.9999995, 0.25)
-texture = ExtResource("7_mmiag")
-
-[node name="spillParticles" type="CPUParticles2D" parent="CoffeeMug" unique_id=425586599]
-position = Vector2(-2, -6)
-scale = Vector2(0.25, 0.25)
+[node name="spillParticles" type="CPUParticles2D" parent="." unique_id=425586599]
 emitting = false
 amount = 100
-texture = ExtResource("8_5i0bu")
-lifetime = 0.5
 emission_shape = 3
 emission_rect_extents = Vector2(16, 1)
 direction = Vector2(0, 0)
 spread = 180.0
-gravity = Vector2(0, 490)
 initial_velocity_min = 10.0
 initial_velocity_max = 150.0
 damping_min = 2.0
 damping_max = 10.0
 angle_min = -180.0
 angle_max = 180.0
-scale_amount_min = 0.25
+scale_amount_min = 5.0
+scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_p4duo")
 color = Color(0.5564652, 0.3601232, 0.25182924, 1)
 
-[node name="particleSpawnPoint" type="Node2D" parent="CoffeeMug" unique_id=1003428308]
-position = Vector2(0, -64)
-scale = Vector2(0.25, 0.25)
-
-[node name="cupCounter" type="Label" parent="." unique_id=1200662304]
-layout_mode = 0
-offset_left = 384.0
-offset_top = 448.0
-offset_right = 768.0
-offset_bottom = 512.0
-text = "-/-"
-label_settings = SubResource("LabelSettings_mmiag")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="successIndiator" type="Sprite2D" parent="." unique_id=1915034414]
-visible = false
-position = Vector2(576, 480)
-scale = Vector2(3, 3)
-texture = ExtResource("9_vvwf0")
+[node name="CoffeeMug" type="Sprite2D" parent="." unique_id=1819929846]
+position = Vector2(576, 384)
+scale = Vector2(4, 4)
+texture = ExtResource("6_atkxr")
 
 [connection signal="button_down" from="pourButton" to="." method="_on_pour_button_button_down"]
 [connection signal="button_up" from="pourButton" to="." method="_on_pour_button_button_up"]

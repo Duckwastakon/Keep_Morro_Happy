@@ -11,13 +11,14 @@ var answeredCorrect = 0
 var station
 
 func _ready() -> void:
+	return
 	generateQuestion()
 
 func generateQuestion():
 	var equationType = randi_range(0, 2)
 	if equationType == 0 or equationType == 1:
-		var num1 = randi_range(-500, 500)
-		var num2 = randi_range(-500, 500)
+		var num1 = randi_range(-100, 100)
+		var num2 = randi_range(-100, 100)
 		
 		if equationType == 0:
 			answer = num1 + num2
@@ -26,8 +27,8 @@ func generateQuestion():
 		
 		questionText = str(num1) + " " + types[equationType] + " " + str(num2) + " = ?"
 	else:
-		var num1 = randi_range(-10, 10)
-		var num2 = randi_range(-10, 10)
+		var num1 = randi_range(-9, 9)
+		var num2 = randi_range(-9, 9)
 		
 		answer = num1 * (num2)
 		

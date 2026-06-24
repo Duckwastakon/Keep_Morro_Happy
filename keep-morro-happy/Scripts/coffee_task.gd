@@ -3,102 +3,119 @@ extends Control
 
 var canPour = true
 var pouring = false
-@export var maxAmount: float = 100.0
+const maxAmount: float = 100.0
 var neededAmount: float = 100.0
 var amount: float = 0.0
-@export var pourSpeed: float = 0.5
-@onready var spillParticles = $spillParticles
 
-var currentCup = null
-var fill = null
+var cirlceSprite = preload("res://Assets/Art/circle.png")
+var checkmark = preload("res://Assets/Art/check.png")
+var cross = preload("res://Assets/Art/cross.png")
+
+@export var pourSpeed: float = 0.5
+@onready var spillParticles = $CoffeeMug/spillParticles
+var neededCups = randi_range(2, 5)
+var gottenCups = 0
+
+@onready var cup = $CoffeeMug
+@onready var fill = $CoffeeMug/fill
+@onready var indicator = $CoffeeMug/indicator
+@onready var cupCounter = $cupCounter
+@onready var particlePos = $CoffeeMug/particleSpawnPoint
+@onready var successIndicator = $successIndiator
 
 var station
 
-@onready var container = $glassesContainer
+@onready var conveyor = $conveyorBelt/ColorRect
+
+var coffeeSprite = preload("res://Assets/Art/coffeeMug.png")
 
 func _process(_delta: float) -> void:
 	if pouring and canPour:
 		pour()
 
 func _ready() -> void:
+	cupCounter.text = "0/" + str(neededCups)
 	nextCup()
 
 func nextCup():
 	canPour = false
 	amount = 0.0
-	var newCup = ColorRect.new()
-	var newFill = ColorRect.new()
-	newFill.color = Color.SADDLE_BROWN
-	newCup.add_child(newFill)
-	newCup.size = Vector2(32, 64)
-	newFill.size = Vector2(newCup.size.x, 0)
-	container.add_child(newCup)
-	newCup.global_position = container.global_position - Vector2(32, 0)
+	cup.global_position = conveyor.global_position + Vector2(32, 0)
+	fill.scale = Vector2(1,0)
 	
 	var newTween = create_tween()
-	newTween.tween_property(newCup, "global_position", Vector2(container.global_position.x - newCup.size.x/2 + container.size.x/2, newCup.global_position.y), 1)
+	newTween.tween_property(cup, "global_position", Vector2(conveyor.global_position.x + conveyor.size.x/2, cup.global_position.y), 0.25)
 	newTween.play()
 	
 	await newTween.finished
 	
 	neededAmount = randf_range(10.0, maxAmount)
 	
-	var neededIndicator = ColorRect.new()
-	neededIndicator.size = Vector2(48, 2)
-	neededIndicator.color = Color.BLACK
-	newCup.add_child(neededIndicator)
-	neededIndicator.global_position = newCup.global_position + Vector2(newCup.size.x/2, newCup.size.y) - Vector2(0, newCup.size.y * neededAmount/maxAmount)
-	neededIndicator.z_index = 6
-	
-	currentCup = newCup
-	fill = newFill
+	indicator.visible = true
+	print(neededAmount)
+	indicator.position = Vector2(0, 6 - 12 * neededAmount/100)
 	
 	canPour = true
 
 func finishPouring():
 	if not pouring: return
-	spillParticles.emitting = false
 	pouring = false
 	canPour = false
 	
-	print(abs(amount-neededAmount))
-	print(amount)
-	print(neededAmount)
+	await get_tree().create_timer(0.75).timeout
+	
+	spillParticles.emitting = false
+	indicator.visible = false
+	
+	successIndicator.texture = cross
 	if abs(amount-neededAmount) < 5.0:
-		print("Perfect")
+		successIndicator.texture = checkmark
+		gottenCups += 1
+		cupCounter.text = str(gottenCups) + "/" + str(neededCups)
+		
+		if neededCups <= gottenCups:
+			get_parent().compleatedTask()
+	
+	successIndicator.visible = true
 	
 	var newTween = create_tween()
-	newTween.tween_property(currentCup, "global_position", Vector2(container.global_position.x + container.size.x, currentCup.global_position.y), 1)
+	newTween.tween_property(cup, "global_position", Vector2(conveyor.global_position.x + conveyor.size.x - 32, cup.global_position.y), 0.25)
 	newTween.play()
 	
 	await newTween.finished
 	
-	currentCup.queue_free()
-	currentCup = null
+	successIndicator.visible = false
 	
 	nextCup()
 
 func pour():
 	if(amount + pourSpeed) > 100:
-		spillParticles.global_position = currentCup.global_position + Vector2(currentCup.size.x/2, 0)
 		spillParticles.emitting = true
 	else:
 		spillParticles.emitting = false
 	
-	amount = clamp(amount + pourSpeed, 0, 100)
-	fill.size = Vector2(fill.size.x, currentCup.size.y * clamp(amount/maxAmount, 0, 1))
-	fill.global_position.y = currentCup.global_position.y + currentCup.size.y - fill.size.y
+	var newParticle = Sprite2D.new()
+	newParticle.texture = cirlceSprite
+	newParticle.modulate = Color.SADDLE_BROWN
+	
+	newParticle.global_position = particlePos.global_position + Vector2(randi_range(-6, 6), 0)
+	add_child(newParticle)
+	var newTween = create_tween()
+	newTween.tween_property(newParticle, "global_position", Vector2(newParticle.global_position.x, cup.global_position.y), 0.5)
+	newTween.play()
+	newTween.connect("finished", deleteParticle.bind(newParticle))
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Throw") and !pouring and canPour and visible:
-		pouring = true
+	pass
+	#if event.is_action_pressed("Throw") and !pouring and canPour and visible:
+		#pouring = true
 		
-		while pouring:
-			pour()
-			await get_tree().create_timer(0.1).timeout
+		#while pouring:
+			#pour()
+			#await get_tree().create_timer(0.1).timeout
 	
-	if event.is_action_released("Throw") and pouring:
-		finishPouring()
+	#if event.is_action_released("Throw") and pouring:
+		#finishPouring()
 
 func _on_pour_button_button_down() -> void:
 	if pouring or !canPour: return
@@ -110,3 +127,9 @@ func _on_pour_button_button_down() -> void:
 
 func _on_pour_button_button_up() -> void:
 	finishPouring()
+
+func deleteParticle(particle):
+	particle.queue_free()
+	
+	amount = clamp(amount + pourSpeed, 0, 100)
+	fill.scale = Vector2(1, -1 * clamp(amount/maxAmount, 0, 1))

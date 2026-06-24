@@ -38,7 +38,6 @@ func closeTask():
 func compleatedTask():
 	$CompleateText.visible = true
 	currentTask.station.set_deferred("monitoring", false)
-	print("Emit")
 	currentTask.station.emit_signal("taskCompleated")
 	
 	await closeTask()

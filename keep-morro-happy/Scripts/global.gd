@@ -1,7 +1,7 @@
 extends Node
 
 #Settings
-var mouseThrow = false
+var mouseThrow = true
 var sfxVolume = 50
 var musicVolume = 50
 var screenShake = 50
