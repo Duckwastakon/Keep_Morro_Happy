@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
-const speed = 200
-const sprintSpeed = 200
+var speed = 200
+const sprintSpeed = 350
+const walkSpeed = 200
 
 var canMove = true
 var wantsPets = false
@@ -12,9 +13,12 @@ var playerInRange = null
 @export var player : CharacterBody2D = null
 
 @onready var navigation = $NavigationAgent2D
+@onready var animator = $AnimationPlayer
 
 @onready var movementTimer = $movementTimer
 @onready var petTimer = $petDesireTimer
+
+var heartSprite = preload("res://Assets/Art/heart.png")
 
 func _ready() -> void:
 	infoText = ExtraVisuals.loadInfo(self, "Spam e to pet")
@@ -25,16 +29,23 @@ func _physics_process(delta: float) -> void:
 		var newTargetPosition = player.global_position
 		navigation.target_position = newTargetPosition
 		
-		if randi_range(1, 100) < 30:
+		if randi_range(1, 100) < 5:
 			ExtraVisuals.floatingText("PET MEEE!!!", global_position)
 	
 	if navigation.is_navigation_finished() or !canMove:
+		animator.play("rest")
 		return
-
+	
+	animator.play("run")
 	var currentPos: Vector2 = global_position
 	var nextPathPos: Vector2 = navigation.get_next_path_position()
 
 	velocity = currentPos.direction_to(nextPathPos) * speed
+	
+	if velocity.x > 0:
+		$Sprite2D.flip_h = false
+	else:
+		$Sprite2D.flip_h = true
 	
 	move_and_slide()
 
@@ -69,14 +80,19 @@ func _on_pet_desire_timer_timeout() -> void:
 	if playerInRange:
 		canMove = false
 		player.canMove = false
+	
+	await get_tree().create_timer(10).timeout
+	if wantsPets:
+		speed = sprintSpeed
 
 func _input(event: InputEvent) -> void:
 	if wantsPets and playerInRange and event.is_action_pressed("Throw"):
 		print("Petted")
 		neededPets -= 1
-		ExtraVisuals.floatingText("Petted", global_position)
+		ExtraVisuals.floatingSprite(heartSprite, global_position)
 		
 		if neededPets <= 0:
+			speed = walkSpeed
 			wantsPets = false
 			canMove = true
 			player.canMove = true

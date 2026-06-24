@@ -19,7 +19,7 @@ var station
 @onready var Wires2 = [$WireSprites/Wire5, $WireSprites/Wire6, $WireSprites/Wire7
 , $WireSprites/Wire8]
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if connectingWire:
 		connectingWire.set_point_position(1, get_global_mouse_position() - startingWire.global_position)
 
