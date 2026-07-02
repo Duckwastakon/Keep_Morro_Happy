@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://bdptr7i4ljxs8" path="res://CharacterScenes/CharacterScripts/morro.gd" id="1_nc864"]
 [ext_resource type="Texture2D" uid="uid://by527346vahfs" path="res://Assets/Art/Morro.png" id="2_lvpcy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xavm3"]
-size = Vector2(32, 16)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_nc864"]
 radius = 56.568542
 
@@ -67,9 +64,6 @@ _data = {
 
 [node name="morro" type="CharacterBody2D" unique_id=1644862689]
 script = ExtResource("1_nc864")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=772999251]
-shape = SubResource("RectangleShape2D_xavm3")
 
 [node name="Interactions" type="Area2D" parent="." unique_id=1091152441]
 collision_layer = 256

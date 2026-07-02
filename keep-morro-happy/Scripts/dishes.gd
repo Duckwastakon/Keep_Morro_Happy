@@ -22,7 +22,13 @@ func nextDish():
 		newDirt.texture_normal = dirtParticle
 		newDirt.stretch_mode = TextureButton.STRETCH_SCALE
 		newDirt.size = Vector2(32, 32)
-		newDirt.position = Vector2(randi_range(32, dish.size.x - 32), randi_range(32, dish.size.y - 32))
+		var x = randi_range(32, dish.size.x - 32)
+		var y = randi_range(32, dish.size.y - 32)
+		print((dish.size.x/2)*2)
+		while Vector2(x, y).distance_to(Vector2(dish.size.x/2, dish.size.y/2)) > dish.size.x/2*1.2:
+			y = randi_range(32, dish.size.y - 32)
+		
+		newDirt.position = Vector2(x, y)
 		
 		dish.add_child(newDirt)
 		
@@ -30,7 +36,7 @@ func nextDish():
 		dirtySpots += 1
 	
 	var newTween = create_tween()
-	newTween.tween_property(dish, "modulate", Color8(255,255,255,255), 1)
+	newTween.tween_property(dish, "modulate", Color8(255,255,255,255), 0.5)
 	
 	newTween.play()
 
@@ -44,7 +50,7 @@ func finishDish():
 		get_parent().compleatedTask()
 	
 	var newTween = create_tween()
-	newTween.tween_property(dish, "modulate", Color(1,1,1,0), 1)
+	newTween.tween_property(dish, "modulate", Color(1,1,1,0), 0.5)
 	
 	newTween.play()
 	

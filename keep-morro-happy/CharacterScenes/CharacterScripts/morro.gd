@@ -156,6 +156,7 @@ func poop():
 	var newPoop = poopPrefab.instantiate()
 	newPoop.global_position = global_position
 	get_parent().add_child(newPoop)
+	get_parent().addDirt(1, newPoop)
 	
 	needTimer.start()
 

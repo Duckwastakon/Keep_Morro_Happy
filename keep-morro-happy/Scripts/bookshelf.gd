@@ -14,7 +14,7 @@ func _ready() -> void:
 	neededBooks = randi_range(10, 15)
 	
 	for n in neededBooks:
-		var pos = Vector2(global_position.x + randi_range(-100, 100), global_position.y + randi_range(-100, 100))
+		var pos = Vector2(randi_range(0, Global.mapSize.x), randi_range(0, Global.mapSize.y))
 		var newItem = itemPrefab.instantiate()
 		newItem.id = bookId
 		newItem.global_position = pos

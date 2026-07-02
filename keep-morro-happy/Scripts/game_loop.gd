@@ -41,6 +41,7 @@ func _ready() -> void:
 	GameUi.setActive()
 	
 	houseDirtTask = GameUi.addDayTask("Keep the house clean")
+	houseDirtTask.modulate = Color.LIME_GREEN
 	
 	map.setupMap()
 	generateTasks()
@@ -105,6 +106,8 @@ func wires(pos):
 
 func cleaning(pos):
 	for i in randi_range(6, 8):
+		pos = getPossiblePosition()
+		
 		var newPuddle = puddle.instantiate()
 		newPuddle.global_position = pos
 		addDirt(3, newPuddle)
@@ -187,14 +190,31 @@ func spawnEssentials():
 					foundPosition = false
 	
 	var newTrash = trashBin.instantiate()
-	newTrash.global_position = pos
+	newTrash.global_position = pos + Vector2(tileSize/2, tileSize/2)
 	add_child(newTrash)
 	
 	var broom = item.instantiate()
 	broom.id = broomId
-	broom.global_position = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize  
+	broom.global_position = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize + Vector2(tileSize/2, tileSize/2)  
 	add_child(broom)
 
 func compleateTask(taskLabel, index):
 	taskProgress[index] = true
 	taskLabel.modulate = Color.GREEN
+
+func getPossiblePosition() -> Vector2:
+	var foundPosition = false
+	var pos: Vector2
+	
+	while !foundPosition:
+		pos = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize  
+		foundPosition = true
+		
+		foundPosition = map.checkTile(pos)
+			
+		if foundPosition:
+			for stat in stations:
+				if stat.global_position.distance_to(pos) < tileSize * 2:
+					foundPosition = false
+	
+	return pos + Vector2(tileSize/2, tileSize/2)
