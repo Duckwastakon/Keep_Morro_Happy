@@ -16,12 +16,12 @@ shader_parameter/direction = Vector2(1, 1)
 shader_parameter/speed = 0.2
 shader_parameter/border = 0.17999999597664
 
-[sub_resource type="Gradient" id="Gradient_mmiag"]
+[sub_resource type="Gradient" id="Gradient_vvwf0"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(0, 0, 0, 0.38431373)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5i0bu"]
-gradient = SubResource("Gradient_mmiag")
+gradient = SubResource("Gradient_vvwf0")
 width = 16
 
 [sub_resource type="Curve" id="Curve_p4duo"]

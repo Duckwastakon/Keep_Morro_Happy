@@ -1,7 +1,7 @@
 extends Node
 
 #Settings
-var mouseThrow = true
+var mouseThrow = false
 var sfxVolume = 50
 var musicVolume = 50
 var screenShake = 50
@@ -11,8 +11,9 @@ var mapSize = Vector2(1152, 648) * 1.4
 const itemPullSpeed = 100
 const throwSpeed = 500
 const cleanTime = 3
+const petDesireTimer = 40
 
-const tasks = ["books", "wires", "cleaning", "homework", "poop", "coffee"]
+const tasks = ["books", "wires", "cleaning", "homework", "poop", "coffee", "dishes"]
 
 const Items = {
 	0: {

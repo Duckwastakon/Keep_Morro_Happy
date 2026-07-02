@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bvbpxmcoriuji"]
+
+[ext_resource type="Script" uid="uid://dyyqsod5hmb8m" path="res://Scripts/dishes.gd" id="1_bu67c"]
+[ext_resource type="Shader" uid="uid://domnrh4co2ls8" path="res://Scenes/taskClonables/scroll.gdshader" id="1_pjnjq"]
+[ext_resource type="Texture2D" uid="uid://ddpitrf0qnv61" path="res://Assets/Art/greenTile.png" id="2_bu67c"]
+[ext_resource type="Texture2D" uid="uid://c50ubrq7rehx7" path="res://Assets/Art/check.png" id="3_kbvc5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bd2kt"]
+shader = ExtResource("1_pjnjq")
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/speed = 0.2
+shader_parameter/border = 0.17999999597664
+
+[sub_resource type="Gradient" id="Gradient_mmiag"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0, 0.38431373)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xmeju"]
+gradient = SubResource("Gradient_mmiag")
+width = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_loa6c"]
+font_size = 32
+
+[node name="dishes" type="Control" unique_id=1013324617]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bu67c")
+
+[node name="background" type="Sprite2D" parent="." unique_id=310761014]
+material = SubResource("ShaderMaterial_bd2kt")
+position = Vector2(576.00006, 320.00003)
+scale = Vector2(24.000006, 24)
+texture = ExtResource("2_bu67c")
+
+[node name="border" type="Sprite2D" parent="background" unique_id=1452959089]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+z_index = -1
+material = SubResource("ShaderMaterial_bd2kt")
+position = Vector2(-1.932184e-06, -1.1324883e-06)
+scale = Vector2(1.0416664, 16.666668)
+texture = SubResource("GradientTexture1D_xmeju")
+
+[node name="dishCounter" type="Label" parent="." unique_id=1881895367]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 448.0
+offset_right = 768.0
+offset_bottom = 512.0
+text = "-/-"
+label_settings = SubResource("LabelSettings_loa6c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="successIndiator" type="Sprite2D" parent="." unique_id=1789897439]
+visible = false
+position = Vector2(576, 480)
+scale = Vector2(3, 3)
+texture = ExtResource("3_kbvc5")
+
+[node name="dish" type="ColorRect" parent="." unique_id=284889165]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 448.0
+offset_top = 192.0
+offset_right = 704.0
+offset_bottom = 448.0
+mouse_filter = 1

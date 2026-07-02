@@ -104,7 +104,7 @@ func pour():
 	newTween.play()
 	newTween.connect("finished", deleteParticle.bind(newParticle))
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	pass
 	#if event.is_action_pressed("Throw") and !pouring and canPour and visible:
 		#pouring = true

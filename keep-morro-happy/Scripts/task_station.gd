@@ -24,6 +24,11 @@ var taskDisplayInfo = {
 		"scaleAmount": Vector2.ONE,
 		"info": "Press e to do homework"
 	},
+	"dishes": {
+		"sprite": "",
+		"scaleAmount": Vector2.ONE,
+		"info": "Press e to do the dishes"
+	}
 }
 
 func _ready() -> void:

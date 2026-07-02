@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://7akowvsdovh5" path="res://Scripts/setup_floor.gd" id="2_0e3vx"]
 [ext_resource type="PackedScene" uid="uid://df6toxxvyk60l" path="res://CharacterScenes/player.tscn" id="2_pu3va"]
 [ext_resource type="PackedScene" uid="uid://cqyidrcnqp3qb" path="res://CharacterScenes/mango.tscn" id="5_mgc0q"]
+[ext_resource type="PackedScene" uid="uid://cf20tmoiwyi6x" path="res://CharacterScenes/morro.tscn" id="6_18r40"]
 [ext_resource type="Texture2D" uid="uid://sld88bfxnpcp" path="res://Assets/Art/floorTileSet.png" id="6_bb2iq"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bb2iq"]
@@ -110,5 +111,9 @@ tile_set = SubResource("TileSet_6y7pd")
 position = Vector2(360, 736)
 
 [node name="mango" parent="." unique_id=1929990142 node_paths=PackedStringArray("player") instance=ExtResource("5_mgc0q")]
-position = Vector2(312, 184)
+position = Vector2(168, 104)
+player = NodePath("../player")
+
+[node name="morro" parent="." unique_id=1644862689 node_paths=PackedStringArray("player") instance=ExtResource("6_18r40")]
+position = Vector2(384, 104)
 player = NodePath("../player")

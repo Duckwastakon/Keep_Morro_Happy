@@ -1,6 +1,6 @@
 extends Node
 
-var taskProgress = []
+var taskProgress = [false]
 
 var stations = []
 
@@ -17,8 +17,31 @@ var item = preload("res://CharacterScenes/item.tscn")
 
 const broomId = 4
 
+var dirtySpots = 0
+
+var houseDirtTask
+
+func addDirt(amount: int, object):
+	dirtySpots += amount
+	
+	object.connect("tree_exiting", removeDirt.bind(amount))
+	
+	if dirtySpots > 5:
+		houseDirtTask.modulate = Color.ORANGE_RED
+		taskProgress[0] = false
+
+func removeDirt(amount: int):
+	dirtySpots -= amount
+	
+	if dirtySpots <= 5:
+		houseDirtTask.modulate = Color.LIME_GREEN
+		taskProgress[0] = true
+
 func _ready() -> void:
 	GameUi.setActive()
+	
+	houseDirtTask = GameUi.addDayTask("Keep the house clean")
+	
 	map.setupMap()
 	generateTasks()
 	spawnEssentials()
@@ -84,6 +107,7 @@ func cleaning(pos):
 	for i in randi_range(6, 8):
 		var newPuddle = puddle.instantiate()
 		newPuddle.global_position = pos
+		addDirt(3, newPuddle)
 		add_child(newPuddle)
 		stations.append(newPuddle)
 
@@ -106,14 +130,31 @@ func poop(pos):
 	for i in randi_range(8, 12):
 		var foundPosition = false
 		
+		
 		while !foundPosition:
 			pos = Vector2(randi_range(tileSize, Global.mapSize.x), randi_range(tileSize, Global.mapSize.y)) 
 			foundPosition = map.checkTile(pos)
 		
 		var newPoop = poopInstance.instantiate()
 		newPoop.global_position = pos
+		addDirt(1, newPoop)
 		
 		add_child(newPoop)
+
+func dishes(pos):
+	var newTaskStation = taskStation.instantiate()
+	
+	newTaskStation.interactTask = "dishes"
+	newTaskStation.global_position = pos
+	
+	add_child(newTaskStation)
+	stations.append(newTaskStation)
+	
+	var taskId = taskProgress.size()
+	taskProgress.append(false)
+	
+	var newTaskLabel = GameUi.addDayTask("Wash the dishes")
+	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func coffee(pos):
 	var newTaskStation = taskStation.instantiate()

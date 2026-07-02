@@ -32,10 +32,26 @@ func Gametimer():
 		timeLeft -= 1
 
 func updateHappiness(happiness):
+	var previousHappiness = happinessBar.scale.x * 100
 	var size: float = clampf(float(happiness) / 100, 0, 100)
 	var newTween = create_tween()
 	newTween.tween_property(happinessBar, "scale", Vector2(size, 1), 0.1)
 	newTween.play()
+	
+	var colorTween = create_tween()
+	
+	if previousHappiness > happiness:
+		colorTween.tween_property(happinessBar, "color", Color(1,0.4,0.2,1), 0.05)
+	else:
+		colorTween.tween_property(happinessBar, "color", Color(0.7,1,0.2,1), 0.05)
+	
+	colorTween.play()
+	await colorTween.finished
+	
+	colorTween.stop()
+	colorTween.tween_property(happinessBar, "color", Color(1,0.9,0.2,1), 0.05)
+	
+	colorTween.play()
 
 func addWarning(warning):
 	var newWarning = Label.new()

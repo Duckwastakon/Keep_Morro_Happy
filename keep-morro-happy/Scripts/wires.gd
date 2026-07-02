@@ -1,30 +1,62 @@
 extends Control
 
-var Con = [false, false, false, false]
-var c = 0
+@export var wireAmount = 3
+@export var wireSize = Vector2(16, 16)
+
+@onready var wireContainer = $wiresContainer
+var Con = []
 
 var Comb1 = []
 var Comb2 = []
 
-var hoveringWire = null
-var connectingWire = null
-var startingWire = null
+var hoveringSlot
+var startSlot
 
-var endingWire = null
+var currentWire
 
 var station
 
-@onready var Wires1 = [$WireSprites/Wire1, $WireSprites/Wire2, $WireSprites/Wire3
-,$WireSprites/Wire4]
-@onready var Wires2 = [$WireSprites/Wire5, $WireSprites/Wire6, $WireSprites/Wire7
-, $WireSprites/Wire8]
+func hoverWire(wire):
+	hoveringSlot = wire
+
+func exitWire(wire):
+	if hoveringSlot == wire:
+		hoveringSlot = null
 
 func _process(_delta: float) -> void:
-	if connectingWire:
-		connectingWire.set_point_position(1, get_global_mouse_position() - startingWire.global_position)
+	if currentWire:
+		currentWire.set_point_position(1, get_global_mouse_position() - startSlot.global_position)
 
 func _ready() -> void:
-	for i in 4:
+	wireSize = Vector2(wireContainer.size.x / (wireAmount + 6), wireContainer.size.x / (wireAmount + 6))
+	var Wires1 = []
+	var Wires2 = []
+	
+	var wireSpace = wireContainer.size.y
+	var freeSpace = (wireSpace - wireAmount * wireSize.y) / (wireAmount + 1)
+	
+	for i in wireAmount:
+		Con.append(false)
+		
+		var newWire1 = ColorRect.new()
+		var newWire2 = ColorRect.new()
+		
+		newWire1.size = wireSize
+		wireContainer.add_child(newWire1)
+		newWire1.position = Vector2(0, freeSpace * (i+1) + i * wireSize.y)
+		newWire2.size = wireSize
+		wireContainer.add_child(newWire2)
+		newWire2.position = Vector2(wireContainer.size.x - wireSize.x, freeSpace * (i+1) + i * wireSize.y)
+		
+		newWire1.connect("mouse_entered", hoverWire.bind(newWire1))
+		newWire2.connect("mouse_entered", hoverWire.bind(newWire2))
+		newWire1.connect("mouse_exited", exitWire.bind(newWire1))
+		newWire2.connect("mouse_exited", exitWire.bind(newWire2))
+		
+		Wires1.append(newWire1)
+		Wires2.append(newWire2)
+	
+	for i in wireAmount:
 		var randNum = randi_range(0, Wires1.size() - 1)
 		Comb1.append(Wires1[randNum])
 		Wires1.pop_at(randNum)
@@ -33,90 +65,60 @@ func _ready() -> void:
 		Comb2.append(Wires2[randNum])
 		Wires2.pop_at(randNum)
 	
-	for i in 4:
+	for i in wireAmount:
 		var clr = Color8(randi_range(0, 255), randi_range(0, 255), randi_range(0, 255))
 		Comb1[i].color = clr
 		Comb2[i].color = clr
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ThrowMouse") and visible and hoveringWire != null:
+	if event.is_action_pressed("ThrowMouse") and visible and hoveringSlot != null:
 		var newWire = Line2D.new()
-		newWire.add_point(hoveringWire.global_position - hoveringWire.global_position + (hoveringWire.size/2))
-		newWire.add_point(get_global_mouse_position() - hoveringWire.global_position)
-		newWire.default_color = hoveringWire.color
-		connectingWire = newWire
-		newWire.width = 20
+		newWire.add_point(hoveringSlot.global_position - hoveringSlot.global_position + (hoveringSlot.size/2))
+		newWire.add_point(get_global_mouse_position() - hoveringSlot.global_position)
+		newWire.default_color = hoveringSlot.color
+		currentWire = newWire
+		newWire.width = wireSize.y / 1.5
 		
-		var num = Comb1.find(hoveringWire)
+		var num = Comb1.find(hoveringSlot)
 		Con[num] = false
 		
-		for child in hoveringWire.get_children():
+		for child in hoveringSlot.get_children():
 			child.queue_free()
 		
-		hoveringWire.add_child(newWire)
+		hoveringSlot.add_child(newWire)
 		
-		startingWire = hoveringWire
+		startSlot = hoveringSlot
 	
-	if event.is_action_released("ThrowMouse") and visible and startingWire != null:
-		if endingWire != null:
+	if event.is_action_released("ThrowMouse") and visible and startSlot != null:
+		if hoveringSlot != null:
 			var newWire = Line2D.new()
-			newWire.add_point(startingWire.global_position - startingWire.global_position + (startingWire.size/2))
-			newWire.add_point(endingWire.global_position- startingWire.global_position + (startingWire.size/2))
-			newWire.default_color = startingWire.color
-			newWire.width = 20
+			newWire.add_point(startSlot.global_position - startSlot.global_position + (startSlot.size/2))
+			newWire.add_point(hoveringSlot.global_position- startSlot.global_position + (startSlot.size/2))
+			newWire.default_color = startSlot.color
+			newWire.width = wireSize.y / 1.5
 			
-			startingWire.add_child(newWire)
+			startSlot.add_child(newWire)
 			
-			connectingWire.queue_free()
-			connectingWire = null
+			currentWire.queue_free()
+			currentWire = null
 			
-			var num = Comb1.find(startingWire)
+			var num = Comb1.find(startSlot)
+			if num == -1:
+				num = Comb2.find(startSlot)
 			
-			startingWire = null
 			
 			if num != -1:
-				if Comb2[num] == endingWire:
+				if Comb2[num] == hoveringSlot and Comb1[num] == startSlot or Comb1[num] == hoveringSlot and Comb2[num] == startSlot:
 					Con[num] = true
 					print("connected")
 					for i in Con.size():
 						if Con[i] == false:
 							return
 					get_parent().compleatedTask()
+			
+			startSlot = null
 		else:
-			if connectingWire is Line2D:
-				connectingWire.queue_free()
-				connectingWire = null
-				startingWire = null
-
-func _on_wire_1_mouse_entered() -> void:
-	hoveringWire = $WireSprites/Wire1
-func _on_wire_2_mouse_entered() -> void:
-	hoveringWire = $WireSprites/Wire2
-func _on_wire_3_mouse_entered() -> void:
-	hoveringWire = $WireSprites/Wire3
-func _on_wire_4_mouse_entered() -> void:
-	hoveringWire = $WireSprites/Wire4
-func _on_wire_5_mouse_entered() -> void:
-	endingWire = $WireSprites/Wire5
-func _on_wire_6_mouse_entered() -> void:
-	endingWire = $WireSprites/Wire6
-func _on_wire_7_mouse_entered() -> void:
-	endingWire = $WireSprites/Wire7
-func _on_wire_8_mouse_entered() -> void:
-	endingWire = $WireSprites/Wire8
-func _on_wire_1_mouse_exited() -> void:
-	hoveringWire = null
-func _on_wire_2_mouse_exited() -> void:
-	hoveringWire = null
-func _on_wire_3_mouse_exited() -> void:
-	hoveringWire = null
-func _on_wire_4_mouse_exited() -> void:
-	hoveringWire = null
-func _on_wire_5_mouse_exited() -> void:
-	endingWire = null
-func _on_wire_6_mouse_exited() -> void:
-	endingWire = null
-func _on_wire_7_mouse_exited() -> void:
-	endingWire = null
-func _on_wire_8_mouse_exited() -> void:
-	endingWire = null
+			if currentWire is Line2D:
+				currentWire.queue_free()
+				currentWire = null
+				startSlot = null
