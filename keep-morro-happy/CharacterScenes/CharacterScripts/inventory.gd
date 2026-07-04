@@ -5,9 +5,10 @@ extends CanvasLayer
 
 func grabItem(id):
 	var item = Global.Items[id]
-	spriteRender.color = item.sprite
+	spriteRender.visible = true
+	spriteRender.texture = load(item.sprite)
 	itemName.text = item.name
 
 func dropItem():
-	spriteRender.color = Color8(255, 255, 255, 0)
+	spriteRender.visible = false
 	itemName.text = "Empty"

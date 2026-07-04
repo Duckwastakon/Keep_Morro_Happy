@@ -5,6 +5,10 @@ extends Area2D
 
 var itemPrefab = preload("res://CharacterScenes/item.tscn")
 
+func _ready() -> void:
+	var randScale = randf_range(1, 2)
+	scale = Vector2(randScale, randScale)
+
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent() is not CharacterBody2D:
 		return

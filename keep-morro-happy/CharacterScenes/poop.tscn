@@ -1,24 +1,47 @@
 [gd_scene format=3 uid="uid://8pydgukh2qa4"]
 
 [ext_resource type="Script" uid="uid://bwkboq8tmwihi" path="res://CharacterScenes/CharacterScripts/poop.gd" id="1_saors"]
+[ext_resource type="Texture2D" uid="uid://c4adqq1qyhmlw" path="res://Assets/Art/poop.png" id="2_supdr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_supdr"]
 size = Vector2(16, 16)
+
+[sub_resource type="Curve" id="Curve_wnvkt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.79629636, 0.7404922), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_pqdtx"]
+colors = PackedColorArray(0.2645387, 0.5607556, 0.44652426, 1, 0, 0.282352, 0.20134327, 1)
 
 [node name="Poop" type="Area2D" unique_id=567696534]
 collision_layer = 0
 collision_mask = 5
 script = ExtResource("1_saors")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1488770727]
-z_index = 8
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-color = Color(0.4837339, 0.2752843, 0.12874293, 1)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1861944233]
 shape = SubResource("RectangleShape2D_supdr")
+
+[node name="Poop" type="Sprite2D" parent="." unique_id=1502732784]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_supdr")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=304199365]
+amount = 12
+lifetime = 2.0
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(7, 9)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 10.0
+angular_velocity_min = -45.0
+angular_velocity_max = 45.0
+damping_max = 1.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_wnvkt")
+color_ramp = SubResource("Gradient_pqdtx")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

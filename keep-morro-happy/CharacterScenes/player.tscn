@@ -10,6 +10,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oqffx"]
 shader = ExtResource("2_sc4y0")
 shader_parameter/blinkColor = Vector4(1, 1, 1, 1)
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/speed = 0.5
+shader_parameter/border = 0.1
+shader_parameter/uvConst = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp23k"]
 size = Vector2(32, 32)
@@ -38,7 +42,7 @@ shape = SubResource("RectangleShape2D_mp23k")
 
 [node name="inventory" parent="." unique_id=2039919713 instance=ExtResource("2_sf0jm")]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=969438000]
+[node name="Camera" type="Camera2D" parent="." unique_id=969438000]
 limit_left = 0
 limit_top = 0
 position_smoothing_enabled = true

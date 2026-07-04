@@ -81,6 +81,8 @@ func _input(event: InputEvent) -> void:
 			newItem.id = pickedUpItem
 			newItem.velocity = ThrowVelocity
 			
+			get_viewport().get_camera_2d().screenshake(5, 0.3)
+			
 			get_parent().add_child(newItem)
 			pickedUpItem = null
 			inventory.dropItem()
@@ -94,6 +96,7 @@ func _on_player_area_area_entered(area: Area2D) -> void:
 		pickUpItem(itemId)
 
 func pickUpItem(itemId):
+	get_viewport().get_camera_2d().screenshake(2, 0.3)
 	print("picked up")
 	pickedUpItem = itemId
 	inventory.grabItem(pickedUpItem)
@@ -110,6 +113,8 @@ func clean():
 	canMove = true
 
 func stun():
+	get_viewport().get_camera_2d().screenshake(8, 0.25)
+	velocity = Vector2.ZERO
 	ExtraVisuals.floatingText("Ouch!", global_position)
 	
 	speed = speedStat - randi_range(20, 25)

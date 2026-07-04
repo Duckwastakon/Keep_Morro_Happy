@@ -11,13 +11,9 @@ offset_top = 520.0
 offset_right = 616.0
 offset_bottom = 600.0
 
-[node name="itemSprite" type="ColorRect" parent="inventoryBackground" unique_id=647912694]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 72.0
-offset_bottom = 72.0
-color = Color(1, 1, 1, 0)
+[node name="itemSprite" type="Sprite2D" parent="inventoryBackground" unique_id=1716239406]
+position = Vector2(40, 40)
+scale = Vector2(3.5, 3.5)
 
 [node name="itemName" type="Label" parent="." unique_id=1842357036]
 offset_left = 520.0

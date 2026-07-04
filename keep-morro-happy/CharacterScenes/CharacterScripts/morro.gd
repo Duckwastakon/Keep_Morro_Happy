@@ -16,6 +16,8 @@ var wantsPets = false
 @export var player: CharacterBody2D = null
 var catch = false
 
+var importanceShader = preload("res://shaders/ImportantBlink.gdshader")
+
 var infoText = null
 
 var petCount = 0
@@ -94,6 +96,7 @@ func desirePets():
 	print("pets pls")
 	GameUi.addWarning("pets")
 	petCount = randi_range(5, 10)
+	sprite.material.set_shader_parameter("speed", 2)
 	
 	canMove = false
 	wantsPets = true
@@ -118,6 +121,8 @@ func pet():
 		print("Happy")
 		GameUi.removeWarning("pets")
 		changeHappiness(-20)
+		
+		sprite.material.set_shader_parameter("speed", 0.0)
 		
 		needTimer.start()
 

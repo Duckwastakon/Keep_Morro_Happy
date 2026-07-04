@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b1e7t11q07s8a"]
 
 [ext_resource type="Script" uid="uid://bq7ceonxcl4ng" path="res://CharacterScenes/CharacterScripts/item.gd" id="1_wdrv8"]
+[ext_resource type="Texture2D" uid="uid://bp35yqgjt23xp" path="res://Assets/Art/food.png" id="2_dry0u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wdrv8"]
 radius = 80.399
@@ -18,12 +19,6 @@ size = Vector2(16, 16)
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("1_wdrv8")
-
-[node name="itemSprite" type="ColorRect" parent="." unique_id=1651510067]
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
 
 [node name="AttractionArea" type="Area2D" parent="." unique_id=1698460783]
 collision_layer = 0
@@ -53,6 +48,9 @@ shape = SubResource("RectangleShape2D_wdrv8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1162744864]
 shape = SubResource("RectangleShape2D_dry0u")
+
+[node name="itemSprite" type="Sprite2D" parent="." unique_id=275220690]
+texture = ExtResource("2_dry0u")
 
 [connection signal="area_entered" from="AttractionArea" to="." method="_on_attraction_area_area_entered"]
 [connection signal="area_exited" from="AttractionArea" to="." method="_on_attraction_area_area_exited"]
