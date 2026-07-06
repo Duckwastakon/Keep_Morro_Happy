@@ -1,57 +1,165 @@
 [gd_scene format=3 uid="uid://c63nxgs7yr0uv"]
 
 [ext_resource type="Script" uid="uid://dt8h47r0pv50g" path="res://Scripts/game_ui.gd" id="1_go1i3"]
+[ext_resource type="Texture2D" uid="uid://mtx8kegy6c25" path="res://Assets/Art/darkTile.png" id="2_06gsf"]
 [ext_resource type="Texture2D" uid="uid://blw7uai57avvj" path="res://Assets/Art/stickeynote.png" id="2_vihnx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vihnx"]
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_go1i3"]
+font_size = 60
+
+[sub_resource type="Shader" id="Shader_06gsf"]
+code = "shader_type canvas_item;
+
+uniform vec2 direction = vec2(1.0, 1.0);
+uniform float speed = 0.5;
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	vec2 offset = TIME * speed * direction;
+	
+	vec2 uv = UV;
+	uv *= 8.0;
+	uv = mod(uv + offset, 1.0); 
+	
+	vec4 color = texture(TEXTURE, uv); 
+	COLOR = color; 
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vsibv"]
+shader = SubResource("Shader_06gsf")
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/speed = 0.2
+
 [sub_resource type="LabelSettings" id="LabelSettings_dvi1w"]
 font_size = 30
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_go1i3"]
-font_size = 60
+[sub_resource type="Animation" id="Animation_oiq42"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkTile:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(576, 1296)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dayTasks:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("dayTasks:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_vsibv"]
+resource_name = "end"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkTile:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(576, 1296), Vector2(576, 352)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dayTasks:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("dayTasks:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_06gsf"]
+resource_name = "openScene"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkTile:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(576, 352), Vector2(576, -704)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dayTasks:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wk1on"]
+_data = {
+&"RESET": SubResource("Animation_oiq42"),
+&"end": SubResource("Animation_vsibv"),
+&"openScene": SubResource("Animation_06gsf")
+}
 
 [node name="gameUI" type="CanvasLayer" unique_id=1856508307]
+layer = 2
 script = ExtResource("1_go1i3")
 taskLabel = SubResource("LabelSettings_vihnx")
-
-[node name="dayTasks" type="Control" parent="." unique_id=544277998]
-visible = false
-layout_mode = 3
-anchor_left = 0.5
-anchor_top = 0.49400002
-anchor_right = 0.5
-anchor_bottom = 0.49400002
-offset_left = -192.0
-offset_top = -192.112
-offset_right = 192.0
-offset_bottom = 191.888
-
-[node name="Stickeynote" type="Sprite2D" parent="dayTasks" unique_id=922862410]
-position = Vector2(192, 192)
-scale = Vector2(24, 24)
-texture = ExtResource("2_vihnx")
-
-[node name="taskContainer" type="VBoxContainer" parent="dayTasks" unique_id=332082763]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 64.0
-offset_right = 360.0
-offset_bottom = 288.0
-alignment = 1
-
-[node name="label" type="Label" parent="dayTasks" unique_id=1744290806]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 22.0
-offset_right = 360.0
-offset_bottom = 64.0
-text = "Todo list"
-label_settings = SubResource("LabelSettings_dvi1w")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="warnings" type="Control" parent="." unique_id=2051337913]
 layout_mode = 3
@@ -59,6 +167,7 @@ anchors_preset = 0
 offset_top = 128.0
 offset_right = 192.0
 offset_bottom = 384.0
+mouse_filter = 2
 
 [node name="warningContainer" type="VBoxContainer" parent="warnings" unique_id=1097238749]
 layout_mode = 0
@@ -104,3 +213,74 @@ text = "-:--"
 label_settings = SubResource("LabelSettings_go1i3")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DarkTile" type="Sprite2D" parent="." unique_id=893806046]
+z_index = 3
+material = SubResource("ShaderMaterial_vsibv")
+position = Vector2(576, 1296)
+scale = Vector2(72, 72)
+texture = ExtResource("2_06gsf")
+
+[node name="dayTasks" type="Control" parent="." unique_id=544277998]
+modulate = Color(1, 1, 1, 0)
+z_index = 3
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.49400002
+anchor_right = 0.5
+anchor_bottom = 0.49400002
+offset_left = -192.0
+offset_top = -192.112
+offset_right = 192.00006
+offset_bottom = 191.888
+mouse_filter = 2
+
+[node name="Stickeynote" type="Sprite2D" parent="dayTasks" unique_id=922862410]
+position = Vector2(192, 192)
+scale = Vector2(24, 24)
+texture = ExtResource("2_vihnx")
+
+[node name="taskContainer" type="VBoxContainer" parent="dayTasks" unique_id=332082763]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 360.0
+offset_bottom = 288.0
+alignment = 1
+
+[node name="label" type="Label" parent="dayTasks" unique_id=1744290806]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 360.0
+offset_bottom = 64.0
+text = "Todo list"
+label_settings = SubResource("LabelSettings_dvi1w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="endGame" type="AnimationPlayer" parent="." unique_id=1618984746]
+libraries/ = SubResource("AnimationLibrary_wk1on")
+
+[node name="Button" type="Button" parent="." unique_id=757097220]
+visible = false
+z_index = 3
+offset_left = 368.0
+offset_top = 544.0
+offset_right = 784.0
+offset_bottom = 608.0
+text = "exit to main menu"
+
+[node name="outcomeText" type="RichTextLabel" parent="." unique_id=1123442416]
+visible = false
+z_index = 3
+offset_left = 416.0
+offset_top = 32.0
+offset_right = 736.0
+offset_bottom = 96.0
+mouse_filter = 2
+text = "You win"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

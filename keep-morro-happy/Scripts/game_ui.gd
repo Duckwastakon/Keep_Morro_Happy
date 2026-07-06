@@ -6,6 +6,8 @@ var warnings = {
 
 @export var taskLabel: LabelSettings
 
+var canCheck = false
+
 @onready var happinessBar = $morroHappiness/barBackground/progress
 @onready var warningContainer = $warnings/warningContainer
 @onready var timerText = $dayTimer
@@ -13,11 +15,14 @@ var warnings = {
 @onready var dayTasks = $dayTasks
 @onready var dayTasksContainer = $dayTasks/taskContainer
 
-func setActive():
-	visible = true
+func setActive(val: bool):
+	canCheck = val
+	warnings.visible = val
+	$morroHappiness.visible = val
+	timerText.visible = val
 
 func Gametimer():
-	var timeLeft = 180
+	var timeLeft = Global.gameTime
 	
 	while timeLeft > 0:
 		var mins = floor(timeLeft / 60)
@@ -77,7 +82,53 @@ func addDayTask(text):
 	return newText
 
 func _input(event: InputEvent) -> void:
+	if !canCheck:
+		return
+	dayTasks.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	if event.is_action_pressed("Q"):
 		dayTasks.visible = true
 	elif event.is_action_released("Q"):
 		dayTasks.visible = false
+
+func endGame(data) -> void:
+	canCheck = false
+	self.layer = 2
+	for task in dayTasksContainer.get_children():
+		task.visible = false
+	
+	$endGame.play("end")
+	await $endGame.animation_finished
+	
+	setActive(false)
+	
+	get_tree().change_scene_to_file("res://Scenes/main_menue.tscn")
+	
+	var i = 0
+	$outcomeText.text = "You Win"
+	for task in dayTasksContainer.get_children():
+		if data[i] == true:
+			task.modulate = Color.LIME_GREEN
+		else:
+			task.modulate = Color.RED
+			
+			$outcomeText.text = "You Loose"
+		i += 1
+		
+		task.visible = true
+		await get_tree().create_timer(1).timeout
+	$outcomeText.visible = true
+	
+	await get_tree().create_timer(1.5).timeout
+	$Button.visible = true
+
+func _on_button_button_down() -> void:
+	$outcomeText.visible = false
+	$Button.visible = false
+	$endGame.play("openScene")
+	self.layer = 0
+	
+	await $endGame.animation_finished
+	
+	for i in dayTasksContainer.get_children():
+		i.queue_free()
+	

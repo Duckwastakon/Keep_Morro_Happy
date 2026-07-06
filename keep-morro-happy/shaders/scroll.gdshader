@@ -1,22 +1,20 @@
 shader_type canvas_item;
 
-uniform vec4 blinkColor = vec4(1);
 uniform vec2 direction = vec2(1.0, 1.0);
 uniform float speed = 0.5;
 uniform float border: hint_range(0.0, 0.2, 0.01) = 0.1;
-uniform float uvConst = 8.0;
 
 void fragment() {
+	// Called for every pixel the material is visible on.
 	vec2 offset = TIME * speed * direction;
 	
 	vec2 uv = UV;
-	uv *= uvConst;
+	uv *= 8.0;
 	uv = mod(uv + offset, 1.0); 
 	
-	vec4 base = texture(TEXTURE, uv);
-	
-	COLOR = mix(base, blinkColor, abs(sin(TIME)));
-	COLOR.a *= base.a;
+	vec4 color = texture(TEXTURE, uv); 
+	COLOR = color; 
+	COLOR.a = color.a * (1.0 - round(distance(vec2(0.5, 0.5), UV) - border));
 }
 
 //void light() {

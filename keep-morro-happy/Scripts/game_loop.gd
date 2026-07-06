@@ -11,6 +11,8 @@ var bookShelf = preload("res://Scenes/bookshelf.tscn")
 var taskStation = preload("res://Scenes/task_station.tscn")
 var puddle = preload("res://Scenes/puddle_spill.tscn")
 var poopInstance = preload("res://CharacterScenes/poop.tscn")
+var breakable = preload("res://Scenes/breakable.tscn")
+@onready var breakableContainer = $breakables
 
 var trashBin = preload("res://Scenes/trash_bin.tscn")
 var item = preload("res://CharacterScenes/item.tscn")
@@ -38,16 +40,19 @@ func removeDirt(amount: int):
 		taskProgress[0] = true
 
 func _ready() -> void:
-	GameUi.setActive()
+	GameUi.setActive(true)
 	
 	houseDirtTask = GameUi.addDayTask("Keep the house clean")
 	houseDirtTask.modulate = Color.LIME_GREEN
 	
 	map.setupMap()
 	generateTasks()
+	spawnBreakables()
 	spawnEssentials()
 	
-	GameUi.Gametimer()
+	await GameUi.Gametimer()
+	
+	GameUi.endGame(taskProgress)
 
 func generateTasks():
 	var allTasks = Global.tasks
@@ -197,6 +202,18 @@ func spawnEssentials():
 	broom.id = broomId
 	broom.global_position = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize + Vector2(tileSize/2, tileSize/2)  
 	add_child(broom)
+
+func spawnBreakables():
+	for i in randi_range(5, 7):
+		var newBreakable = breakable.instantiate()
+		
+		var pos = getPossiblePosition()
+		newBreakable.global_position = pos
+		breakableContainer.add_child(newBreakable)
+		
+		newBreakable.connect("getBroken", addDirt)
+		
+		stations.append(newBreakable)
 
 func compleateTask(taskLabel, index):
 	taskProgress[index] = true

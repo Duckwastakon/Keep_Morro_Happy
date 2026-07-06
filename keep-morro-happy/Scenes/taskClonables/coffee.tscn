@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfjp712pjfron" path="res://Scripts/coffee_task.gd" id="1_atu3s"]
 [ext_resource type="Texture2D" uid="uid://dmbjl4wte51gn" path="res://Assets/Art/conveyorBelt.png" id="2_0coth"]
-[ext_resource type="Shader" uid="uid://domnrh4co2ls8" path="res://Scenes/taskClonables/scroll.gdshader" id="2_fnc33"]
+[ext_resource type="Shader" uid="uid://domnrh4co2ls8" path="res://shaders/scroll.gdshader" id="2_fnc33"]
 [ext_resource type="Texture2D" uid="uid://djcaev1d44w1t" path="res://Assets/Art/brownTile.png" id="2_rgjgf"]
 [ext_resource type="Texture2D" uid="uid://bx1d5mcfvxswq" path="res://Assets/Art/coffeeMug.png" id="6_atkxr"]
 [ext_resource type="Texture2D" uid="uid://cmkshhddwu5vl" path="res://Assets/Art/arrow.png" id="6_mmiag"]

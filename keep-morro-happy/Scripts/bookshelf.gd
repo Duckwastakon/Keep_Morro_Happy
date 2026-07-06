@@ -10,8 +10,9 @@ var itemPrefab = preload("res://CharacterScenes/item.tscn")
 @onready var bookIndicator: Label = $indicator
 
 func _ready() -> void:
+	neededBooks = randi_range(1, 3)
+	
 	bookIndicator.text = str(books) + "/" + str(neededBooks)
-	neededBooks = randi_range(10, 15)
 	
 	for n in neededBooks:
 		var pos = Vector2(randi_range(0, Global.mapSize.x), randi_range(0, Global.mapSize.y))
@@ -36,5 +37,9 @@ func _on_area_entered(area: Area2D) -> void:
 func add_Book():
 	books += 1
 	bookIndicator.text = str(books) + "/" + str(neededBooks)
+	if books >= neededBooks/2:
+		$BookShelf.frame = 1
 	if books >= neededBooks:
-		$CollisionShape2D.disabled = true
+		$BookShelf.frame = 2
+		$CollisionShape2D.queue_free()
+		taskCompleated.emit()

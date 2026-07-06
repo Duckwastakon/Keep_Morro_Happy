@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgr3w1yu8xcss"]
 
 [ext_resource type="Script" uid="uid://cxj1p4uef6ipb" path="res://Scripts/trash_bin.gd" id="1_3cmhg"]
+[ext_resource type="Texture2D" uid="uid://bqamy27i4hd6l" path="res://Assets/Art/trash.png" id="2_f172w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_va4qd"]
 size = Vector2(32, 32)
@@ -10,15 +11,12 @@ collision_layer = 0
 collision_mask = 5
 script = ExtResource("1_3cmhg")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1642637554]
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-color = Color(0, 0, 0, 1)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1688866783]
 shape = SubResource("RectangleShape2D_va4qd")
+
+[node name="Trash" type="Sprite2D" parent="." unique_id=1655646344]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_f172w")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

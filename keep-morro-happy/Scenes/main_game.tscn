@@ -108,12 +108,15 @@ z_index = 2
 tile_set = SubResource("TileSet_6y7pd")
 
 [node name="player" parent="." unique_id=402754163 instance=ExtResource("2_pu3va")]
-position = Vector2(360, 736)
+position = Vector2(568, 320)
 
 [node name="mango" parent="." unique_id=1929990142 node_paths=PackedStringArray("player") instance=ExtResource("5_mgc0q")]
 position = Vector2(168, 104)
 player = NodePath("../player")
 
-[node name="morro" parent="." unique_id=1644862689 node_paths=PackedStringArray("player") instance=ExtResource("6_18r40")]
+[node name="morro" parent="." unique_id=1644862689 node_paths=PackedStringArray("breakables", "player") instance=ExtResource("6_18r40")]
 position = Vector2(384, 104)
+breakables = NodePath("../breakables")
 player = NodePath("../player")
+
+[node name="breakables" type="Node2D" parent="." unique_id=2102940547]
