@@ -39,14 +39,14 @@ offset_right = 832.0
 offset_bottom = 448.0
 mouse_filter = 2
 
-[node name="level1" type="Button" parent="levelButtons" unique_id=983316131]
+[node name="beginner" type="Button" parent="levelButtons" unique_id=983316131]
 layout_mode = 0
 offset_left = 96.0
 offset_right = 416.0
 offset_bottom = 32.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/level1" unique_id=627156719]
+[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/beginner" unique_id=627156719]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
@@ -57,7 +57,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
 
-[node name="level2" type="Button" parent="levelButtons" unique_id=186723000]
+[node name="normal" type="Button" parent="levelButtons" unique_id=186723000]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 32.0
@@ -65,7 +65,7 @@ offset_right = 416.0
 offset_bottom = 64.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/level2" unique_id=477135913]
+[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/normal" unique_id=477135913]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
@@ -76,7 +76,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
 
-[node name="level3" type="Button" parent="levelButtons" unique_id=726966324]
+[node name="hard" type="Button" parent="levelButtons" unique_id=726966324]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 64.0
@@ -84,7 +84,7 @@ offset_right = 416.0
 offset_bottom = 96.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/level3" unique_id=1121668289]
+[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/hard" unique_id=1121668289]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
@@ -95,7 +95,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
 
-[node name="level4" type="Button" parent="levelButtons" unique_id=444693123]
+[node name="impossible" type="Button" parent="levelButtons" unique_id=444693123]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 96.0
@@ -103,7 +103,7 @@ offset_right = 416.0
 offset_bottom = 128.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/level4" unique_id=792833700]
+[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/impossible" unique_id=792833700]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
@@ -114,7 +114,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
 
-[node name="level5" type="Button" parent="levelButtons" unique_id=584743600]
+[node name="speed" type="Button" parent="levelButtons" unique_id=584743600]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 128.0
@@ -122,7 +122,7 @@ offset_right = 416.0
 offset_bottom = 160.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/level5" unique_id=2119720545]
+[node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/speed" unique_id=2119720545]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0

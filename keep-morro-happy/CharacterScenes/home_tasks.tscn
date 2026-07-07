@@ -13,10 +13,11 @@ script = ExtResource("1_brq2h")
 
 [node name="closeTask" type="Button" parent="." unique_id=636266868]
 visible = false
-offset_left = 1024.0
-offset_top = 64.0
-offset_right = 1088.0
-offset_bottom = 128.0
+offset_left = 832.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 192.0
+text = "X"
 
 [node name="CompleateText" type="Label" parent="." unique_id=40002196]
 visible = false

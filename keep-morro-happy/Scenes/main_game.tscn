@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://df6toxxvyk60l" path="res://CharacterScenes/player.tscn" id="2_pu3va"]
 [ext_resource type="PackedScene" uid="uid://cqyidrcnqp3qb" path="res://CharacterScenes/mango.tscn" id="5_mgc0q"]
 [ext_resource type="PackedScene" uid="uid://cf20tmoiwyi6x" path="res://CharacterScenes/morro.tscn" id="6_18r40"]
-[ext_resource type="Texture2D" uid="uid://sld88bfxnpcp" path="res://Assets/Art/floorTileSet.png" id="6_bb2iq"]
+[ext_resource type="Texture2D" uid="uid://dyusby8yhcuxp" path="res://Assets/Art/floorTileSet.png" id="6_bb2iq"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bb2iq"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -101,6 +101,7 @@ script = ExtResource("1_l756w")
 script = ExtResource("2_0e3vx")
 
 [node name="floor" type="TileMapLayer" parent="map" unique_id=1932492336]
+z_index = -2
 tile_set = SubResource("TileSet_18r40")
 
 [node name="walls" type="TileMapLayer" parent="map" unique_id=604840752]

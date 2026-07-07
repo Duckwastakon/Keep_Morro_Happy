@@ -36,7 +36,7 @@ layout_mode = 0
 offset_left = 368.0
 offset_top = 112.0
 offset_right = 784.0
-offset_bottom = 592.0
+offset_bottom = 528.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.39215687)
 
@@ -45,7 +45,7 @@ layout_mode = 0
 offset_left = 384.0
 offset_top = 128.0
 offset_right = 768.0
-offset_bottom = 576.0
+offset_bottom = 512.0
 mouse_filter = 2
 color = Color(0.9401983, 0.9401984, 0.9401983, 1)
 
@@ -56,7 +56,7 @@ layout_mode = 0
 offset_left = 384.0
 offset_top = 128.0
 offset_right = 576.0
-offset_bottom = 352.0
+offset_bottom = 320.0
 scale = Vector2(2, 2)
 texture = ExtResource("3_l2xdf")
 stretch_mode = 1
@@ -79,7 +79,7 @@ anchors_preset = 0
 offset_left = 384.0
 offset_top = 192.0
 offset_right = 768.0
-offset_bottom = 576.0
+offset_bottom = 512.0
 mouse_filter = 2
 
 [node name="question" type="Control" parent="." unique_id=120671903]

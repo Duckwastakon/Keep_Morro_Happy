@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyusby8yhcuxp"
-path="res://.godot/imported/floorTileSet.png-d66b124ebae766899e75af687489452c.ctex"
+uid="uid://b6voh73ppeeeq"
+path="res://.godot/imported/breakables.png-e9f5c03a02c06039d1fede0c329b34ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/floorTileSet.png"
-dest_files=["res://.godot/imported/floorTileSet.png-d66b124ebae766899e75af687489452c.ctex"]
+source_file="res://Assets/Art/breakables.png"
+dest_files=["res://.godot/imported/breakables.png-e9f5c03a02c06039d1fede0c329b34ce.ctex"]
 
 [params]
 

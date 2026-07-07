@@ -4,13 +4,10 @@ extends CharacterBody2D
 const speed = 200
 const sprintSpeed = 200
 
-var Happiness = 100
-
 var canMove = true
 var wantsPets = false
 
 @export var foodId = 1
-@export var WaterId = 2
 
 @export var breakables : Node2D = null
 @export var player: CharacterBody2D = null
@@ -30,7 +27,6 @@ const needs = {
 }
 
 var hunger = 0
-var thirst = 0
 
 @onready var needTimer = $needTimer
 @onready var movementTimer = $movementTimer
@@ -44,12 +40,8 @@ var puddlePrefab = preload("res://Scenes/puddle_spill.tscn")
 
 func _ready() -> void:
 	infoText = ExtraVisuals.loadInfo(self, "Press e to pet")
-
-func changeHappiness(amount):
-	Happiness -= amount
-	Happiness = clamp(Happiness, 0, 100)
 	
-	GameUi.updateHappiness(Happiness)
+	basicNeeds()
 
 func _process(_delta: float) -> void:
 	if catch and canMove:
@@ -86,32 +78,27 @@ func _on_need_timer_timeout() -> void:
 	call(needs[action])
 
 func _on_movement_timer_timeout() -> void:
-	var newTargetPosition = Vector2(randi_range(0, Global.mapSize.x), randi_range(0, Global.mapSize.y))
+	var newTargetPosition = Vector2(randi_range(0, Global.difficulties[Global.difficulty].mapSize.x), randi_range(0, Global.difficulties[Global.difficulty].mapSize.y))
 	navigation.target_position = newTargetPosition
 
 func _on_navigation_agent_2d_target_reached() -> void:
 	movementTimer.start()
 
 func desirePets():
-	print("pets pls")
-	GameUi.addWarning("pets")
-	petCount = randi_range(5, 10)
+	while GameUi.addWarning("pets") == false:
+		await get_tree().create_timer(1).timeout
+	
+	petCount = randi_range(5, 8)
 	sprite.material.set_shader_parameter("speed", 2)
 	
 	canMove = false
 	wantsPets = true
-	
-	while petCount > 0:
-		changeHappiness(randi_range(1, 2))
-		await get_tree().create_timer(1).timeout
-		print("-happiness")
 
 func pet():
 	print("petting")
 	
 	petCount -= 1
 	if petCount < -3:
-		changeHappiness(randi_range(8,12))
 		ExtraVisuals.floatingText("Stop petting me!", global_position)
 		return true
 	
@@ -120,7 +107,6 @@ func pet():
 		wantsPets = false
 		print("Happy")
 		GameUi.removeWarning("pets")
-		changeHappiness(-20)
 		
 		sprite.material.set_shader_parameter("speed", 0.0)
 		
@@ -167,11 +153,11 @@ func poop():
 
 func basicNeeds():
 	while self:
-		hunger += randi_range(2, 5)
-		thirst += randi_range(1, 2)
+		hunger += randi_range(5, 8)
 		
-		if hunger >= 65 or thirst >= 65:
-			changeHappiness(randi_range(0, 2))
+		if hunger >= 65:
+			while GameUi.addWarning("food") == false:
+				await get_tree().create_timer(1).timeout
 		
 		await get_tree().create_timer(randf_range(1.5, 2.5)).timeout
 
@@ -182,18 +168,14 @@ func fulfilneed(area):
 		var id = area.get_parent().pickedUpItem
 		if id == foodId:
 			area.get_parent().removeItem()
-			hunger -= randi_range(30, 70)
-		if id == WaterId:
-			area.get_parent().removeItem()
-			thirst -= randi_range(30, 70)
+			hunger -= randi_range(30, 60)
+			GameUi.removeWarning("food")
 	else:
 		var id = area.get_parent().id
 		if id == foodId:
 			area.get_parent().removeItem()
 			hunger -= randi_range(30, 70)
-		if id == WaterId:
-			area.get_parent().removeItem()
-			thirst -= randi_range(30, 70)
+			GameUi.removeWarning("food")
 
 func _on_interactions_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "player":

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bp11pwhabn0ws"]
 
 [ext_resource type="Script" uid="uid://dybidyyrdp1ec" path="res://Scripts/breakable.gd" id="1_pwuh6"]
-[ext_resource type="Texture2D" uid="uid://fhdo3tflor7w" path="res://Assets/Art/breakableVase.png" id="2_vblu5"]
+[ext_resource type="Texture2D" uid="uid://b6voh73ppeeeq" path="res://Assets/Art/breakables.png" id="2_vblu5"]
 
 [node name="Breakable" type="Node2D" unique_id=364688711]
 script = ExtResource("1_pwuh6")
@@ -9,4 +9,4 @@ script = ExtResource("1_pwuh6")
 [node name="BreakableVase" type="Sprite2D" parent="." unique_id=419510870]
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_vblu5")
-hframes = 2
+hframes = 10

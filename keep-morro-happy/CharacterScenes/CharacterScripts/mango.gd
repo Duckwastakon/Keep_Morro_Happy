@@ -21,7 +21,7 @@ var playerInRange = null
 var heartSprite = preload("res://Assets/Art/heart.png")
 
 func _ready() -> void:
-	petTimer.wait_time = Global.petDesireTimer + randi_range(-(Global.petDesireTimer/10), Global.petDesireTimer/10)
+	petTimer.wait_time = Global.difficulties[Global.difficulty].petDesireTimer + randi_range(-(Global.difficulties[Global.difficulty].petDesireTimer/10), Global.difficulties[Global.difficulty].petDesireTimer/10)
 	petTimer.start()
 	
 	infoText = ExtraVisuals.loadInfo(self, "Spam e to pet")
@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_movement_timer_timeout() -> void:
-	var newTargetPosition = Vector2(randi_range(0, Global.mapSize.x), randi_range(0, Global.mapSize.y))
+	var newTargetPosition = Vector2(randi_range(0, Global.difficulties[Global.difficulty].mapSize.x), randi_range(0, Global.difficulties[Global.difficulty].mapSize.y))
 	navigation.target_position = newTargetPosition
 
 func _on_navigation_agent_2d_navigation_finished() -> void:
@@ -100,10 +100,10 @@ func _input(event: InputEvent) -> void:
 			canMove = true
 			player.canMove = true
 			
-			petTimer.wait_time = Global.petDesireTimer + randi_range(-(Global.petDesireTimer/10), Global.petDesireTimer/10)
+			petTimer.wait_time = Global.difficulties[Global.difficulty].petDesireTimer + randi_range(-(Global.difficulties[Global.difficulty].petDesireTimer/10), Global.difficulties[Global.difficulty].petDesireTimer/10)
 			petTimer.start()
 			
 			infoText.visible = false
 			
-			var newTargetPosition = Vector2(randi_range(0, Global.mapSize.x), randi_range(0, Global.mapSize.y))
+			var newTargetPosition = Vector2(randi_range(0, Global.difficulties[Global.difficulty].mapSize.x), randi_range(0, Global.difficulties[Global.difficulty].mapSize.y))
 			navigation.target_position = newTargetPosition
