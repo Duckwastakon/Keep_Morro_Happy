@@ -114,6 +114,8 @@ func _input(event: InputEvent) -> void:
 					for i in Con.size():
 						if Con[i] == false:
 							return
+					
+					ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), station.global_position)
 					get_parent().compleatedTask()
 			
 			startSlot = null

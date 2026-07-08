@@ -5,6 +5,21 @@
 [ext_resource type="Shader" uid="uid://domnrh4co2ls8" path="res://shaders/scroll.gdshader" id="2_5qge5"]
 [ext_resource type="Texture2D" uid="uid://djcaev1d44w1t" path="res://Assets/Art/brownTile.png" id="3_5qge5"]
 [ext_resource type="Script" uid="uid://ck5royro628jc" path="res://Scenes/settings_sliders.gd" id="3_emj01"]
+[ext_resource type="Texture2D" uid="uid://mtx8kegy6c25" path="res://Assets/Art/darkTile.png" id="6_cpijf"]
+[ext_resource type="Script" uid="uid://p3pjpo486b3a" path="res://Scenes/tutorial.gd" id="6_uefsc"]
+[ext_resource type="Texture2D" uid="uid://bjdtg3tshbngh" path="res://Assets/Art/whiteTile.png" id="7_r81yf"]
+[ext_resource type="Texture2D" uid="uid://blw7uai57avvj" path="res://Assets/Art/stickeynote.png" id="8_qd325"]
+[ext_resource type="Texture2D" uid="uid://cqoyrybc5w3f8" path="res://Assets/Art/spillSheet.png" id="9_b5hsl"]
+[ext_resource type="Texture2D" uid="uid://betouiye7d1qt" path="res://Assets/Art/broom.png" id="10_nwjkf"]
+[ext_resource type="Texture2D" uid="uid://b6voh73ppeeeq" path="res://Assets/Art/breakables.png" id="11_hahcr"]
+[ext_resource type="Shader" uid="uid://cp63cg1qk0aqk" path="res://shaders/ImportantBlink.gdshader" id="12_p822r"]
+[ext_resource type="Texture2D" uid="uid://db05467ctccfp" path="res://Assets/Art/coffeeMachine.png" id="13_uefsc"]
+[ext_resource type="Texture2D" uid="uid://by527346vahfs" path="res://Assets/Art/Morro.png" id="14_86xap"]
+[ext_resource type="Texture2D" uid="uid://bppmyh7pabmbc" path="res://Assets/Art/foodBox.png" id="15_xo0rv"]
+[ext_resource type="Texture2D" uid="uid://bp35yqgjt23xp" path="res://Assets/Art/food.png" id="17_86xap"]
+[ext_resource type="Texture2D" uid="uid://bggbs06g6j2x2" path="res://Assets/Art/trashBag.png" id="18_xo0rv"]
+[ext_resource type="Texture2D" uid="uid://c4adqq1qyhmlw" path="res://Assets/Art/poop.png" id="19_b4elk"]
+[ext_resource type="Texture2D" uid="uid://bqamy27i4hd6l" path="res://Assets/Art/trash.png" id="20_40o52"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpijf"]
 shader = ExtResource("2_5qge5")
@@ -20,6 +35,33 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="RichTextEffect" id="RichTextEffect_aei31"]
 script = ExtResource("1_7raxh")
 metadata/_custom_type_script = "uid://bqr1o26a4ad83"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vrlm"]
+shader = ExtResource("2_5qge5")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed = 0.05
+shader_parameter/border = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_b4elk"]
+font_size = 20
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40o52"]
+shader = ExtResource("12_p822r")
+shader_parameter/blinkColor = Vector4(1, 1, 1, 1)
+shader_parameter/speed = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_uefsc"]
+font_size = 28
+font_color = Color(0.96810406, 0.4735942, 0.39376947, 1)
+outline_size = 12
+outline_color = Color(0.17211533, 0.1721153, 0.1721153, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xe8dk"]
+font_size = 20
+outline_size = 8
+outline_color = Color(0.10224319, 0.10224321, 0.10224321, 1)
 
 [node name="mainMenue" type="Control" unique_id=754905162]
 layout_mode = 3
@@ -244,12 +286,33 @@ horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
 
-[node name="exit" type="Button" parent="selectionButtons" unique_id=649131943]
+[node name="tutorial" type="Button" parent="selectionButtons" unique_id=165134722]
 layout_mode = 0
 offset_left = -64.0
 offset_top = 128.0
 offset_right = 256.0
 offset_bottom = 160.0
+scale = Vector2(2, 2)
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/tutorial" unique_id=1660631400]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 32.0
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[wobbly]tutorial[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="exit" type="Button" parent="selectionButtons" unique_id=649131943]
+layout_mode = 0
+offset_left = -64.0
+offset_top = 192.0
+offset_right = 256.0
+offset_bottom = 224.0
 scale = Vector2(2, 2)
 flat = true
 
@@ -406,7 +469,700 @@ horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
 
+[node name="tutorial" type="Control" parent="." unique_id=872593460]
+visible = false
+anchors_preset = 0
+offset_top = -88.0
+offset_right = 1152.0
+offset_bottom = 560.0
+script = ExtResource("6_uefsc")
+
+[node name="1" type="Control" parent="tutorial" unique_id=717234334]
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/1" unique_id=546306619]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/1/border" unique_id=1998856095]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/1" unique_id=1714199253]
+layout_mode = 0
+offset_left = 168.0
+offset_top = -16.0
+offset_right = 347.0
+offset_bottom = 43.0
+text = "Welcome to 
+keep morro happy"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/1" unique_id=1667604024]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 448.0
+offset_bottom = 208.0
+text = "to win you must complete morros
+demands in time and complete
+all of the tasks your parents left"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2" type="Control" parent="tutorial" unique_id=1198898139]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/2" unique_id=672206009]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/2/border" unique_id=2067761856]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/2" unique_id=1162755761]
+layout_mode = 0
+offset_left = 168.0
+offset_top = -16.0
+offset_right = 347.0
+offset_bottom = 43.0
+text = "home tasks"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/2" unique_id=104818221]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 448.0
+offset_bottom = 208.0
+text = "there is a small variety of home tasks
+to be able to see your home tasks
+just press \"q\" while in a game and
+a sticky note will pop up"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stickeynote" type="Sprite2D" parent="tutorial/2" unique_id=1998138310]
+position = Vector2(160, 295.99997)
+rotation = 0.21280819
+scale = Vector2(5.5, 5.4999995)
+texture = ExtResource("8_qd325")
+
+[node name="3" type="Control" parent="tutorial" unique_id=324950875]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/3" unique_id=336750527]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/3/border" unique_id=735207629]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/3" unique_id=1826252796]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "home tasks:
+keeping the house clean
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/3" unique_id=1723841847]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 448.0
+offset_bottom = 208.0
+text = "there is always a task of keeping
+the house clean. ensure this
+pick up morros poop with trashbags
+and clean up messed on the floor"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpillSheet" type="Sprite2D" parent="tutorial/3" unique_id=1138989879]
+position = Vector2(352, 296)
+rotation = -0.28563377
+scale = Vector2(5, 5)
+texture = ExtResource("9_b5hsl")
+hframes = 3
+
+[node name="4" type="Control" parent="tutorial" unique_id=2142567554]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/4" unique_id=1782940683]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/4/border" unique_id=2079568455]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/4" unique_id=1452374376]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "home tasks:
+keeping the house clean
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/4" unique_id=1283351199]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 448.0
+offset_bottom = 208.0
+text = "to clean up puddles or messes use
+the mop that spawns on the map"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpillSheet" type="Sprite2D" parent="tutorial/4" unique_id=1201048116]
+position = Vector2(352, 296)
+rotation = -0.28563377
+scale = Vector2(5, 5)
+texture = ExtResource("9_b5hsl")
+hframes = 3
+
+[node name="Broom" type="Sprite2D" parent="tutorial/4" unique_id=2036655090]
+position = Vector2(156, 252)
+rotation = 1.360616
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("10_nwjkf")
+
+[node name="5" type="Control" parent="tutorial" unique_id=626881752]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/5" unique_id=741476267]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/5/border" unique_id=1594695428]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/5" unique_id=1388349210]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "home tasks:
+keeping the house clean
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/5" unique_id=1379929693]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 56.0
+offset_right = 448.0
+offset_bottom = 152.0
+text = "messes appear when morro breaks
+something. they also need to be
+mopped"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="tutorial/5" unique_id=972496447]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 448.0
+offset_bottom = 208.0
+text = "regular                                    broken"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Breakables" type="Sprite2D" parent="tutorial/5" unique_id=1720688023]
+position = Vector2(127, 205)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+
+[node name="Breakables2" type="Sprite2D" parent="tutorial/5" unique_id=1292400877]
+position = Vector2(127, 256)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 2
+
+[node name="Breakables3" type="Sprite2D" parent="tutorial/5" unique_id=1898306173]
+position = Vector2(127, 304)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 4
+
+[node name="Breakables4" type="Sprite2D" parent="tutorial/5" unique_id=1611027474]
+position = Vector2(176, 288)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 6
+
+[node name="Breakables5" type="Sprite2D" parent="tutorial/5" unique_id=1121450489]
+position = Vector2(176, 232)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 8
+
+[node name="Breakables6" type="Sprite2D" parent="tutorial/5" unique_id=1153942571]
+position = Vector2(409, 205)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 1
+
+[node name="Breakables7" type="Sprite2D" parent="tutorial/5" unique_id=520818492]
+position = Vector2(409, 256)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 3
+
+[node name="Breakables8" type="Sprite2D" parent="tutorial/5" unique_id=1827510075]
+position = Vector2(409, 304)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 5
+
+[node name="Breakables9" type="Sprite2D" parent="tutorial/5" unique_id=973865688]
+position = Vector2(352, 288)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 7
+
+[node name="Breakables10" type="Sprite2D" parent="tutorial/5" unique_id=1494587062]
+position = Vector2(352, 232)
+scale = Vector2(3.1249998, 3.1249998)
+texture = ExtResource("11_hahcr")
+hframes = 10
+frame = 9
+
+[node name="6" type="Control" parent="tutorial" unique_id=1408182531]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/6" unique_id=93393301]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/6/border" unique_id=1932353683]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/6" unique_id=336441982]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "home tasks:
+stations
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/6" unique_id=650148097]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 448.0
+offset_bottom = 144.0
+text = "other tasks use task
+stations, they blink white
+go up to them and interact"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoffeeMachine" type="Sprite2D" parent="tutorial/6" unique_id=423175167]
+material = SubResource("ShaderMaterial_40o52")
+position = Vector2(152.00006, 232)
+rotation = 0.12281595
+scale = Vector2(5, 5)
+texture = ExtResource("13_uefsc")
+
+[node name="7" type="Control" parent="tutorial" unique_id=1410793206]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/7" unique_id=378933992]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/7/border" unique_id=1174122623]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/7" unique_id=1842231027]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "Morros needs
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/7" unique_id=255727013]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 448.0
+offset_bottom = 144.0
+text = "whenever morro wants something
+a timer and a warning
+will pop up, be sure to complete
+his request in time to not loose.
+
+if he asks for pets, go up to him and
+interact \"e\" with him enough times"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Morro" type="Sprite2D" parent="tutorial/7" unique_id=2015172512]
+position = Vector2(160, 304)
+rotation = -0.2617994
+scale = Vector2(5.071429, 5.071429)
+texture = ExtResource("14_86xap")
+hframes = 13
+
+[node name="8" type="Control" parent="tutorial" unique_id=2125084015]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/8" unique_id=518225981]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/8/border" unique_id=2011757788]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/8" unique_id=507940322]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "Morros needs
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/8" unique_id=595562377]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 448.0
+offset_bottom = 144.0
+text = "if Morro requests food it can be
+gotten from the food crate that spawn
+on the map.
+get close enough to the crate, interact
+with an empty inventoru
+and you will grab food that you must
+bring to Morro"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Morro" type="Sprite2D" parent="tutorial/8" unique_id=149018806]
+position = Vector2(160, 304)
+rotation = -0.2617994
+scale = Vector2(5.071429, 5.071429)
+texture = ExtResource("14_86xap")
+hframes = 13
+
+[node name="FoodBox" type="Sprite2D" parent="tutorial/8" unique_id=1425476508]
+position = Vector2(360, 296)
+rotation = 0.06219563
+scale = Vector2(4, 4)
+texture = ExtResource("15_xo0rv")
+
+[node name="9" type="Control" parent="tutorial" unique_id=316344351]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/9" unique_id=1918098517]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/9/border" unique_id=357297343]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/9" unique_id=1549276527]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "inventory
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/9" unique_id=1413771527]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 448.0
+offset_bottom = 144.0
+text = "your inventory can hold a single
+item at a time, go over an item
+to pick it up and click to throw your
+held item in the direction of your
+mouse."
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Food" type="Sprite2D" parent="tutorial/9" unique_id=1327606005]
+position = Vector2(160, 272)
+scale = Vector2(5, 5)
+texture = ExtResource("17_86xap")
+
+[node name="TrashBag" type="Sprite2D" parent="tutorial/9" unique_id=1497625426]
+position = Vector2(368, 280)
+rotation = -0.15443829
+scale = Vector2(4, 4)
+texture = ExtResource("18_xo0rv")
+
+[node name="10" type="Control" parent="tutorial" unique_id=1314389156]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 832.0
+offset_bottom = 544.0
+
+[node name="border" type="Sprite2D" parent="tutorial/10" unique_id=350183265]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_2vrlm")
+position = Vector2(256, 160)
+scale = Vector2(26.5, 26.5)
+texture = ExtResource("6_cpijf")
+
+[node name="background" type="Sprite2D" parent="tutorial/10/border" unique_id=1775903448]
+material = SubResource("ShaderMaterial_2vrlm")
+scale = Vector2(0.9433962, 0.9433962)
+texture = ExtResource("7_r81yf")
+
+[node name="Label" type="Label" parent="tutorial/10" unique_id=19930221]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 416.0
+offset_bottom = 74.0
+text = "extra
+"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="tutorial/10" unique_id=630887206]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 448.0
+offset_bottom = 144.0
+text = "Mango ( the other cat ) may sometimes
+ask for pets, you can  grab trashbags
+to pickup poop from the floor from the
+trashcan ( poop counts to the dirty
+house counter )"
+label_settings = SubResource("LabelSettings_b4elk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poop" type="Sprite2D" parent="tutorial/10" unique_id=1230581390]
+position = Vector2(152, 304)
+rotation = -0.33778495
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("19_b4elk")
+
+[node name="Trash" type="Sprite2D" parent="tutorial/10" unique_id=2102249753]
+position = Vector2(348, 292)
+rotation = 0.3149594
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("20_40o52")
+
+[node name="close" type="Button" parent="tutorial" unique_id=620222400]
+layout_mode = 0
+offset_left = 792.0
+offset_top = 184.0
+offset_right = 848.0
+offset_bottom = 240.0
+flat = true
+
+[node name="Label" type="Label" parent="tutorial/close" unique_id=1180143122]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+text = "X"
+label_settings = SubResource("LabelSettings_uefsc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="back" type="Button" parent="tutorial" unique_id=752957525]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 600.0
+offset_right = 504.0
+offset_bottom = 656.0
+flat = true
+
+[node name="Label" type="Label" parent="tutorial/back" unique_id=1284024545]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+text = "back"
+label_settings = SubResource("LabelSettings_xe8dk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next" type="Button" parent="tutorial" unique_id=1035855853]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 600.0
+offset_right = 704.0
+offset_bottom = 656.0
+flat = true
+
+[node name="Label" type="Label" parent="tutorial/next" unique_id=413395849]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+text = "next"
+label_settings = SubResource("LabelSettings_xe8dk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="drag_ended" from="settingsSliders/screenShake/HSlider" to="settingsSliders" method="_on_h_slider_drag_ended"]
 [connection signal="drag_ended" from="settingsSliders/sfxSlider/sfx" to="settingsSliders" method="_on_sfx_drag_ended"]
 [connection signal="drag_ended" from="settingsSliders/musicSlider/music" to="settingsSliders" method="_on_music_drag_ended"]
 [connection signal="button_down" from="settingsSliders/back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="tutorial/close" to="tutorial" method="_on_close_button_down"]
+[connection signal="button_down" from="tutorial/back" to="tutorial" method="_on_back_button_down"]
+[connection signal="button_down" from="tutorial/next" to="tutorial" method="_on_next_button_down"]

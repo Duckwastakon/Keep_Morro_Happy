@@ -25,3 +25,5 @@ func _on_music_drag_ended(value_changed: bool) -> void:
 	Global.musicVolume = $musicSlider/music.value
 	ConfigFileController.saveSetting("musicVolume", $musicSlider/music.value)
 	$musicSlider/amount3.text = str(Global.musicVolume)
+	
+	GameUi.updateMusicAudio()

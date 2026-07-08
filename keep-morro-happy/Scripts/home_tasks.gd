@@ -45,7 +45,6 @@ func clearTasks():
 	closeTask()
 	
 	for child in get_children():
+		print(child)
 		if child is Control:
 			child.queue_free()
-		
-		

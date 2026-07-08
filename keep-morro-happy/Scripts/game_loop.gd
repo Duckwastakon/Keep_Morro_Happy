@@ -17,6 +17,7 @@ var breakable = preload("res://Scenes/breakable.tscn")
 var mapSize = Vector2(1152, 672)
 
 var trashBin = preload("res://Scenes/trash_bin.tscn")
+var foodBox = preload("res://Scenes/food_box.tscn")
 var item = preload("res://CharacterScenes/item.tscn")
 
 const broomId = 4
@@ -44,6 +45,7 @@ func removeDirt(amount: int):
 func _ready() -> void:
 	var mapSize = Global.difficulties[Global.difficulty].mapSize
 	GameUi.setActive(true)
+	GameUi.playMusic(load("res://Assets/Music/gameMusic.mp3"))
 	
 	houseDirtTask = GameUi.addDayTask("Keep the house clean")
 	houseDirtTask.modulate = Color.LIME_GREEN
@@ -202,6 +204,10 @@ func spawnEssentials():
 	var newTrash = trashBin.instantiate()
 	newTrash.global_position = pos + Vector2(tileSize/2, tileSize/2)
 	add_child(newTrash)
+	
+	var newFoodBox = foodBox.instantiate()
+	newFoodBox.global_position = getPossiblePosition()
+	add_child(newFoodBox)
 	
 	var broom = item.instantiate()
 	broom.id = broomId

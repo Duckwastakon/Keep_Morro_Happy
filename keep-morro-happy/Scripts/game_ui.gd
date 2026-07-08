@@ -22,6 +22,26 @@ var warningActive = false
 @onready var dayTasks = $dayTasks
 @onready var dayTasksContainer = $dayTasks/taskContainer
 
+func _ready() -> void:
+	updateMusicAudio()
+
+func playMusic(Audio):
+	$GameMusic.stop()
+	$GameMusic.stream = Audio
+	$GameMusic.playing = true
+	
+	if Global.musicVolume == 0:
+		$GameMusic.stop()
+	else:
+		$GameMusic.volume_db = 12 * ((-50 + Global.musicVolume)/50) - 10
+
+func updateMusicAudio():
+	$GameMusic.playing = true
+	if Global.musicVolume == 0:
+		$GameMusic.stop()
+	else:
+		$GameMusic.volume_db = 12 * ((-50 + Global.musicVolume)/50) - 10
+
 func setActive(val: bool):
 	canCheck = val
 	warnings.visible = val
@@ -127,14 +147,16 @@ func endGame(gottenData) -> void:
 			outcome = false
 		i += 1
 	
-	if outcome:
-		$outcomeText.text = "You Win"
-	else:
-		$outcomeText.text = "You Loose"
-	
 	for task in dayTasksContainer.get_children():
 		task.visible = true
 		await get_tree().create_timer(1).timeout
+	
+	if outcome:
+		$outcomeText.text = "You Win"
+		ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), Vector2.ZERO)
+	else:
+		$outcomeText.text = "You Loose"
+		ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), Vector2.ZERO)
 	$outcomeText.visible = true
 	
 	await get_tree().create_timer(1.5).timeout

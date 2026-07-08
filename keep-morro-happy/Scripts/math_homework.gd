@@ -107,11 +107,13 @@ func answer(buttons, id, correct):
 	
 	answered += 1
 	if correctAnswers >= questionAmount - 1 and answered >= questionAmount:
+		ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), station.global_position)
 		successIndicator.texture = check
 		successIndicator.visible = true
 		
 		get_parent().compleatedTask()
 	elif answered >= questionAmount:
+		ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), station.global_position)
 		successIndicator.texture = cross
 		successIndicator.visible = true
 		

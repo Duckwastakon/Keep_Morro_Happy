@@ -68,13 +68,15 @@ func finishPouring():
 	
 	successIndicator.texture = cross
 	if abs(amount-neededAmount) < 5.0:
+		ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), station.global_position)
 		successIndicator.texture = checkmark
 		gottenCups += 1
 		cupCounter.text = str(gottenCups) + "/" + str(neededCups)
 		
 		if neededCups <= gottenCups:
 			get_parent().compleatedTask()
-	
+	else:
+		ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), station.global_position)
 	successIndicator.visible = true
 	
 	var newTween = create_tween()

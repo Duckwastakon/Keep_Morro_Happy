@@ -41,6 +41,7 @@ func nextDish():
 	newTween.play()
 
 func finishDish():
+	ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), station.global_position)
 	successIndicator.visible = true
 	cleanedDishes += 1
 	

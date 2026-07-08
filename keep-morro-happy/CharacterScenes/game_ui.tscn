@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dt8h47r0pv50g" path="res://Scripts/game_ui.gd" id="1_go1i3"]
 [ext_resource type="Texture2D" uid="uid://mtx8kegy6c25" path="res://Assets/Art/darkTile.png" id="2_06gsf"]
 [ext_resource type="Texture2D" uid="uid://blw7uai57avvj" path="res://Assets/Art/stickeynote.png" id="2_vihnx"]
+[ext_resource type="AudioStream" uid="uid://c88u1agqjpi2q" path="res://Assets/Music/gameMusic.mp3" id="4_oiq42"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vihnx"]
 font_color = Color(0, 0, 0, 1)
@@ -303,5 +304,8 @@ offset_bottom = 8.0
 
 [node name="warningTimer" type="Timer" parent="Warning" unique_id=559937046]
 one_shot = true
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="." unique_id=1876459344]
+stream = ExtResource("4_oiq42")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

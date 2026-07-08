@@ -7,7 +7,7 @@ const sprintSpeed = 200
 var canMove = true
 var wantsPets = false
 
-@export var foodId = 1
+@export var foodId = 2
 
 @export var breakables : Node2D = null
 @export var player: CharacterBody2D = null
@@ -87,6 +87,7 @@ func desirePets():
 	while GameUi.addWarning("pets") == false:
 		await get_tree().create_timer(1).timeout
 	
+	ExtraVisuals.playSound(load("res://Assets/Music/meow.mp3"), global_position)
 	petCount = randi_range(5, 8)
 	sprite.material.set_shader_parameter("speed", 2)
 	
@@ -99,6 +100,7 @@ func pet():
 	petCount -= 1
 	if petCount < 0:
 		ExtraVisuals.floatingText("Stop petting me!", global_position)
+		ExtraVisuals.playSound(load("res://Assets/Music/meow.mp3"), global_position)
 		player.stun()
 		return true
 	
@@ -156,25 +158,25 @@ func basicNeeds():
 		hunger += randi_range(5, 8)
 		
 		if hunger >= 65:
-			while GameUi.addWarning("food") == false:
+			while hunger >= 65:
+				GameUi.addWarning("food")
 				await get_tree().create_timer(1).timeout
+			ExtraVisuals.playSound(load("res://Assets/Music/meow.mp3"), global_position)
 		
 		await get_tree().create_timer(randf_range(1.5, 2.5)).timeout
 
 func fulfilneed(area):
-	if area.get_parent() is not CharacterBody2D: return
-	
 	if area.get_parent().name == "player":
 		var id = area.get_parent().pickedUpItem
 		if id == foodId:
 			area.get_parent().removeItem()
-			hunger -= randi_range(30, 60)
+			hunger = randi_range(0, 10)
 			GameUi.removeWarning("food")
 	else:
 		var id = area.get_parent().id
 		if id == foodId:
-			area.get_parent().removeItem()
-			hunger -= randi_range(30, 70)
+			area.get_parent().queue_free()
+			hunger = randi_range(0, 10)
 			GameUi.removeWarning("food")
 
 func _on_interactions_area_entered(area: Area2D) -> void:

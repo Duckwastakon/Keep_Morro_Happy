@@ -10,6 +10,7 @@ var selectedLevel = null
 var midPos = Vector2.ZERO
 
 func _ready() -> void:
+	GameUi.playMusic(load("res://Assets/Music/menuMusic.mp3"))
 	midPos = selectionButtons.global_position
 	for btn in levelButtons.get_children():
 		if btn is Button:
@@ -29,6 +30,8 @@ func _ready() -> void:
 
 func loadLevel(level):
 	Global.difficulty = level
+	ExtraVisuals.playSound(load("res://Assets/Music/select.mp3"), Vector2.ZERO)
+	await  get_tree().create_timer(0.2).timeout
 	await GameUi.darkenScreen()
 	get_tree().change_scene_to_file("res://Scenes/main_game.tscn")
 
@@ -65,6 +68,9 @@ func play():
 	currentControll = levelButtons
 	
 	selectionButtons.visible = false
+
+func tutorial():
+	$tutorial.visible = true
 
 func settings():
 	settingSliders.global_position = midPos + Vector2(0, 500)

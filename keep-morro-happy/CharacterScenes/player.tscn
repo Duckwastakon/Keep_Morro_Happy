@@ -1,34 +1,79 @@
 [gd_scene format=3 uid="uid://df6toxxvyk60l"]
 
 [ext_resource type="Script" uid="uid://dca0ahagm6wgo" path="res://CharacterScenes/CharacterScripts/player.gd" id="1_ahrgu"]
-[ext_resource type="Shader" uid="uid://bamx5wt7lc5wl" path="res://shaders/Blinking.gdshader" id="2_sc4y0"]
+[ext_resource type="Texture2D" uid="uid://cuo26eara55st" path="res://Assets/Art/player_sheet.png" id="2_oqffx"]
 [ext_resource type="PackedScene" uid="uid://dn56brvf0otll" path="res://CharacterScenes/inventory.tscn" id="2_sf0jm"]
 [ext_resource type="PackedScene" uid="uid://g0p688h3pmq8" path="res://CharacterScenes/loading_bar.tscn" id="3_s44ji"]
 [ext_resource type="Script" uid="uid://u3dl2hkop0lq" path="res://CharacterScenes/CharacterScripts/cam.gd" id="4_j0fvy"]
 [ext_resource type="PackedScene" uid="uid://dtm7df1lxfhw1" path="res://CharacterScenes/interaction_information.tscn" id="6_oqffx"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oqffx"]
-shader = ExtResource("2_sc4y0")
-shader_parameter/blinkColor = Vector4(1, 1, 1, 1)
-shader_parameter/direction = Vector2(1, 1)
-shader_parameter/speed = 0.5
-shader_parameter/border = 0.1
-shader_parameter/uvConst = 8.0
+[ext_resource type="AudioStream" uid="uid://b6x5u3cokopb6" path="res://Assets/Music/run.mp3" id="7_j0fvy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp23k"]
 size = Vector2(32, 32)
 
+[sub_resource type="Animation" id="Animation_oqffx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_j0fvy"]
+resource_name = "idle"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_1osjf"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r6kag"]
+_data = {
+&"RESET": SubResource("Animation_oqffx"),
+&"idle": SubResource("Animation_j0fvy"),
+&"run": SubResource("Animation_1osjf")
+}
+
 [node name="player" type="CharacterBody2D" unique_id=402754163]
 script = ExtResource("1_ahrgu")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1352111761]
-z_index = 10
-material = SubResource("ShaderMaterial_oqffx")
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-color = Color(0.88491285, 0.478446, 0.57691234, 1)
+[node name="PlayerSheet" type="Sprite2D" parent="." unique_id=928623418]
+scale = Vector2(2, 2)
+texture = ExtResource("2_oqffx")
+hframes = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526516162]
 shape = SubResource("RectangleShape2D_mp23k")
@@ -55,5 +100,11 @@ position = Vector2(0, -24)
 offset_top = 16.0
 offset_bottom = 48.0
 text = ""
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=518668337]
+libraries/ = SubResource("AnimationLibrary_r6kag")
+
+[node name="running" type="AudioStreamPlayer2D" parent="." unique_id=2119272957]
+stream = ExtResource("7_j0fvy")
 
 [connection signal="area_entered" from="playerArea" to="." method="_on_player_area_area_entered"]

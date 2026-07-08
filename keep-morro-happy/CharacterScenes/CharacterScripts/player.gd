@@ -37,9 +37,21 @@ func _process(_delta: float) -> void:
 	
 	if direction != Vector2.ZERO:
 		throwDirection = direction
+		
+		if !$running.playing:
+			$running.play()
+		$AnimationPlayer.play("run")
+	else:
+		$running.stop()
+		$AnimationPlayer.play("idle")
 	velocity += direction * speed;
 	velocity.x = clampf(velocity.x, -maxSpeed, maxSpeed)
 	velocity.y = clampf(velocity.y, -maxSpeed, maxSpeed)
+	
+	if xDirection == 1:
+		$PlayerSheet.flip_h = false
+	elif xDirection == -1:
+		$PlayerSheet.flip_h = true
 	
 	if (xDirection == 0):
 		if abs(velocity.x) <= deceleration:
@@ -106,6 +118,7 @@ func removeItem():
 	inventory.dropItem()
 
 func clean():
+	ExtraVisuals.playSound(load("res://Assets/Music/clean.mp3"), global_position)
 	canMove = false
 	velocity = Vector2.ZERO
 	await loadingBar.fire(Global.cleanTime)
@@ -113,6 +126,7 @@ func clean():
 	canMove = true
 
 func stun():
+	ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), global_position)
 	get_viewport().get_camera_2d().screenshake(8, 0.25)
 	ExtraVisuals.floatingText("Ouch!", global_position)
 	

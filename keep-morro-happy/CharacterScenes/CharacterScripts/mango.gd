@@ -77,6 +77,8 @@ func _on_interactions_area_exited(area: Area2D) -> void:
 func _on_pet_desire_timer_timeout() -> void:
 	if player == null: return
 	
+	ExtraVisuals.playSound(load("res://Assets/Music/meow.mp3"), global_position)
+	
 	wantsPets = true
 	neededPets = randi_range(15, 50)
 	
