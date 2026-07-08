@@ -2,7 +2,9 @@ extends Control
 
 @onready var levelButtons = $levelButtons
 @onready var selectionButtons = $selectionButtons
+@onready var settingSliders = $settingsSliders
 
+var currentControll = null
 var selectedLevel = null
 
 var midPos = Vector2.ZERO
@@ -10,12 +12,13 @@ var midPos = Vector2.ZERO
 func _ready() -> void:
 	midPos = selectionButtons.global_position
 	for btn in levelButtons.get_children():
-		btn.connect("mouse_entered", selectButton.bind(btn, true, btn.get_child(0).text))
-		btn.connect("mouse_exited", selectButton.bind(btn, false, btn.get_child(0).text))
-		if btn.name != "back":
-			btn.connect("button_up", loadLevel.bind(btn.name))
-		else:
-			btn.connect("button_up", back)
+		if btn is Button:
+			btn.connect("mouse_entered", selectButton.bind(btn, true, btn.get_child(0).text))
+			btn.connect("mouse_exited", selectButton.bind(btn, false, btn.get_child(0).text))
+			if btn.name != "back":
+				btn.connect("button_up", loadLevel.bind(btn.name))
+			else:
+				btn.connect("button_up", back)
 	
 	for btn in selectionButtons.get_children():
 			btn.connect("mouse_entered", selectButton.bind(btn, true, btn.get_child(0).text))
@@ -25,7 +28,9 @@ func _ready() -> void:
 			btn.connect("button_up", cfun)
 
 func loadLevel(level):
-	print("Go to level " + level)
+	Global.difficulty = level
+	await GameUi.darkenScreen()
+	get_tree().change_scene_to_file("res://Scenes/main_game.tscn")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Throw") and selectedLevel != null:
@@ -57,10 +62,27 @@ func play():
 	
 	await newTween2.finished
 	
+	currentControll = levelButtons
+	
 	selectionButtons.visible = false
 
 func settings():
-	print("settings go brrrr")
+	settingSliders.global_position = midPos + Vector2(0, 500)
+	settingSliders.visible = true
+	
+	var newTween = create_tween()
+	newTween.tween_property(settingSliders, "global_position", midPos, 0.5)
+	var newTween2 = create_tween()
+	newTween2.tween_property(selectionButtons, "global_position", midPos + Vector2(0, 500), 0.5)
+	
+	newTween.play()
+	newTween2.play()
+	
+	await newTween2.finished
+	
+	currentControll = settingSliders
+	
+	selectionButtons.visible = false
 
 func exit():
 	get_tree().quit()
@@ -72,11 +94,14 @@ func back():
 	var newTween = create_tween()
 	newTween.tween_property(selectionButtons, "global_position", midPos, 0.5)
 	var newTween2 = create_tween()
-	newTween2.tween_property(levelButtons, "global_position", midPos + Vector2(0, 500), 0.5)
+	newTween2.tween_property(currentControll, "global_position", midPos + Vector2(0, 500), 0.5)
 	
 	newTween.play()
 	newTween2.play()
 	
 	await newTween2.finished
 	
-	levelButtons.visible = false
+	currentControll.visible = false
+
+func _on_back_button_down() -> void:
+	back()

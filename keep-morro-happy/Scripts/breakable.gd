@@ -5,6 +5,9 @@ var broken = false
 var puddleSpill = preload("res://Scenes/puddle_spill.tscn")
 signal getBroken
 
+func _ready():
+	$BreakableVase.frame = randi_range(0, ($BreakableVase.hframes / 2) - 1) * 2
+
 func destroy():
 	var newPuddle = puddleSpill.instantiate()
 	newPuddle.global_position = global_position

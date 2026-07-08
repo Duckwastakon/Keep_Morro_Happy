@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var floorSize = Global.mapSize
+var floorSize = Global.difficulties[Global.difficulty].mapSize
 
 const floorTileArt = preload("res://Assets/Art/floorTile.png")
 const floorTileAverage = preload("res://Assets/Art/floorTileBland.png")
@@ -9,10 +9,15 @@ const floorTileAverage = preload("res://Assets/Art/floorTileBland.png")
 
 @export var roomAmount: int = 3
 
-const tileSize = 48
+const tileSize = 32
+
+var mapSize = Vector2.ZERO
 
 @onready var floorTiles = $floor
 @onready var wallTiles = $walls
+
+func _ready() -> void:
+	mapSize = Global.difficulties[Global.difficulty].mapSize
 
 func setupMap() -> void:
 	floorTiles.scale = Vector2(tileSize/16, tileSize/16)
@@ -26,6 +31,7 @@ func setupMap() -> void:
 	createRooms()
 	
 	createSuroundingWalls()
+	updateWallSprites()
 
 func createFloor(x, y):
 	var offset = Vector2(tileSize/2, tileSize/2)
@@ -34,32 +40,21 @@ func createFloor(x, y):
 	
 	for i in x:
 		for n in y:
-			#var newTile = Sprite2D.new()
-			#newTile.texture = floorTileAverage
-			#newTile.scale = Vector2(tileSize / 16, tileSize / 16)
 			var global_pos = offset + Vector2(tileSize*i, tileSize*n)
 			var pos = floorTiles.local_to_map(floorTiles.to_local(global_pos))
 			floorTiles.set_cell(pos, 0, Vector2i(0, 0))
 			
-			if randi_range(0,9) <= 1:
-				var aboveTile = Sprite2D.new()
-				add_child(aboveTile)
-				aboveTile.z_index = 1
-				aboveTile.scale = Vector2(tileSize/16, tileSize/16)
-				aboveTile.global_position = global_pos
-				aboveTile.texture = floorTileArt
-				var newShaderMaterial = ShaderMaterial.new()
-				newShaderMaterial.shader = floorShader
-				aboveTile.material = newShaderMaterial
+			if randi_range(0,9) <= 2:
+				floorTiles.set_cell(pos, 0, Vector2i(randi_range(0, 5), 0))
 
 func createSuroundingWalls():
 	for x in 2:
-		var wallSize = Vector2(Global.mapSize.x, tileSize) + Vector2(tileSize, 0)
-		var wallPos = Vector2(0, Global.mapSize.y * x) + Vector2(tileSize, tileSize) * (x - 1)
+		var wallSize = Vector2(mapSize.x, tileSize) + Vector2(tileSize, 0)
+		var wallPos = Vector2(0, mapSize.y * x) + Vector2(tileSize, tileSize) * (x - 1)
 		createWall(wallSize, wallPos)
 	for y in 2:
-		var wallSize = Vector2(tileSize, Global.mapSize.y) + Vector2(0, tileSize)
-		var wallPos = Vector2(Global.mapSize.x * y, 0) + Vector2(tileSize, tileSize) * (y - 1)
+		var wallSize = Vector2(tileSize, mapSize.y) + Vector2(0, tileSize)
+		var wallPos = Vector2(mapSize.x * y, 0) + Vector2(tileSize, tileSize) * (y - 1)
 		
 		createWall(wallSize, wallPos)
 
@@ -106,12 +101,6 @@ func createDoorWall(size, pos, middle = false):
 	createWall(wall2Size, wall2Pos)
 
 func createWall(size, pos):
-	var wall = ColorRect.new()
-	
-	wall.size = size
-	wall.global_position = pos
-	wall.z_index = 5
-	
 	var startTilePos = wallTiles.local_to_map(wallTiles.to_local(pos))
 	
 	if(size.x >= size.y):
@@ -122,20 +111,6 @@ func createWall(size, pos):
 		for i in size.y/tileSize:
 			wallTiles.set_cell(startTilePos + Vector2i(0, i), 0, Vector2i(6, 0))
 			floorTiles.erase_cell(startTilePos + Vector2i(0, i))
-	
-	var newStaticBody = StaticBody2D.new()
-	wall.add_child(newStaticBody)
-	
-	var newCollision = CollisionShape2D.new()
-	newStaticBody.add_child(newCollision)
-	newCollision.shape = RectangleShape2D.new()
-	newCollision.shape.size = size
-	newStaticBody.global_position = pos + size/2
-	newCollision.position = Vector2.ZERO
-	
-	var newNavigationObject = NavigationObstacle2D.new()
-	newStaticBody.add_child(newNavigationObject)
-	newNavigationObject.vertices.append_array([Vector2.ZERO, Vector2(0, size.y), Vector2(size.x, size.y), Vector2(size.x, 0)])
 
 func checkTile(pos) -> bool:
 	var data = floorTiles.get_cell_tile_data(floorTiles.local_to_map(floorTiles.to_local(pos)))
@@ -144,3 +119,40 @@ func checkTile(pos) -> bool:
 		return true
 	
 	return false
+
+var tilei = {
+	"[0, 0, 0, 0]" = 6,
+	"[0, 0, 1, 0]" = 7,
+	"[1, 0, 0, 0]" = 8,
+	"[0, 1, 0, 0]" = 9,
+	"[0, 0, 0, 1]" = 10,
+	"[0, 1, 0, 1]" = 11,
+	"[1, 0, 1, 0]" = 12,
+	"[1, 1, 0, 0]" = 13,
+	"[0, 1, 1, 0]" = 14,
+	"[0, 0, 1, 1]" = 15,
+	"[1, 0, 0, 1]" = 16,
+	"[1, 0, 1, 1]" = 17,
+	"[1, 1, 0, 1]" = 18,
+	"[1, 1, 1, 0]" = 19,
+	"[0, 1, 1, 1]" = 20,
+	"[1, 1, 1, 1]" = 21,
+}
+
+
+func updateWallSprites():
+	for x in mapSize.x/tileSize:
+		for y in mapSize.y/tileSize:
+			if wallTiles.get_cell_tile_data(Vector2i(x, y)):
+				var surrounding = [0, 0, 0, 0]
+				
+				if wallTiles.get_cell_tile_data(Vector2i(x - 1, y)):
+					surrounding[0] = 1
+				if wallTiles.get_cell_tile_data(Vector2i(x, y - 1)):
+					surrounding[1] = 1
+				if wallTiles.get_cell_tile_data(Vector2i(x + 1, y)):
+					surrounding[2] = 1
+				if wallTiles.get_cell_tile_data(Vector2i(x, y + 1)):
+					surrounding[3] = 1
+				
+				wallTiles.set_cell(Vector2i(x, y), 0, Vector2i(tilei[str(surrounding)], 0))

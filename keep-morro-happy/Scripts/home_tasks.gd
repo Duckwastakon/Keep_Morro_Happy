@@ -3,11 +3,6 @@ extends CanvasLayer
 var currentTask = null
 var player
 
-func _input(event: InputEvent) -> void:
-	pass
-	#if event.is_action_released("Throw") and currentTask != null:
-	#	closeTask()
-
 func openTask(task):
 	if task:
 		currentTask = task
@@ -45,3 +40,12 @@ func compleatedTask():
 
 func _on_close_task_button_up() -> void:
 	closeTask()
+
+func clearTasks():
+	closeTask()
+	
+	for child in get_children():
+		if child is Control:
+			child.queue_free()
+		
+		

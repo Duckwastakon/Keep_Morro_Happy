@@ -15,7 +15,7 @@ func _ready() -> void:
 	bookIndicator.text = str(books) + "/" + str(neededBooks)
 	
 	for n in neededBooks:
-		var pos = Vector2(randi_range(0, Global.mapSize.x), randi_range(0, Global.mapSize.y))
+		var pos = Vector2(randi_range(0, Global.difficulties[Global.difficulty].mapSize.x), randi_range(0, Global.difficulties[Global.difficulty].mapSize.y))
 		var newItem = itemPrefab.instantiate()
 		newItem.id = bookId
 		newItem.global_position = pos

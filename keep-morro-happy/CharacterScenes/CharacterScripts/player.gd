@@ -114,15 +114,10 @@ func clean():
 
 func stun():
 	get_viewport().get_camera_2d().screenshake(8, 0.25)
-	velocity = Vector2.ZERO
 	ExtraVisuals.floatingText("Ouch!", global_position)
 	
-	speed = speedStat - randi_range(20, 25)
+	canMove = false
+	velocity = Vector2.ZERO
+	await loadingBar.fire(1)
 	
-	while speed < speedStat:
-		speed += randf_range(0.5, 1)
-		print(speed)
-		
-		await get_tree().create_timer(1).timeout
-	
-	speed = speedStat
+	canMove = true

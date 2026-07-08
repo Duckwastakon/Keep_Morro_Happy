@@ -15,7 +15,8 @@ func floatingText(text, pos):
 	newTween.play()
 	await newTween.finished
 	
-	newText.queue_free()
+	if newText:
+		newText.queue_free()
 
 func loadInfo(requestingNode, text, offset = Vector2(0, 32)) -> RichTextLabel:
 	var newText = infoTextLabel.instantiate()
@@ -50,3 +51,16 @@ func floatingSprite(sprite, pos):
 	await newTween.finished
 	
 	newSprite.queue_free()
+
+func playSound(gottenSound, pos):
+	var newSound = AudioStreamPlayer2D.new()
+	
+	get_parent().add_child(newSound)
+	newSound.global_position = pos
+	newSound.stream = gottenSound
+	newSound.volume_db = 2 * (Global.sfxVolume / 100)
+	newSound.play()
+	
+	await newSound.finished
+	
+	newSound.queue_free()

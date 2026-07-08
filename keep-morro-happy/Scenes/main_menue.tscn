@@ -2,9 +2,20 @@
 
 [ext_resource type="Script" uid="uid://bqr1o26a4ad83" path="res://textAffects/wobbly.gd" id="1_7raxh"]
 [ext_resource type="Script" uid="uid://cwqmx1d646evc" path="res://Scripts/main_menue.gd" id="1_aei31"]
+[ext_resource type="Shader" uid="uid://domnrh4co2ls8" path="res://shaders/scroll.gdshader" id="2_5qge5"]
+[ext_resource type="Texture2D" uid="uid://djcaev1d44w1t" path="res://Assets/Art/brownTile.png" id="3_5qge5"]
+[ext_resource type="Script" uid="uid://ck5royro628jc" path="res://Scenes/settings_sliders.gd" id="3_emj01"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpijf"]
+shader = ExtResource("2_5qge5")
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/border = 0.1
 
 [sub_resource type="LabelSettings" id="LabelSettings_e2yli"]
 font_size = 48
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_aei31"]
 script = ExtResource("1_7raxh")
@@ -18,6 +29,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aei31")
+
+[node name="BlueTile" type="Sprite2D" parent="." unique_id=1245639955]
+z_index = -1
+material = SubResource("ShaderMaterial_cpijf")
+position = Vector2(579.99994, 324)
+scale = Vector2(72.5, 72.5)
+texture = ExtResource("3_5qge5")
 
 [node name="MainText" type="Label" parent="." unique_id=1589663959]
 layout_mode = 0
@@ -39,6 +57,21 @@ offset_right = 832.0
 offset_bottom = 448.0
 mouse_filter = 2
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="levelButtons" unique_id=1786104993]
+layout_mode = 0
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 336.0
+offset_bottom = -24.0
+scale = Vector2(1.5, 1.5)
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[wobbly]Choose difficulty[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
 [node name="beginner" type="Button" parent="levelButtons" unique_id=983316131]
 layout_mode = 0
 offset_left = 96.0
@@ -51,8 +84,9 @@ layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
-text = "[wobbly]Level 1[wobbly]"
+text = "[wobbly]beginner[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
@@ -66,12 +100,14 @@ offset_bottom = 64.0
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/normal" unique_id=477135913]
+modulate = Color(1, 1, 0.6627451, 1)
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
-text = "[wobbly]Level 2[wobbly]"
+text = "[wobbly]normal[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
@@ -85,12 +121,14 @@ offset_bottom = 96.0
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/hard" unique_id=1121668289]
+modulate = Color(0.9512879, 0.5321547, 0.4899705, 1)
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
-text = "[wobbly]Level 3[wobbly]"
+text = "[wobbly]hard[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
@@ -104,12 +142,14 @@ offset_bottom = 128.0
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/impossible" unique_id=792833700]
+modulate = Color(0.49803922, 0.3137255, 1, 1)
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
-text = "[wobbly]Level 4[wobbly]"
+text = "[wobbly]impossible[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
@@ -123,12 +163,14 @@ offset_bottom = 160.0
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="levelButtons/speed" unique_id=2119720545]
+modulate = Color(0.45490196, 1, 1, 1)
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
-text = "[wobbly]Level 5[wobbly]"
+text = "[wobbly]speedrun[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
@@ -146,6 +188,7 @@ layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
 text = "[wobbly]Back[wobbly]"
 horizontal_alignment = 1
@@ -162,9 +205,10 @@ mouse_filter = 2
 
 [node name="play" type="Button" parent="selectionButtons" unique_id=12830471]
 layout_mode = 0
-offset_left = 96.0
-offset_right = 416.0
+offset_left = -64.0
+offset_right = 256.0
 offset_bottom = 32.0
+scale = Vector2(2, 2)
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/play" unique_id=1713516430]
@@ -172,6 +216,7 @@ layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
 text = "[wobbly]Play[wobbly]"
 horizontal_alignment = 1
@@ -180,10 +225,11 @@ custom_effects = [SubResource("RichTextEffect_aei31")]
 
 [node name="settings" type="Button" parent="selectionButtons" unique_id=2040825881]
 layout_mode = 0
-offset_left = 96.0
-offset_top = 32.0
-offset_right = 416.0
-offset_bottom = 64.0
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 256.0
+offset_bottom = 96.0
+scale = Vector2(2, 2)
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/settings" unique_id=994733537]
@@ -191,6 +237,7 @@ layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
 text = "[wobbly]Settings[wobbly]"
 horizontal_alignment = 1
@@ -199,10 +246,11 @@ custom_effects = [SubResource("RichTextEffect_aei31")]
 
 [node name="exit" type="Button" parent="selectionButtons" unique_id=649131943]
 layout_mode = 0
-offset_left = 96.0
-offset_top = 64.0
-offset_right = 416.0
-offset_bottom = 96.0
+offset_left = -64.0
+offset_top = 128.0
+offset_right = 256.0
+offset_bottom = 160.0
+scale = Vector2(2, 2)
 flat = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="selectionButtons/exit" unique_id=1629114747]
@@ -210,8 +258,155 @@ layout_mode = 0
 offset_right = 320.0
 offset_bottom = 32.0
 mouse_filter = 2
+theme_override_constants/outline_size = 8
 bbcode_enabled = true
 text = "[wobbly]Exit[wobbly]"
 horizontal_alignment = 1
 vertical_alignment = 1
 custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="settingsSliders" type="Control" parent="." unique_id=686502012]
+visible = false
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 832.0
+offset_bottom = 448.0
+mouse_filter = 2
+script = ExtResource("3_emj01")
+
+[node name="screenShake" type="Control" parent="settingsSliders" unique_id=114057275]
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 64.0
+
+[node name="HSlider" type="HSlider" parent="settingsSliders/screenShake" unique_id=193706711]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 40.0
+offset_right = 384.0
+offset_bottom = 56.0
+rounded = true
+
+[node name="screenShake" type="RichTextLabel" parent="settingsSliders/screenShake" unique_id=1424311238]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 8.0
+offset_right = 416.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[wobbly]screen shake[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="amount" type="Label" parent="settingsSliders/screenShake" unique_id=1507673465]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 32.0
+offset_right = 448.0
+offset_bottom = 63.0
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sfxSlider" type="Control" parent="settingsSliders" unique_id=1138873868]
+anchors_preset = 0
+offset_top = 64.0
+offset_right = 512.0
+offset_bottom = 128.0
+
+[node name="sfx" type="HSlider" parent="settingsSliders/sfxSlider" unique_id=1287008962]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 40.0
+offset_right = 384.0
+offset_bottom = 56.0
+
+[node name="screenShake" type="RichTextLabel" parent="settingsSliders/sfxSlider" unique_id=1937616854]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 8.0
+offset_right = 416.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[wobbly]sfx volume[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="amount2" type="Label" parent="settingsSliders/sfxSlider" unique_id=1704986522]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 32.0
+offset_right = 448.0
+offset_bottom = 63.0
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="musicSlider" type="Control" parent="settingsSliders" unique_id=1376848867]
+anchors_preset = 0
+offset_top = 128.0
+offset_right = 512.0
+offset_bottom = 192.0
+
+[node name="music" type="HSlider" parent="settingsSliders/musicSlider" unique_id=1614854471]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 40.0
+offset_right = 384.0
+offset_bottom = 56.0
+
+[node name="screenShake" type="RichTextLabel" parent="settingsSliders/musicSlider" unique_id=1554719574]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 8.0
+offset_right = 416.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[wobbly]background music volume[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[node name="amount3" type="Label" parent="settingsSliders/musicSlider" unique_id=1441280367]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 32.0
+offset_right = 448.0
+offset_bottom = 63.0
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="back" type="Button" parent="settingsSliders" unique_id=120793751]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 200.0
+offset_right = 416.0
+offset_bottom = 232.0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="settingsSliders/back" unique_id=911191982]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 32.0
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[wobbly]Back[wobbly]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_aei31")]
+
+[connection signal="drag_ended" from="settingsSliders/screenShake/HSlider" to="settingsSliders" method="_on_h_slider_drag_ended"]
+[connection signal="drag_ended" from="settingsSliders/sfxSlider/sfx" to="settingsSliders" method="_on_sfx_drag_ended"]
+[connection signal="drag_ended" from="settingsSliders/musicSlider/music" to="settingsSliders" method="_on_music_drag_ended"]
+[connection signal="button_down" from="settingsSliders/back" to="." method="_on_back_button_down"]

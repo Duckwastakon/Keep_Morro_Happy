@@ -4,7 +4,7 @@ var types = ["+", "-", "*"]
 
 var correctAnswers = 0
 var answered = 0
-@export var questionAmount = 5
+@export var questionAmount = 4
 
 @onready var questionClonable = $question
 @onready var questionContainer = $questions

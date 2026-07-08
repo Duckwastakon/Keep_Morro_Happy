@@ -82,6 +82,21 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_wk1on"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkTile:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(576, 1296), Vector2(576, 320.00006)]
+}
+
 [sub_resource type="Animation" id="Animation_vsibv"]
 resource_name = "end"
 length = 2.0
@@ -122,6 +137,21 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_hawvw"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkTile:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(576, 320.00006), Vector2(576, -696)]
+}
+
 [sub_resource type="Animation" id="Animation_06gsf"]
 resource_name = "openScene"
 tracks/0/type = "value"
@@ -152,7 +182,9 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wk1on"]
 _data = {
 &"RESET": SubResource("Animation_oiq42"),
+&"close": SubResource("Animation_wk1on"),
 &"end": SubResource("Animation_vsibv"),
+&"open": SubResource("Animation_hawvw"),
 &"openScene": SubResource("Animation_06gsf")
 }
 
@@ -162,6 +194,7 @@ script = ExtResource("1_go1i3")
 taskLabel = SubResource("LabelSettings_vihnx")
 
 [node name="dayTimer" type="Label" parent="." unique_id=1155840710]
+visible = false
 offset_left = 384.0
 offset_right = 768.0
 offset_bottom = 88.0
@@ -239,8 +272,6 @@ mouse_filter = 2
 text = "You win"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1301566729]
 
 [node name="Warning" type="Control" parent="." unique_id=749536942]
 visible = false

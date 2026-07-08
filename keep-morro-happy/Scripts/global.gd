@@ -1,18 +1,75 @@
 extends Node
 
-#Settings
-var mouseThrow = false
-var sfxVolume = 50
-var musicVolume = 50
-var screenShake = 50
+var config = ConfigFile.new()
+const SETTINGS_FILE_PATH = "user://settings.ini"
 
-var mapSize = Vector2(1152, 672)
+func setup() -> void:
+	if !FileAccess.file_exists(SETTINGS_FILE_PATH):
+		config.set_value("main", "sfxVolume", 50)
+		config.set_value("main", "musicVolume", 50)
+		config.set_value("main", "screenShake", 50)
+		
+		config.save(SETTINGS_FILE_PATH)
+	else:
+		config.load(SETTINGS_FILE_PATH)
+
+func saveSetting(key, value):
+	config.set_value("main", key, value)
+	config.save(SETTINGS_FILE_PATH)
+
+func loadSetting(key):
+	if config.has_section("main"):
+		return config.get_value("main", key)
+	else:
+		setup()
+		return loadSetting(key)
+
+
+#Settings
+var mouseThrow = true
+
+var sfxVolume = loadSetting("sfxVolume")
+var musicVolume = loadSetting("musicVolume")
+var screenShake = loadSetting("screenShake")
 
 const itemPullSpeed = 100
 const throwSpeed = 500
 const cleanTime = 3
-const petDesireTimer = 40
-var gameTime = 10
+
+var difficulty = "beginner"
+
+var difficulties = {
+	"beginner" = {
+		gameTime = 150,
+		petDesireTimer = 55,
+		mapSize = Vector2(1152, 672),
+		taskAmount = 3,
+	},
+	"normal" = {
+		gameTime = 150,
+		petDesireTimer = 45,
+		mapSize = Vector2(1152, 672),
+		taskAmount = 4,
+	},
+	"hard" = {
+		gameTime = 150,
+		petDesireTimer = 35,
+		mapSize = Vector2(1152, 672),
+		taskAmount = 5,
+	},
+	"impossible" = {
+		gameTime = 165,
+		petDesireTimer = 25,
+		mapSize = Vector2(1152, 672),
+		taskAmount = 8,
+	},
+	"speed" = {
+		gameTime = 90,
+		petDesireTimer = 30,
+		mapSize = Vector2(1152, 672),
+		taskAmount = 7,
+	},
+}
 
 const tasks = ["books", "wires", "cleaning", "homework", "poop", "coffee", "dishes"]
 

@@ -14,6 +14,8 @@ var poopInstance = preload("res://CharacterScenes/poop.tscn")
 var breakable = preload("res://Scenes/breakable.tscn")
 @onready var breakableContainer = $breakables
 
+var mapSize = Vector2(1152, 672)
+
 var trashBin = preload("res://Scenes/trash_bin.tscn")
 var item = preload("res://CharacterScenes/item.tscn")
 
@@ -40,6 +42,7 @@ func removeDirt(amount: int):
 		taskProgress[0] = true
 
 func _ready() -> void:
+	var mapSize = Global.difficulties[Global.difficulty].mapSize
 	GameUi.setActive(true)
 	
 	houseDirtTask = GameUi.addDayTask("Keep the house clean")
@@ -49,6 +52,8 @@ func _ready() -> void:
 	generateTasks()
 	spawnBreakables()
 	spawnEssentials()
+	
+	GameUi.openScreen()
 	
 	await GameUi.Gametimer()
 	
@@ -68,7 +73,7 @@ func generateTasks():
 		var pos: Vector2
 		
 		while !foundPosition:
-			pos = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize  
+			pos = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize  
 			foundPosition = true
 			
 			foundPosition = map.checkTile(pos)
@@ -140,7 +145,7 @@ func poop(pos):
 		
 		
 		while !foundPosition:
-			pos = Vector2(randi_range(tileSize, Global.mapSize.x), randi_range(tileSize, Global.mapSize.y)) 
+			pos = Vector2(randi_range(tileSize, mapSize.x), randi_range(tileSize, mapSize.y)) 
 			foundPosition = map.checkTile(pos)
 		
 		var newPoop = poopInstance.instantiate()
@@ -184,7 +189,7 @@ func spawnEssentials():
 	var pos: Vector2
 		
 	while !foundPosition:
-		pos = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize  
+		pos = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize  
 		foundPosition = true
 		
 		foundPosition = map.checkTile(pos)
@@ -200,7 +205,7 @@ func spawnEssentials():
 	
 	var broom = item.instantiate()
 	broom.id = broomId
-	broom.global_position = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize + Vector2(tileSize/2, tileSize/2)  
+	broom.global_position = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize + Vector2(tileSize/2, tileSize/2)  
 	add_child(broom)
 
 func spawnBreakables():
@@ -224,7 +229,7 @@ func getPossiblePosition() -> Vector2:
 	var pos: Vector2
 	
 	while !foundPosition:
-		pos = Vector2(randi_range(1, Global.mapSize.x/tileSize - 2), randi_range(1, Global.mapSize.y/tileSize - 2)) * tileSize  
+		pos = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize  
 		foundPosition = true
 		
 		foundPosition = map.checkTile(pos)

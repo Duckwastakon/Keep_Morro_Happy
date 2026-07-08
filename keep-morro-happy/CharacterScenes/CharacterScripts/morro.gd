@@ -23,7 +23,6 @@ const needs = {
 	0: "poop",
 	1: "desirePets",
 	2: "destroy",
-	3: "annoy",
 }
 
 var hunger = 0
@@ -98,8 +97,9 @@ func pet():
 	print("petting")
 	
 	petCount -= 1
-	if petCount < -3:
+	if petCount < 0:
 		ExtraVisuals.floatingText("Stop petting me!", global_position)
+		player.stun()
 		return true
 	
 	if petCount <= 0 and !canMove and wantsPets == true:
