@@ -5,7 +5,7 @@ func _on_close_button_down() -> void:
 	visible = false
 
 func openPage():
-	for x in 9:
+	for x in 10:
 		get_child(x).visible = false
 	
 	get_child(i).visible = true

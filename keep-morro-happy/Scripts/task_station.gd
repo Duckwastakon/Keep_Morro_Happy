@@ -49,7 +49,7 @@ func _ready() -> void:
 	connect("taskCompleated", complete)
 
 func complete():
-	spriteDisplay.material.set_shader_parameter("speed", 0)
+	spriteDisplay.material = null
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "player":

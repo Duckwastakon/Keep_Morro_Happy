@@ -71,11 +71,13 @@ _data = {
 script = ExtResource("1_ahrgu")
 
 [node name="PlayerSheet" type="Sprite2D" parent="." unique_id=928623418]
+z_index = 5
 scale = Vector2(2, 2)
 texture = ExtResource("2_oqffx")
 hframes = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526516162]
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_mp23k")
 
 [node name="playerArea" type="Area2D" parent="." unique_id=1518218925]

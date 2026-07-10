@@ -20,12 +20,14 @@ func openTask(task):
 func closeTask():
 	if currentTask != null:
 		var task = currentTask
+		if task == null: return
 		var newTween = create_tween()
 		newTween.tween_property(task, "position", Vector2(0, 1000), 0.5)
 		newTween.play()
 		currentTask = null
 		$closeTask.visible = false
 		await newTween.finished
+		if task == null: return
 		task.visible = false
 		if player:
 			player.canMove = true
@@ -45,6 +47,6 @@ func clearTasks():
 	closeTask()
 	
 	for child in get_children():
-		print(child)
-		if child is Control:
+		if child.name != "closeTask" and child.name != "CompleateText":
+			print(child)
 			child.queue_free()

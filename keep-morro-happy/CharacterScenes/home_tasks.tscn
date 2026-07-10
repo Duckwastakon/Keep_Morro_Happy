@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bpehic42eqtsj" path="res://Scripts/home_tasks.gd" id="1_brq2h"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_u3dcs"]
+font_size = 28
+font_color = Color(0.96810406, 0.4735942, 0.39376947, 1)
+outline_size = 12
+outline_color = Color(0.17211533, 0.1721153, 0.1721153, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_brq2h"]
 font_size = 72
 font_color = Color(0, 0.5869, 0.38905838, 1)
@@ -17,7 +23,16 @@ offset_left = 832.0
 offset_top = 128.0
 offset_right = 896.0
 offset_bottom = 192.0
+flat = true
+
+[node name="Label2" type="Label" parent="closeTask" unique_id=551008445]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
 text = "X"
+label_settings = SubResource("LabelSettings_u3dcs")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CompleateText" type="Label" parent="." unique_id=40002196]
 visible = false

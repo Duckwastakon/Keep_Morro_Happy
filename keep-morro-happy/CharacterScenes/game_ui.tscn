@@ -309,3 +309,4 @@ one_shot = true
 stream = ExtResource("4_oiq42")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="timeout" from="Warning/warningTimer" to="." method="_on_warning_timer_timeout"]

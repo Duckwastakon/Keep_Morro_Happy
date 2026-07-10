@@ -4,7 +4,7 @@ var types = ["+", "-", "*"]
 
 var correctAnswers = 0
 var answered = 0
-@export var questionAmount = 4
+var questionAmount = 4
 
 @onready var questionClonable = $question
 @onready var questionContainer = $questions
@@ -19,6 +19,7 @@ func _ready() -> void:
 	generateQuestions()
 
 func generateQuestions():
+	questionAmount = Global.difficulties[Global.difficulty].mathAmount
 	correctAnswers = 0
 	answered = 0
 	

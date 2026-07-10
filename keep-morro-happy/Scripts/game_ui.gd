@@ -33,22 +33,24 @@ func playMusic(Audio):
 	if Global.musicVolume == 0:
 		$GameMusic.stop()
 	else:
-		$GameMusic.volume_db = 12 * ((-50 + Global.musicVolume)/50) - 10
+		$GameMusic.volume_db = 12 * ((-50 + Global.musicVolume)/50) - 15
 
 func updateMusicAudio():
 	$GameMusic.playing = true
 	if Global.musicVolume == 0:
 		$GameMusic.stop()
 	else:
-		$GameMusic.volume_db = 12 * ((-50 + Global.musicVolume)/50) - 10
+		$GameMusic.volume_db = 12 * ((-50 + Global.musicVolume)/50) - 15
 
 func setActive(val: bool):
 	canCheck = val
 	warnings.visible = val
 	timerText.visible = val
 
+var timeLeft = 0
+
 func Gametimer():
-	var timeLeft = Global.difficulties[Global.difficulty].gameTime
+	timeLeft = Global.difficulties[Global.difficulty].gameTime
 	
 	while timeLeft > 0:
 		var mins = floor(timeLeft / 60)
@@ -62,22 +64,30 @@ func Gametimer():
 		await get_tree().create_timer(1).timeout
 		timeLeft -= 1
 
+var newTween = null
+var newTween2 = null
+
 func addWarning(warning) -> bool:
 	if warningActive: return false
+	if newTween != null:
+		newTween.stop()
+	if newTween2 != null:
+		newTween2.stop()
 	
+	var time = Global.difficulties[Global.difficulty].morroTime
 	warningActive = true
 	warnMain.visible = true
 	warningText.text = warnings[warning]
 	fill.scale = Vector2(1, 1)
 	fill.color = Color(1,1,1,1)
-	var newTween = create_tween()
-	newTween.tween_property(fill, "scale", Vector2(0, 1), 10)
-	var newTween2 = create_tween()
-	newTween2.tween_property(fill, "color", Color(1, 0.2, 0, 1), 10)
+	newTween = create_tween()
+	newTween.tween_property(fill, "scale", Vector2(0, 1), time)
+	newTween2 = create_tween()
+	newTween2.tween_property(fill, "color", Color(1, 0.2, 0, 1), time)
 	newTween.play()
 	newTween2.play()
 	
-	warningTimer.start(10)
+	warningTimer.start(time)
 	
 	return true
 
@@ -114,6 +124,8 @@ func endGame(gottenData) -> void:
 	for i in gottenData:
 		data.append(i)
 	
+	warnMain.visible = false
+	
 	var outcome = true
 	
 	var i = 0
@@ -137,6 +149,7 @@ func endGame(gottenData) -> void:
 	
 	get_tree().change_scene_to_file("res://Scenes/main_menue.tscn")
 	await get_tree().create_timer(0.2).timeout
+	warningActive = false
 	
 	i = 0
 	for task in dayTasksContainer.get_children():
@@ -144,19 +157,25 @@ func endGame(gottenData) -> void:
 			task.modulate = Color.LIME_GREEN
 		else:
 			task.modulate = Color.RED
+			ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), Vector2.ZERO)
 			outcome = false
 		i += 1
 	
 	for task in dayTasksContainer.get_children():
 		task.visible = true
+		if task.modulate == Color.LIME_GREEN:
+			ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), Vector2.ZERO)
+		else:
+			ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), Vector2.ZERO)
+		
 		await get_tree().create_timer(1).timeout
 	
 	if outcome:
 		$outcomeText.text = "You Win"
-		ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), Vector2.ZERO)
+		ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), Vector2.ZERO)
 	else:
 		$outcomeText.text = "You Loose"
-		ExtraVisuals.playSound(load("res://Assets/Music/success.mp3"), Vector2.ZERO)
+		ExtraVisuals.playSound(load("res://Assets/Music/hurt_fail.mp3"), Vector2.ZERO)
 	$outcomeText.visible = true
 	
 	await get_tree().create_timer(1.5).timeout
@@ -179,3 +198,6 @@ func darkenScreen():
 
 func openScreen():
 	$endGame.play("open")
+
+func _on_warning_timer_timeout() -> void:
+	timeLeft = 0

@@ -39,7 +39,8 @@ var puddlePrefab = preload("res://Scenes/puddle_spill.tscn")
 
 func _ready() -> void:
 	infoText = ExtraVisuals.loadInfo(self, "Press e to pet")
-	
+	$needTimer.wait_time = Global.difficulties[Global.difficulty].morroNeeds
+	$needTimer.start()
 	basicNeeds()
 
 func _process(_delta: float) -> void:

@@ -12,6 +12,7 @@ var taskStation = preload("res://Scenes/task_station.tscn")
 var puddle = preload("res://Scenes/puddle_spill.tscn")
 var poopInstance = preload("res://CharacterScenes/poop.tscn")
 var breakable = preload("res://Scenes/breakable.tscn")
+var decor = preload("res://Scenes/decoration.tscn")
 @onready var breakableContainer = $breakables
 
 var mapSize = Vector2(1152, 672)
@@ -54,6 +55,7 @@ func _ready() -> void:
 	generateTasks()
 	spawnBreakables()
 	spawnEssentials()
+	spawnDecor()
 	
 	GameUi.openScreen()
 	
@@ -117,7 +119,7 @@ func wires(pos):
 	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func cleaning(pos):
-	for i in randi_range(6, 8):
+	for i in randi_range(4, 7):
 		pos = getPossiblePosition()
 		
 		var newPuddle = puddle.instantiate()
@@ -142,7 +144,7 @@ func homework(pos):
 	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func poop(pos):
-	for i in randi_range(8, 12):
+	for i in randi_range(4, 6):
 		var foundPosition = false
 		
 		
@@ -187,22 +189,8 @@ func coffee(pos):
 	newTaskStation.connect("taskCompleated", compleateTask.bind(newTaskLabel, taskId))
 
 func spawnEssentials():
-	var foundPosition = false
-	var pos: Vector2
-		
-	while !foundPosition:
-		pos = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize  
-		foundPosition = true
-		
-		foundPosition = map.checkTile(pos)
-		
-		if foundPosition:
-			for stat in stations:
-				if stat.global_position.distance_to(pos) < tileSize * 2:
-					foundPosition = false
-	
 	var newTrash = trashBin.instantiate()
-	newTrash.global_position = pos + Vector2(tileSize/2, tileSize/2)
+	newTrash.global_position = getPossiblePosition()
 	add_child(newTrash)
 	
 	var newFoodBox = foodBox.instantiate()
@@ -211,7 +199,7 @@ func spawnEssentials():
 	
 	var broom = item.instantiate()
 	broom.id = broomId
-	broom.global_position = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize + Vector2(tileSize/2, tileSize/2)  
+	broom.global_position = getPossiblePosition()
 	add_child(broom)
 
 func spawnBreakables():
@@ -230,11 +218,24 @@ func compleateTask(taskLabel, index):
 	taskProgress[index] = true
 	taskLabel.modulate = Color.GREEN
 
+func spawnDecor():
+	for i in 30:
+		var pos = getPossiblePosition()
+		var newDecor = decor.instantiate()
+		newDecor.global_position = pos
+		add_child(newDecor)
+	
+	$player.global_position = getPossiblePosition()
+	$mango.global_position = getPossiblePosition()
+	$morro.global_position = getPossiblePosition()
+
 func getPossiblePosition() -> Vector2:
 	var foundPosition = false
 	var pos: Vector2
 	
+	var i = 0
 	while !foundPosition:
+		i += 1
 		pos = Vector2(randi_range(1, mapSize.x/tileSize - 2), randi_range(1, mapSize.y/tileSize - 2)) * tileSize  
 		foundPosition = true
 		
@@ -244,5 +245,8 @@ func getPossiblePosition() -> Vector2:
 			for stat in stations:
 				if stat.global_position.distance_to(pos) < tileSize * 2:
 					foundPosition = false
+		
+		if i>=100:
+			foundPosition = map.checkTile(pos)
 	
 	return pos + Vector2(tileSize/2, tileSize/2)

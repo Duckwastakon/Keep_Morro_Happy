@@ -12,6 +12,7 @@ collision_mask = 5
 script = ExtResource("1_3cmhg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1688866783]
+scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_va4qd")
 
 [node name="Trash" type="Sprite2D" parent="." unique_id=1655646344]

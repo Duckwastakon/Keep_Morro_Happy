@@ -10,12 +10,12 @@ var itemPrefab = preload("res://CharacterScenes/item.tscn")
 @onready var bookIndicator: Label = $indicator
 
 func _ready() -> void:
-	neededBooks = randi_range(1, 3)
+	neededBooks = randi_range(5, 7)
 	
 	bookIndicator.text = str(books) + "/" + str(neededBooks)
 	
 	for n in neededBooks:
-		var pos = Vector2(randi_range(0, Global.difficulties[Global.difficulty].mapSize.x), randi_range(0, Global.difficulties[Global.difficulty].mapSize.y))
+		var pos = get_parent().getPossiblePosition() #Vector2(randi_range(0, Global.difficulties[Global.difficulty].mapSize.x), randi_range(0, Global.difficulties[Global.difficulty].mapSize.y))
 		var newItem = itemPrefab.instantiate()
 		newItem.id = bookId
 		newItem.global_position = pos

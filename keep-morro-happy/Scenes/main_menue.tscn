@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bggbs06g6j2x2" path="res://Assets/Art/trashBag.png" id="18_xo0rv"]
 [ext_resource type="Texture2D" uid="uid://c4adqq1qyhmlw" path="res://Assets/Art/poop.png" id="19_b4elk"]
 [ext_resource type="Texture2D" uid="uid://bqamy27i4hd6l" path="res://Assets/Art/trash.png" id="20_40o52"]
+[ext_resource type="Script" uid="uid://u3dl2hkop0lq" path="res://CharacterScenes/CharacterScripts/cam.gd" id="21_86xap"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpijf"]
 shader = ExtResource("2_5qge5")
@@ -1158,6 +1159,10 @@ text = "next"
 label_settings = SubResource("LabelSettings_xe8dk")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1441802407]
+position = Vector2(576, 320)
+script = ExtResource("21_86xap")
 
 [connection signal="drag_ended" from="settingsSliders/screenShake/HSlider" to="settingsSliders" method="_on_h_slider_drag_ended"]
 [connection signal="drag_ended" from="settingsSliders/sfxSlider/sfx" to="settingsSliders" method="_on_sfx_drag_ended"]

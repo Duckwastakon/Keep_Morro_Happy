@@ -28,6 +28,7 @@ func _process(_delta: float) -> void:
 		currentWire.set_point_position(1, get_global_mouse_position() - startSlot.global_position)
 
 func _ready() -> void:
+	wireAmount = Global.difficulties[Global.difficulty].wireAmount
 	wireSize = Vector2(wireContainer.size.x / (wireAmount + 6), wireContainer.size.x / (wireAmount + 6))
 	var Wires1 = []
 	var Wires2 = []

@@ -29,7 +29,12 @@ func _ready() -> void:
 			btn.connect("button_up", cfun)
 
 func loadLevel(level):
+	for i in levelButtons.get_children():
+		if i is Button:
+			i.disabled = true
+	
 	Global.difficulty = level
+	get_viewport().get_camera_2d().screenshake(8, 0.25)
 	ExtraVisuals.playSound(load("res://Assets/Music/select.mp3"), Vector2.ZERO)
 	await  get_tree().create_timer(0.2).timeout
 	await GameUi.darkenScreen()
