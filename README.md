@@ -7,6 +7,12 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/engine-Godot%204.6%2B-478CBF?logo=godotengine&logoColor=white" alt="Made with Godot 4.6 or newer">
+  <img src="https://img.shields.io/badge/platform-browser-blue" alt="Platform: browser">
+  <img src="https://img.shields.io/badge/status-in%20development-yellow" alt="Status: in development">
+</p>
+
+<p align="center">
   <a href="https://duc-k.itch.io/keep-morro-happy">
     <img src="readmeImages/ChaoticScreen.png" width="70%" alt="Screenshot of the game showing a chaotic room with Morro and chores to do">
   </a>
