@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b1e7t11q07s8a"]
+
+[ext_resource type="Script" uid="uid://bq7ceonxcl4ng" path="res://CharacterScenes/CharacterScripts/item.gd" id="1_wdrv8"]
+[ext_resource type="Texture2D" uid="uid://bp35yqgjt23xp" path="res://Assets/Art/food.png" id="2_dry0u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wdrv8"]
+radius = 80.399
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4os7c"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdrv8"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dry0u"]
+size = Vector2(16, 16)
+
+[node name="item" type="CharacterBody2D" unique_id=1360844017]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("1_wdrv8")
+
+[node name="AttractionArea" type="Area2D" parent="." unique_id=1698460783]
+collision_layer = 0
+
+[node name="AttractionShape" type="CollisionShape2D" parent="AttractionArea" unique_id=1265994936]
+shape = SubResource("CircleShape2D_wdrv8")
+disabled = true
+
+[node name="AttractionDelay" type="Timer" parent="." unique_id=977067640]
+one_shot = true
+autostart = true
+
+[node name="PickUp" type="Area2D" parent="." unique_id=151070250]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUp" unique_id=922095734]
+shape = SubResource("CircleShape2D_4os7c")
+disabled = true
+
+[node name="Interacting" type="Area2D" parent="." unique_id=1646578487]
+collision_layer = 260
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interacting" unique_id=1051920510]
+shape = SubResource("RectangleShape2D_wdrv8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1162744864]
+shape = SubResource("RectangleShape2D_dry0u")
+
+[node name="itemSprite" type="Sprite2D" parent="." unique_id=275220690]
+texture = ExtResource("2_dry0u")
+
+[connection signal="area_entered" from="AttractionArea" to="." method="_on_attraction_area_area_entered"]
+[connection signal="area_exited" from="AttractionArea" to="." method="_on_attraction_area_area_exited"]
+[connection signal="timeout" from="AttractionDelay" to="." method="_on_attraction_delay_timeout"]

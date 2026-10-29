@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://w7myu26r83mr"]
+
+[ext_resource type="Texture2D" uid="uid://betouiye7d1qt" path="res://Assets/Art/broom.png" id="1_44jhm"]
+[ext_resource type="Script" uid="uid://cnpq6de0mjah1" path="res://Scripts/item_prefab.gd" id="1_bwrhe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwrhe"]
+size = Vector2(16, 16)
+
+[node name="itemPrefab" type="Area2D" unique_id=1006786579]
+script = ExtResource("1_bwrhe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=311840882]
+shape = SubResource("RectangleShape2D_bwrhe")
+
+[node name="itemImage" type="Sprite2D" parent="." unique_id=572553673]
+texture = ExtResource("1_44jhm")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://db76pw5ckjdd1"]
+
+[ext_resource type="Texture2D" uid="uid://cmmdpbxvopqvw" path="res://Assets/Art/decorations.png" id="1_2h2g7"]
+[ext_resource type="Script" uid="uid://dasrklv3efauo" path="res://Scripts/decoration.gd" id="2_ka6i7"]
+
+[node name="decoration" type="Sprite2D" unique_id=1873876671]
+z_index = -1
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_2h2g7")
+hframes = 15
+script = ExtResource("2_ka6i7")

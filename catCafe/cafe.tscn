@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cfu1jg25k25ky"]
+
+[ext_resource type="PackedScene" uid="uid://df6toxxvyk60l" path="res://CharacterScenes/player.tscn" id="1_nhn7k"]
+[ext_resource type="Script" uid="uid://reuxfqspfggg" path="res://catCafe/cafeController.gd" id="1_xonmq"]
+
+[node name="cafe" type="Node2D" unique_id=1455296723]
+script = ExtResource("1_xonmq")
+
+[node name="player" parent="." unique_id=402754163 instance=ExtResource("1_nhn7k")]
+
+[node name="dayTimer" type="Timer" parent="." unique_id=1458965834]

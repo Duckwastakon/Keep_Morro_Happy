@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://mitb2llvru1j"]
+
+[ext_resource type="Script" uid="uid://c5i5vcsqlcai0" path="res://catCafe/building.gd" id="1_0f46r"]
+[ext_resource type="Script" uid="uid://dwsy3geul1nwt" path="res://catCafe/inv.gd" id="2_i4388"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i4388"]
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="building" type="Node2D" unique_id=1672270101]
+script = ExtResource("1_0f46r")
+
+[node name="itemDisplay" type="Sprite2D" parent="." unique_id=543825586]
+z_index = 9
+
+[node name="inv" type="CanvasLayer" parent="." unique_id=1517931412]
+script = ExtResource("2_i4388")
+
+[node name="Panel" type="Panel" parent="inv" unique_id=1914729272]
+offset_top = 512.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+
+[node name="buildButton" type="Button" parent="inv/Panel" unique_id=1235141530]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 80.0
+offset_bottom = 96.0
+
+[node name="name" type="Label" parent="inv/Panel/buildButton" unique_id=1405826624]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="price" type="Label" parent="inv/Panel/buildButton" unique_id=1451920502]
+layout_mode = 0
+offset_top = 41.0
+offset_right = 64.0
+offset_bottom = 64.0
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="inv" unique_id=1752539127]
+offset_left = 984.0
+offset_top = 424.0
+offset_right = 1112.0
+offset_bottom = 480.0
+
+[node name="Label" type="Label" parent="inv/Button" unique_id=733315958]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 56.0
+text = "Start day"
+label_settings = SubResource("LabelSettings_i4388")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_up" from="inv/Button" to="." method="_on_button_button_up"]
